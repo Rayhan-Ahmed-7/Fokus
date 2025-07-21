@@ -1,69 +1,50 @@
-# React + TypeScript + Vite
+## ✅ Tech Stack Overview
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+| **Tech**                       | **Purpose**                                          |
+| ------------------------------ | ---------------------------------------------------- |
+| React + TypeScript             | UI and type safety                                   |
+| Clean Architecture             | Maintainable domain-driven structure                 |
+| ShadCN UI + Tailwind           | Modern UI with custom theming                        |
+| TanStack Query                 | Data fetching/caching (backend interaction)          |
+| TanStack Table                 | Powerful table management (sorting, filtering, etc.) |
+| Redux (optional)               | Global state (e.g. auth, theme)                      |
+| ESLint + Prettier              | Code quality and formatting                          |
+| Husky + Lint Staged            | Git hooks for quality enforcement                    |
+| Vitest + React Testing Library | Unit + Integration Testing                           |
+| Docker                         | App containerization                                 |
+| GitHub Actions                 | CI: lint/test/build/check PRs                        |
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🧱 Folder Structure
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+src/
+├── core/
+│   ├── di/
+│   ├── theme/
+│   ├── error/
+│   └── utils/
+├── features/
+│   └── todos/
+│       ├── data/
+│       ├── domain/
+│       └── presentation/
+│           ├── view/
+│           └── viewModel/
+├── data/
+│   ├── dataSource/
+│   │   ├── remote/
+│   │   └── local/
+│   ├── models/
+│   └── repository/
+├── domain/
+│   ├── entities/
+│   └── usecases/
+├── app/
+│   ├── store/ (Redux)
+│   └── router/
+├── components/ (shared UI like buttons, cards)
+├── services/ (e.g., token manager, notification)
+└── main.tsx
 ```
