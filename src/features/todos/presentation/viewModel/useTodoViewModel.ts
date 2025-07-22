@@ -3,10 +3,12 @@ import type { Todo } from "@/features/todos/domain/entities/Todo";
 import { TodoRepositoryImpl } from "@/features/todos/data/repository/TodoRepositoryImpl";
 import { CreateTodo } from "@/features/todos/domain/usecases/CreateTodo";
 import { useState } from "react";
-import { TodoRemoteDataSource } from "../../data/dataSource/remote/TodoRemoteDataSource";
-import { FetchAdapter } from "@/services/network/FetchAdapter";
+// import { TodoRemoteDataSource } from "../../data/dataSource/remote/TodoRemoteDataSource";
+// import { FetchAdapter } from "@/services/network/FetchAdapter";
+import { TodoLocalDataSource } from "../../data/dataSource/local/TodoLocalDataSource";
 
-const repo = new TodoRepositoryImpl(new TodoRemoteDataSource(new FetchAdapter()));
+// const repo = new TodoRepositoryImpl(new TodoRemoteDataSource(new FetchAdapter()));
+const repo = new TodoRepositoryImpl(new TodoLocalDataSource());
 const createTodoUseCase = new CreateTodo(repo);
 
 export const useTodoViewModel = () => {
