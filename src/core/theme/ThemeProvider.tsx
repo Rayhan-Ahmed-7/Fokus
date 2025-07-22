@@ -1,7 +1,7 @@
 import { useEffect, type ReactNode } from "react";
 import { useSelector } from "react-redux";
 import { type Theme } from "../store/types/themeTypes";
-import type { RootState } from "../store";
+import type { AppState } from "../store";
 
 type ThemeProviderProps = {
     children: ReactNode;
@@ -12,7 +12,7 @@ type ThemeProviderProps = {
 export function ThemeProvider({
     children,
 }: ThemeProviderProps) {
-    const theme = useSelector((state: RootState) => state.theme.current);
+    const theme = useSelector((state: AppState) => state.theme.current);
 
     // No need to initialize theme from localStorage since redux-persist handles it
     useEffect(() => {
