@@ -3,11 +3,11 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { DEFAULT_THEME, type Theme } from '../types/themeTypes';
 
 interface ThemeState {
-  theme: Theme;
+  current: Theme;
 }
 
 const initialState: ThemeState = {
-  theme: DEFAULT_THEME,
+  current: DEFAULT_THEME,
 };
 
 const themeSlice = createSlice({
@@ -15,7 +15,7 @@ const themeSlice = createSlice({
   initialState,
   reducers: {
     setTheme: (state, action: PayloadAction<Theme>) => {
-      state.theme = action.payload;
+      state.current = action.payload;
     },
   },
 });

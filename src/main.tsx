@@ -7,15 +7,18 @@ import { persistor, store } from './core/store/index.ts'
 import { Provider } from 'react-redux'
 import './index.css'
 import RouteProvider from './core/router/provider.tsx'
+import { ThemeProvider } from './core/theme/ThemeProvider.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
+      <ThemeProvider>
       <PersistGate loading={null} persistor={persistor}>
         <QueryClientProvider client={queryClient}>
           <RouteProvider/>
         </QueryClientProvider>
       </PersistGate>
+      </ThemeProvider>
     </Provider>
   </StrictMode>,
 )

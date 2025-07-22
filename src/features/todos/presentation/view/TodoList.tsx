@@ -1,21 +1,25 @@
 import { useTodoViewModel } from "../viewModel/useTodoViewModel";
 
 const TodoList = () => {
-    const { todos, isLoading } = useTodoViewModel();
+  const { todos, isLoading } = useTodoViewModel();
 
-    if (isLoading) return <div>Loading...</div>;
-    if (todos.length === 0) return <div>No todos available</div>;
-    return (
-        <div>
-            <ul className="space-y-2">
-                {todos.map((todo) => (
-                    <li key={todo.id} className="p-2 rounded bg-muted">
-                        {todo.title}
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
+  if (isLoading)
+    return <div className="text-muted-foreground">Loading...</div>;
+  if (todos.length === 0)
+    return <div className="text-muted-foreground">No todos available</div>;
+
+  return (
+    <ul className="space-y-3">
+      {todos.map((todo) => (
+        <li
+          key={todo.id}
+          className="p-4 rounded-lg bg-muted/50 border shadow-sm"
+        >
+          {todo.title}
+        </li>
+      ))}
+    </ul>
+  );
 };
 
 export default TodoList;
