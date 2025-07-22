@@ -26,7 +26,8 @@
     /* Path Setup */
    "baseUrl": ".",
    "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/features/*": ["./src/features/*"],
     }
   },
   "include": ["src"]
