@@ -10,7 +10,25 @@ import { useSelector } from "react-redux";
 import type { AppState } from "./core/store";
 import type { Theme } from "./core/store/types/themeTypes";
 import { changeTheme } from "./core/store/slices/themeSlice";
+import { Sun, Moon, Monitor } from "lucide-react"
 
+const themes: { value: Theme; label: string; icon: React.ReactNode }[] = [
+  {
+    value: "light",
+    label: "Light",
+    icon: <Sun className="h-4 w-4 mr-2 text-yellow-500" />,
+  },
+  {
+    value: "dark",
+    label: "Dark",
+    icon: <Moon className="h-4 w-4 mr-2 text-indigo-400" />,
+  },
+  {
+    value: "system",
+    label: "System",
+    icon: <Monitor className="h-4 w-4 mr-2 text-gray-500" />,
+  },
+]
 function App() {
   const theme = useSelector((state: AppState) => state.theme.current);
   const handleChange = (value: string) => {
@@ -34,8 +52,11 @@ function App() {
             </SelectTrigger>
             <SelectContent>
               {themes.map((theme) => (
-                <SelectItem key={theme} value={theme}>
-                  {theme.charAt(0).toUpperCase() + theme.slice(1)}
+                <SelectItem key={theme.value} value={theme.value}>
+                  <div className="flex items-center">
+                    {theme.icon}
+                    <span>{theme.label}</span>
+                  </div>
                 </SelectItem>
               ))}
             </SelectContent>
@@ -50,8 +71,4 @@ function App() {
 }
 
 export default App;
-
-
-const themes: Theme[] = ["light", "dark", "system"] // 🔧 adjust according to your Theme type
-
 
