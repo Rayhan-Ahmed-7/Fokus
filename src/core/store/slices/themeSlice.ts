@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import { DEFAULT_THEME, type Theme } from '../types/themeTypes';
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { DEFAULT_THEME, type Theme } from "../types/themeTypes";
 
 interface ThemeState {
   current: Theme;
@@ -11,7 +11,7 @@ const initialState: ThemeState = {
 };
 
 const themeSlice = createSlice({
-  name: 'theme',
+  name: "theme",
   initialState,
   reducers: {
     setTheme: (state, action: PayloadAction<Theme>) => {
@@ -21,5 +21,8 @@ const themeSlice = createSlice({
 });
 
 export const { setTheme } = themeSlice.actions;
+export const changeTheme = (theme: Theme) => {
+  dispatch(setTheme(theme));
+};
 const themeReducer = themeSlice.reducer;
 export default themeReducer;
