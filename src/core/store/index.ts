@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { STORAGE_KEY } from './types/themeTypes';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import reducer from './slices/themeSlice';
+import rootReducer from './rootReducer';
 
 const persistConfig = {
   key: STORAGE_KEY,
@@ -10,7 +10,7 @@ const persistConfig = {
   whitelist: ['theme'], // Persist only the theme slice
 };
 
-const persistedReducer = persistReducer(persistConfig, reducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: {
