@@ -22,8 +22,14 @@
 src/
 ├── core/
 │   ├── di/
-│   ├── theme/
 │   ├── error/
+│   ├── router/
+│   ├── store/
+│   │   ├── slices/
+│   │   ├── types/
+│   │   ├── rootReducer.ts
+│   │   └── index.ts
+│   ├── theme/
 │   └── utils/
 ├── features/
 │   └── todos/
@@ -41,10 +47,7 @@ src/
 ├── domain/
 │   ├── entities/
 │   └── usecases/
-├── app/
-│   ├── store/ (Redux)
-│   └── router/
-├── components/ (shared UI like buttons, cards)
-├── services/ (e.g., token manager, notification)
+├── components/ (Shared UI like buttons, cards, tables)
+├── services/ (API, Notification)
 └── main.tsx
 ```
