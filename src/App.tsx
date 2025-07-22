@@ -1,8 +1,15 @@
+import { Link, Outlet } from "@tanstack/react-router"
 
 function App() {
 
   return (
-    <>Hi!</>
+    <div>
+      <nav>
+        <Link to="/">Home</Link> | <Link to="/todos">Todos</Link>
+      </nav>
+      <main><Outlet/></main>
+    </div>
+
   )
 }
 
