@@ -7,7 +7,7 @@ export class CreateTodo {
     this.todoRepo = todoRepo;
   }
 
-  async execute(title: string) {
+  async execute({ title }: { title: string }) {
     return this.todoRepo.createTodo({ title });
   }
 }

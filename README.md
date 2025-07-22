@@ -24,6 +24,11 @@ src/
 │   ├── di/
 │   ├── error/
 │   ├── router/
+│   │    ├── routes/
+│   │    │   ├── index.ts
+│   │    │   └── todos.route.ts
+│   │    ├── router.ts
+│   │    └── provider.tsx
 │   ├── store/
 │   │   ├── slices/
 │   │   ├── types/
