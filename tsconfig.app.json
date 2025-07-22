@@ -24,11 +24,9 @@
     "noUncheckedSideEffectImports": true,
 
     /* Path Setup */
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+   "baseUrl": ".",
+   "paths": {
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"]

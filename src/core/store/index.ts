@@ -1,6 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import storage from 'redux-persist/lib/storage';
 import { STORAGE_KEY } from './types/themeTypes';
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import reducer from './slices/themeSlice';
 
 const persistConfig = {
   key: STORAGE_KEY,
@@ -8,7 +10,7 @@ const persistConfig = {
   whitelist: ['theme'], // Persist only the theme slice
 };
 
-const persistedReducer = persistReducer(persistConfig, themeReducer);
+const persistedReducer = persistReducer(persistConfig, reducer);
 
 export const store = configureStore({
   reducer: {
@@ -17,7 +19,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
+        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE',],
       },
     }),
 });
