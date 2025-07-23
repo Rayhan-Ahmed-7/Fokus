@@ -15,4 +15,16 @@ export class TodoRepositoryImpl implements TodoRepository {
   async createTodo(todo: { title: string }): Promise<Todo> {
     return this.dataSource.createTodo(todo);
   }
+
+  async updateTodo(id: string, todo: { title: string }): Promise<Todo> {
+    return this.dataSource.updateTodo(id, todo);
+  }
+
+  async updateTodoStatus(id: string, completed: boolean): Promise<Todo> {
+    return this.dataSource.updateTodoStatus(id, completed);
+  }
+
+  async deleteTodo(id: string): Promise<void> {
+    return this.dataSource.deleteTodo(id);
+  }
 }

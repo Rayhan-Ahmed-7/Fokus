@@ -22,4 +22,40 @@ export class TodoLocalDataSource implements TodoDataSource {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
     return newTodo;
   }
+
+   updateTodo(id: string, { title }: { title: string }): Todo {
+    const todos = this.fetchTodos();
+    const updatedTodos = todos.map(todo =>
+      todo.id === id
+        ? {
+            ...todo,
+            title,
+            updatedAt: new Date(),
+          }
+        : todo
+    );
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedTodos));
+    return updatedTodos.find(todo => todo.id === id)!;
+  }
+
+  updateTodoStatus(id: string, completed: boolean): Todo {
+    const todos = this.fetchTodos();
+    const updatedTodos = todos.map(todo =>
+      todo.id === id
+        ? {
+            ...todo,
+            completed,
+            updatedAt: new Date(),
+          }
+        : todo
+    );
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedTodos));
+    return updatedTodos.find(todo => todo.id === id)!;
+  }
+
+  deleteTodo(id: string): void {
+    const todos = this.fetchTodos();
+    const updated = todos.filter(todo => todo.id !== id);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
+  }
 }
