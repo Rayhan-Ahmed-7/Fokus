@@ -23,21 +23,41 @@ export const useTodoViewModel = () => {
     mutationFn: ({ title }: { title: string }) => createTodoUseCase.execute({ title }),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
   });
- const deleteTodo = async (id: string) => {
-    await repo.deleteTodo(id);
-    queryClient.invalidateQueries({ queryKey: ["todos"] });
+
+  const updateMutation = useMutation({
+    mutationFn: ({ id, title }: { id: string; title: string }) =>
+      repo.updateTodo(id, { title }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
+  });
+
+  const toggleMutation = useMutation({
+    mutationFn: ({ id, completed }: { id: string; completed: boolean }) =>
+      repo.updateTodoStatus(id, completed),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id: string) => repo.deleteTodo(id),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
+  });
+
+  // Editing state
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editingText, setEditingText] = useState<string>("");
+
+  // Handlers
+  const startEditing = (todo: Todo) => {
+    setEditingId(todo.id);
+    setEditingText(todo.title);
   };
 
-  const toggleTodo = async (id: string, completed: boolean) => {
-    await repo.updateTodoStatus(id, completed);
-    queryClient.invalidateQueries({ queryKey: ["todos"] });
+  const commitEdit = (todoId: string) => {
+    if (editingText.trim()) {
+      updateMutation.mutate({ id: todoId, title: editingText.trim() });
+    }
+    setEditingId(null);
+    setEditingText("");
   };
-
-  const updateTodo = async (id: string, newTitle: string) => {
-    await repo.updateTodo(id, { title: newTitle });
-    queryClient.invalidateQueries({ queryKey: ["todos"] });
-  };
-
   return {
     title,
     setTitle,
@@ -45,8 +65,15 @@ export const useTodoViewModel = () => {
     isLoading: todoQuery.isLoading,
     createTodo: createMutation.mutate,
     isCreating: createMutation.isPending,
-    deleteTodo,
-    toggleTodo,
-    updateTodo,
+    deleteTodo: deleteMutation.mutate,
+    updateTodo: commitEdit,
+    toggleTodo: (id: string, completed: boolean) =>
+      toggleMutation.mutate({ id, completed }),
+
+    editingId,
+    setEditingId,
+    editingText,
+    setEditingText,
+    startEditing,
   };
 };
