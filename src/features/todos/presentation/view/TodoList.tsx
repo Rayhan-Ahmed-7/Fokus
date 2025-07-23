@@ -1,21 +1,72 @@
+import { useEffect, useRef, useState } from "react";
 import { useTodoViewModel } from "../viewModel/useTodoViewModel";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import gsap from "gsap";
+import { Trash } from "lucide-react";
 
 const TodoList = () => {
-  const { todos, isLoading } = useTodoViewModel();
+  const { todos, isLoading, deleteTodo, toggleTodo, updateTodo } = useTodoViewModel();
+  const listRef = useRef<HTMLUListElement>(null);
 
-  if (isLoading)
-    return <div className="text-muted-foreground">Loading...</div>;
-  if (todos.length === 0)
-    return <div className="text-muted-foreground">No todos available</div>;
+  useEffect(() => {
+    if (listRef.current) {
+      gsap.fromTo(
+        listRef.current.children,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, stagger: 0.1, duration: 0.4, ease: "power2.out" }
+      );
+    }
+  }, [todos]);
+
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editingText, setEditingText] = useState<string>("");
+
+  if (isLoading) return <div className="text-muted-foreground">Loading...</div>;
+  if (todos.length === 0) return <div className="text-muted-foreground">No todos available</div>;
 
   return (
-    <ul className="space-y-3">
+    <ul className="space-y-3" ref={listRef}>
       {todos.map((todo) => (
-        <li
-          key={todo.id}
-          className="p-4 rounded-lg bg-muted/50 border shadow-sm"
-        >
-          {todo.title}
+        <li key={todo.id} className="p-4 rounded-lg bg-muted/50 border shadow-sm flex justify-between items-center gap-2">
+          <div className="flex items-center gap-2 w-full">
+            <Checkbox
+              className="cursor-pointer"
+              checked={todo.completed}
+              onCheckedChange={() => toggleTodo(todo.id, !todo.completed)}
+            />
+            {editingId === todo.id ? (
+              <Input
+                value={editingText}
+                onChange={(e) => setEditingText(e.target.value)}
+                onBlur={() => {
+                  updateTodo(todo.id, editingText);
+                  setEditingId(null);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    updateTodo(todo.id, editingText);
+                    setEditingId(null);
+                  }
+                }}
+                autoFocus
+              />
+            ) : (
+              <span
+                onDoubleClick={() => {
+                  setEditingId(todo.id);
+                  setEditingText(todo.title);
+                }}
+                className={`flex-1 ${todo.completed ? "line-through text-muted-foreground" : ""}`}
+              >
+                {todo.title}
+              </span>
+            )}
+          </div>
+          <Button size="sm" variant="destructive" className="cursor-pointer" onClick={() => deleteTodo(todo.id)}>
+            <Trash/>
+          </Button>
         </li>
       ))}
     </ul>

@@ -23,6 +23,20 @@ export const useTodoViewModel = () => {
     mutationFn: ({ title }: { title: string }) => createTodoUseCase.execute({ title }),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
   });
+ const deleteTodo = async (id: string) => {
+    await repo.deleteTodo(id);
+    queryClient.invalidateQueries({ queryKey: ["todos"] });
+  };
+
+  const toggleTodo = async (id: string, completed: boolean) => {
+    await repo.updateTodoStatus(id, completed);
+    queryClient.invalidateQueries({ queryKey: ["todos"] });
+  };
+
+  const updateTodo = async (id: string, newTitle: string) => {
+    await repo.updateTodo(id, { title: newTitle });
+    queryClient.invalidateQueries({ queryKey: ["todos"] });
+  };
 
   return {
     title,
@@ -31,5 +45,8 @@ export const useTodoViewModel = () => {
     isLoading: todoQuery.isLoading,
     createTodo: createMutation.mutate,
     isCreating: createMutation.isPending,
+    deleteTodo,
+    toggleTodo,
+    updateTodo,
   };
 };
