@@ -3,18 +3,19 @@ import type { Todo } from "@/features/todos/domain/entities/Todo";
 import { TodoRepositoryImpl } from "@/features/todos/data/repository/TodoRepositoryImpl";
 import { CreateTodo } from "@/features/todos/domain/usecases/CreateTodo";
 import { useState } from "react";
-// import { TodoRemoteDataSource } from "../../data/dataSource/remote/TodoRemoteDataSource";
-// import { FetchAdapter } from "@/services/network/FetchAdapter";
-import { TodoLocalDataSource } from "../../data/dataSource/local/TodoLocalDataSource";
+import { TodoRemoteDataSource } from "../../data/dataSource/remote/TodoRemoteDataSource";
+import { FetchAdapter } from "@/services/network/FetchAdapter";
+import { toast } from "@/services/notification/toast";
+// import { TodoLocalDataSource } from "../../data/dataSource/local/TodoLocalDataSource";
 
-// const repo = new TodoRepositoryImpl(new TodoRemoteDataSource(new FetchAdapter()));
-const repo = new TodoRepositoryImpl(new TodoLocalDataSource());
+const repo = new TodoRepositoryImpl(new TodoRemoteDataSource(new FetchAdapter()));
+// const repo = new TodoRepositoryImpl(new TodoLocalDataSource());
 const createTodoUseCase = new CreateTodo(repo);
 
 export const useTodoViewModel = () => {
   const queryClient = useQueryClient();
   const [title, setTitle] = useState<string>("");
-  const todoQuery = useQuery<Todo[]>({
+  const todoQuery = useQuery({
     queryKey: ["todos"],
     queryFn: () => repo.getTodos(),
   });
@@ -22,6 +23,9 @@ export const useTodoViewModel = () => {
   const createMutation = useMutation({
     mutationFn: ({ title }: { title: string }) => createTodoUseCase.execute({ title }),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
+    onError: (error) => {
+      toast.error(error.message || "Failed to create todo", 100000);
+    },
   });
 
   const updateMutation = useMutation({
@@ -61,7 +65,7 @@ export const useTodoViewModel = () => {
   return {
     title,
     setTitle,
-    todos: todoQuery.data || [],
+    todos: todoQuery.data?.data?.results || [],
     isLoading: todoQuery.isLoading,
     createTodo: createMutation.mutate,
     isCreating: createMutation.isPending,
