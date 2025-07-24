@@ -1,16 +1,31 @@
+import type { ApiResponse } from "@/shared/types/api-response.type";
+import type { PaginatedResponse } from "@/shared/types/paginated-response.type";
 import type { Todo } from "@/features/todos/domain/entities/Todo";
 import type { TodoDataSource } from "../types/TodoDataSource";
 
 const LOCAL_STORAGE_KEY = "todos";
 
 export class TodoLocalDataSource implements TodoDataSource {
-  fetchTodos(): Todo[] {
+  async fetchTodos(): Promise<ApiResponse<PaginatedResponse<Todo>>> {
     const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
+    const todos: Todo[] = raw ? JSON.parse(raw) : [];
+    return {
+      message: "Todos fetched from local storage",
+      status: 200,
+      errors: null,
+      data: {
+        count: todos.length,
+        page: 1,
+        pageSize: todos.length,
+        next: null,
+        previous: null,
+        results: todos,
+      },
+    };
   }
 
-  createTodo({ title }: { title: string }): Todo {
-    const todos = this.fetchTodos();
+  async createTodo({ title }: { title: string }): Promise<ApiResponse<Todo>> {
+    const todos = (await this.fetchTodos()).data.results;
     const newTodo: Todo = {
       id: Date.now().toString(),
       title,
@@ -20,42 +35,58 @@ export class TodoLocalDataSource implements TodoDataSource {
     };
     const updated = [...todos, newTodo];
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
-    return newTodo;
+    return {
+      message: "Todo created locally",
+      status: 201,
+      errors: null,
+      data: newTodo,
+    };
   }
 
-   updateTodo(id: string, { title }: { title: string }): Todo {
-    const todos = this.fetchTodos();
+  // Similarly wrap updateTodo, updateTodoStatus, deleteTodo with ApiResponse
+  async updateTodo(id: string, { title }: { title: string }): Promise<ApiResponse<Todo>> {
+    const todos = (await this.fetchTodos()).data.results;
     const updatedTodos = todos.map(todo =>
       todo.id === id
-        ? {
-            ...todo,
-            title,
-            updatedAt: new Date(),
-          }
+        ? { ...todo, title, updatedAt: new Date() }
         : todo
     );
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedTodos));
-    return updatedTodos.find(todo => todo.id === id)!;
+    const updatedTodo = updatedTodos.find(todo => todo.id === id)!;
+    return {
+      message: "Todo updated locally",
+      status: 200,
+      errors: null,
+      data: updatedTodo,
+    };
   }
 
-  updateTodoStatus(id: string, completed: boolean): Todo {
-    const todos = this.fetchTodos();
+  async updateTodoStatus(id: string, completed: boolean): Promise<ApiResponse<Todo>> {
+    const todos = (await this.fetchTodos()).data.results;
     const updatedTodos = todos.map(todo =>
       todo.id === id
-        ? {
-            ...todo,
-            completed,
-            updatedAt: new Date(),
-          }
+        ? { ...todo, completed, updatedAt: new Date() }
         : todo
     );
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedTodos));
-    return updatedTodos.find(todo => todo.id === id)!;
+    const updatedTodo = updatedTodos.find(todo => todo.id === id)!;
+    return {
+      message: "Todo status updated locally",
+      status: 200,
+      errors: null,
+      data: updatedTodo,
+    };
   }
 
-  deleteTodo(id: string): void {
-    const todos = this.fetchTodos();
-    const updated = todos.filter(todo => todo.id !== id);
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
+  async deleteTodo(id: string): Promise<ApiResponse<void>> {
+    const todos = (await this.fetchTodos()).data.results;
+    const filtered = todos.filter(todo => todo.id !== id);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(filtered));
+    return {
+      message: "Todo deleted locally",
+      status: 204,
+      errors: null,
+      data: undefined,
+    };
   }
 }
