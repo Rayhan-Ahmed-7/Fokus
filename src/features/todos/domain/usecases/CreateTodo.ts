@@ -8,6 +8,6 @@ export class CreateTodo {
   }
 
   async execute({ title }: { title: string }) {
-    return this.todoRepo.createTodo({ title });
+    return this.todoRepo.createTodo({ title, completed: false });
   }
 }
