@@ -14,12 +14,12 @@ export class TodoRemoteDataSource implements TodoDataSource {
     return this.http.get("/todos");
   }
 
-  async createTodo({ title }: { title: string }): Promise<ApiResponse<Todo>> {
-    return this.http.post("/todos/create", { title });
+  async createTodo({ title, completed }: { title: string, completed: boolean }): Promise<ApiResponse<Todo>> {
+    return this.http.post("/todos/create", { title, completed });
   }
 
-  updateTodo(id: string, { title }: { title: string }): Promise<ApiResponse<Todo>> {
-      return this.http.put(`/todos/update/${id}`, { title });
+  updateTodo(id: string, { title, completed }: { title: string, completed: boolean }): Promise<ApiResponse<Todo>> {
+      return this.http.put(`/todos/update/${id}`, { title, completed });
   }
 
   updateTodoStatus(id: string, completed: boolean): Promise<ApiResponse<Todo>> {
