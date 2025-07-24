@@ -18,10 +18,13 @@ const Toaster = ({ ...props }: ToasterProps) => {
       closeButton
       className="toaster group"
       toastOptions={{
+        classNames:{
+          content: "ml-1",
+        },
         style:{
           background: "var(--background)",
           color: "var(--foreground)",
-        }
+        },
       }}
       icons={{
         success: <CheckCircle2 className="text-success" />,
@@ -29,13 +32,6 @@ const Toaster = ({ ...props }: ToasterProps) => {
         info: <Info className="text-info" />,
         warning: <AlertTriangle className="text-warning" />,
       }}
-      // style={
-      //   {
-      //     "--normal-bg": "var(--popover)",
-      //     "--normal-text": "var(--popover-foreground)",
-      //     "--normal-border": "var(--border)",
-      //   } as React.CSSProperties
-      // }
       {...props}
     />
   )

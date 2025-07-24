@@ -6,10 +6,10 @@ import { useState } from "react";
 import { TodoRemoteDataSource } from "../../data/dataSource/remote/TodoRemoteDataSource";
 import { FetchAdapter } from "@/services/network/FetchAdapter";
 import { toast } from "@/services/notification/toast";
-// import { TodoLocalDataSource } from "../../data/dataSource/local/TodoLocalDataSource";
+import { TodoLocalDataSource } from "../../data/dataSource/local/TodoLocalDataSource";
 
-const repo = new TodoRepositoryImpl(new TodoRemoteDataSource(new FetchAdapter()));
-// const repo = new TodoRepositoryImpl(new TodoLocalDataSource());
+// const repo = new TodoRepositoryImpl(new TodoRemoteDataSource(new FetchAdapter()));
+const repo = new TodoRepositoryImpl(new TodoLocalDataSource());
 const createTodoUseCase = new CreateTodo(repo);
 
 export const useTodoViewModel = () => {
@@ -45,7 +45,7 @@ export const useTodoViewModel = () => {
       repo.updateTodoStatus(id, completed),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
-      toast.info("Todo status updated successfully");
+      toast.info("Todo status updated successfully",100000);
     },
   });
 
