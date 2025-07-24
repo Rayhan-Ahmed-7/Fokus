@@ -1,7 +1,7 @@
 import type { HttpInterface, HttpRequestConfig } from "./httpInterface";
 
 export class FetchAdapter implements HttpInterface {
-  private baseURL = "http://localhost:4000";
+  private baseURL = "http://localhost:3001";
 
   private async request<T>(
     method: string,
@@ -33,7 +33,7 @@ export class FetchAdapter implements HttpInterface {
       });
 
       if (!response.ok) {
-        throw new Error(`Fetch error: ${response.status}`);
+        throw await response.json();
       }
 
       return response.json();
