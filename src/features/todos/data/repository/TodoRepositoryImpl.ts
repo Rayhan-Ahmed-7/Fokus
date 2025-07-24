@@ -14,11 +14,11 @@ export class TodoRepositoryImpl implements TodoRepository {
     return this.dataSource.fetchTodos();
   }
 
-  async createTodo(todo: { title: string }): Promise<ApiResponse<Todo>> {
+  async createTodo(todo: { title: string, completed: boolean }): Promise<ApiResponse<Todo>> {
     return this.dataSource.createTodo(todo);
   }
 
-  async updateTodo(id: string, todo: { title: string }): Promise<ApiResponse<Todo>> {
+  async updateTodo(id: string, todo: { title: string, completed: boolean }): Promise<ApiResponse<Todo>> {
     return this.dataSource.updateTodo(id, todo);
   }
 
