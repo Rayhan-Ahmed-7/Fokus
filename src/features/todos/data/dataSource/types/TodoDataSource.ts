@@ -4,8 +4,8 @@ import type { PaginatedResponse } from "@/shared/types/paginated-response.type";
 
 export interface TodoDataSource {
   fetchTodos(): Promise<ApiResponse<PaginatedResponse<Todo>>>;
-  createTodo(todo: { title: string }): Promise<ApiResponse<Todo>>;
-  updateTodo(id: string, todo: { title: string }): Promise<ApiResponse<Todo>>;
+  createTodo(todo: { title: string, completed: boolean }): Promise<ApiResponse<Todo>>;
+  updateTodo(id: string, todo: { title: string, completed: boolean }): Promise<ApiResponse<Todo>>;
   updateTodoStatus(id: string, completed: boolean): Promise<ApiResponse<Todo>>;
   deleteTodo(id: string): Promise<ApiResponse<void>>;
 }
