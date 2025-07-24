@@ -4,7 +4,12 @@ import { useTodoViewModel } from "../viewModel/useTodoViewModel";
 
 export function CreateTodo() {
   const { title, setTitle, createTodo, isCreating } = useTodoViewModel();
-
+ const handleSubmit = () => {
+    if (title.trim()) {
+      createTodo({ title });
+      setTitle("");
+    }
+  };
   return (
     <div className="flex flex-col sm:flex-row gap-2 items-start sm:items-center">
       <Input
@@ -12,6 +17,11 @@ export function CreateTodo() {
         value={title}
         placeholder="Add new todo"
         onChange={(e) => setTitle(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleSubmit();
+          }
+        }}
       />
       <Button
         disabled={isCreating || !title.trim()}
