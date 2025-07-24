@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import './index.css'
 import RouteProvider from './core/router/provider.tsx'
 import { ThemeProvider } from './core/theme/ThemeProvider.tsx'
+import { Toaster } from './components/ui/sonner.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -18,6 +19,7 @@ createRoot(document.getElementById('root')!).render(
           <RouteProvider/>
         </QueryClientProvider>
       </PersistGate>
+      <Toaster/>
       </ThemeProvider>
     </Provider>
   </StrictMode>,
