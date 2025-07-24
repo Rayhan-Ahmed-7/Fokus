@@ -18,17 +18,16 @@ const Toaster = ({ ...props }: ToasterProps) => {
       closeButton
       className="toaster group"
       toastOptions={{
-        // className:"bg-background text-foreground",
-        // style:{
-        //   background: "var(--background)",
-        //   color: "var(--foreground)",
-        // }
+        style:{
+          background: "var(--background)",
+          color: "var(--foreground)",
+        }
       }}
       icons={{
-        success: <CheckCircle2 />,
-        error: <XCircle />,
-        info: <Info />,
-        warning: <AlertTriangle />,
+        success: <CheckCircle2 className="text-success" />,
+        error: <XCircle className="text-error" />,
+        info: <Info className="text-info" />,
+        warning: <AlertTriangle className="text-warning" />,
       }}
       // style={
       //   {

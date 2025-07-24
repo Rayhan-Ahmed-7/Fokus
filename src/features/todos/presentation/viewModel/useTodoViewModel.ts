@@ -22,27 +22,39 @@ export const useTodoViewModel = () => {
 
   const createMutation = useMutation({
     mutationFn: ({ title }: { title: string }) => createTodoUseCase.execute({ title }),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      toast.success("Todo created successfully");
+    },
     onError: (error) => {
-      toast.error(error.message || "Failed to create todo", 100000);
+      toast.error(error.message || "Failed to create todo");
     },
   });
 
   const updateMutation = useMutation({
     mutationFn: ({ id, title, completed }: { id: string; title: string; completed: boolean }) =>
       repo.updateTodo(id, { title, completed }),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      toast.success("Todo updated successfully");
+    },
   });
 
   const toggleMutation = useMutation({
     mutationFn: ({ id, completed }: { id: string; completed: boolean }) =>
       repo.updateTodoStatus(id, completed),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      toast.info("Todo status updated successfully");
+    },
   });
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) => repo.deleteTodo(id),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
+      toast.warning("Todo deleted successfully");
+    },
   });
 
   // Editing state
