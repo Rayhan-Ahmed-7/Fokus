@@ -29,8 +29,8 @@ export const useTodoViewModel = () => {
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, title }: { id: string; title: string }) =>
-      repo.updateTodo(id, { title }),
+    mutationFn: ({ id, title, completed }: { id: string; title: string; completed: boolean }) =>
+      repo.updateTodo(id, { title, completed }),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["todos"] }),
   });
 
@@ -57,7 +57,7 @@ export const useTodoViewModel = () => {
 
   const commitEdit = (todoId: string) => {
     if (editingText.trim()) {
-      updateMutation.mutate({ id: todoId, title: editingText.trim() });
+      updateMutation.mutate({ id: todoId, title: editingText.trim(), completed: false });
     }
     setEditingId(null);
     setEditingText("");
