@@ -1,4 +1,4 @@
-import { gsap } from 'gsap';
+import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
 import { useTodoViewModel } from "./useTodoViewModel";
 
@@ -15,6 +15,6 @@ export const useTodoAnimations = () => {
     }
   }, [todos]);
   return {
-    listRef
-  }
+    listRef,
+  };
 };

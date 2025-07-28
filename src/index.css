@@ -86,7 +86,7 @@
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.723 0.219 149.579);
 
-    /* ✅ Success */
+  /* ✅ Success */
   --success: oklch(0.85 0.14 145);
   --success-foreground: oklch(0.24 0.04 145);
 
@@ -136,7 +136,7 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.527 0.154 150.069);
 
-    /* 🌒 Success (Dark) */
+  /* 🌒 Success (Dark) */
   --success: oklch(0.44 0.15 145);
   --success-foreground: oklch(0.98 0.02 145);
 
@@ -152,7 +152,6 @@
   --info: oklch(0.5 0.1 230);
   --info-foreground: oklch(0.99 0.02 230);
 }
-
 
 @layer base {
   * {

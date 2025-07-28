@@ -1,26 +1,26 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { QueryClientProvider } from '@tanstack/react-query'
-import { queryClient } from './core/di/queryClient.ts'
-import { PersistGate } from 'redux-persist/integration/react'
-import { persistor, store } from './core/store/index.ts'
-import { Provider } from 'react-redux'
-import './index.css'
-import RouteProvider from './core/router/provider.tsx'
-import { ThemeProvider } from './core/theme/ThemeProvider.tsx'
-import { Toaster } from './components/ui/sonner.tsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./core/di/queryClient.ts";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor, store } from "./core/store/index.ts";
+import { Provider } from "react-redux";
+import "./index.css";
+import RouteProvider from "./core/router/provider.tsx";
+import { ThemeProvider } from "./core/theme/ThemeProvider.tsx";
+import { Toaster } from "./components/ui/sonner.tsx";
 
-createRoot(document.getElementById('root')!).render(
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
       <ThemeProvider>
-      <PersistGate loading={null} persistor={persistor}>
-        <QueryClientProvider client={queryClient}>
-          <RouteProvider/>
-        </QueryClientProvider>
-      </PersistGate>
-      <Toaster/>
+        <PersistGate loading={null} persistor={persistor}>
+          <QueryClientProvider client={queryClient}>
+            <RouteProvider />
+          </QueryClientProvider>
+        </PersistGate>
+        <Toaster />
       </ThemeProvider>
     </Provider>
-  </StrictMode>,
-)
+  </StrictMode>
+);

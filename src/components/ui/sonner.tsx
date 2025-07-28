@@ -1,10 +1,5 @@
-import { Toaster as Sonner, type ToasterProps } from "sonner"
-import {
-  CheckCircle2,
-  XCircle,
-  Info,
-  AlertTriangle,
-} from "lucide-react";
+import { Toaster as Sonner, type ToasterProps } from "sonner";
+import { CheckCircle2, XCircle, Info, AlertTriangle } from "lucide-react";
 import { useSelector } from "react-redux";
 import type { AppState } from "@/core/store";
 
@@ -18,10 +13,10 @@ const Toaster = ({ ...props }: ToasterProps) => {
       closeButton
       className="toaster group"
       toastOptions={{
-        classNames:{
+        classNames: {
           content: "ml-1",
         },
-        style:{
+        style: {
           background: "var(--background)",
           color: "var(--foreground)",
         },
@@ -34,7 +29,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
       }}
       {...props}
     />
-  )
-}
+  );
+};
 
-export { Toaster }
+export { Toaster };

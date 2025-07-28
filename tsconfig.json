@@ -5,10 +5,11 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
-     /* Path Setup */
-   "baseUrl": ".",
-   "paths": {
-      "@/*": ["./src/*"],
+    /* Path Setup */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
     },
+    "types": ["vitest/globals"]
   }
 }

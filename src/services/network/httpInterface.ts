@@ -7,8 +7,20 @@ export interface HttpRequestConfig {
 }
 export interface HttpInterface {
   get<T = unknown>(url: string, config?: HttpRequestConfig): Promise<T>;
-  post<T = unknown>(url: string, data?: unknown, config?: HttpRequestConfig): Promise<T>;
-  put<T = unknown>(url: string, data?: unknown, config?: HttpRequestConfig): Promise<T>;
-  patch<T = unknown>(url: string, data?: unknown, config?: HttpRequestConfig): Promise<T>;
+  post<T = unknown>(
+    url: string,
+    data?: unknown,
+    config?: HttpRequestConfig
+  ): Promise<T>;
+  put<T = unknown>(
+    url: string,
+    data?: unknown,
+    config?: HttpRequestConfig
+  ): Promise<T>;
+  patch<T = unknown>(
+    url: string,
+    data?: unknown,
+    config?: HttpRequestConfig
+  ): Promise<T>;
   delete<T = unknown>(url: string, config?: HttpRequestConfig): Promise<T>;
 }
