@@ -1,7 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { Todo } from "@/features/todos/domain/entities/Todo";
 import { TodoRepositoryImpl } from "@/features/todos/data/repository/TodoRepositoryImpl";
-import { CreateTodo } from "@/features/todos/domain/usecases/CreateTodo";
+import { CreateTodo } from "@/features/todos/domain/useCases/CreateTodo";
+import { GetTodos } from "@/features/todos/domain/useCases/GetTodos";
+import { UpdateTodo } from "@/features/todos/domain/useCases/UpdateTodo";
+import { UpdateTodoStatus } from "@/features/todos/domain/useCases/UpdateTodoStatus";
+import { DeleteTodo } from "@/features/todos/domain/useCases/DeleteTodo";
 import { useState } from "react";
 // import { TodoRemoteDataSource } from "../../data/dataSource/remote/TodoRemoteDataSource";
 // import { FetchAdapter } from "@/services/network/FetchAdapter";
@@ -10,14 +14,18 @@ import { TodoLocalDataSource } from "../../data/dataSource/local/TodoLocalDataSo
 
 // const repo = new TodoRepositoryImpl(new TodoRemoteDataSource(new FetchAdapter()));
 const repo = new TodoRepositoryImpl(new TodoLocalDataSource());
+const getTodosUseCase = new GetTodos(repo);
 const createTodoUseCase = new CreateTodo(repo);
+const updateTodoUseCase = new UpdateTodo(repo);
+const updateTodoStatusUseCase = new UpdateTodoStatus(repo);
+const deleteTodoUseCase = new DeleteTodo(repo);
 
 export const useTodoViewModel = () => {
   const queryClient = useQueryClient();
   const [title, setTitle] = useState<string>("");
   const todoQuery = useQuery({
     queryKey: ["todos"],
-    queryFn: () => repo.getTodos(),
+    queryFn: () => getTodosUseCase.execute(),
   });
 
   const createMutation = useMutation({
@@ -33,15 +41,8 @@ export const useTodoViewModel = () => {
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({
-      id,
-      title,
-      completed,
-    }: {
-      id: string;
-      title: string;
-      completed: boolean;
-    }) => repo.updateTodo(id, { title, completed }),
+    mutationFn: ({ id, title }: { id: string; title: string }) =>
+      updateTodoUseCase.execute({ id, title }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
       toast.success("Todo updated successfully");
@@ -50,7 +51,7 @@ export const useTodoViewModel = () => {
 
   const toggleMutation = useMutation({
     mutationFn: ({ id, completed }: { id: string; completed: boolean }) =>
-      repo.updateTodoStatus(id, completed),
+      updateTodoStatusUseCase.execute({ id, completed }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
       toast.info("Todo status updated successfully", 100000);
@@ -58,7 +59,7 @@ export const useTodoViewModel = () => {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id: string) => repo.deleteTodo(id),
+    mutationFn: (id: string) => deleteTodoUseCase.execute(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
       toast.warning("Todo deleted successfully");
@@ -80,7 +81,6 @@ export const useTodoViewModel = () => {
       updateMutation.mutate({
         id: todoId,
         title: editingText.trim(),
-        completed: false,
       });
     }
     setEditingId(null);
