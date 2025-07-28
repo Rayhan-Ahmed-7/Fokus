@@ -1,13 +1,13 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { STORAGE_KEY } from './types/themeTypes';
-import { persistReducer, persistStore } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import rootReducer from './rootReducer';
+import { configureStore } from "@reduxjs/toolkit";
+import { STORAGE_KEY } from "./types/themeTypes";
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import rootReducer from "./rootReducer";
 
 const persistConfig = {
   key: STORAGE_KEY,
   storage,
-  whitelist: ['theme'], // Persist only the theme slice
+  whitelist: ["theme"], // Persist only the theme slice
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -17,7 +17,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE',],
+        ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
       },
     }),
 });

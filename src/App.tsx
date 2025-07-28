@@ -5,12 +5,12 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 import { useSelector } from "react-redux";
 import type { AppState } from "./core/store";
 import type { Theme } from "./core/store/types/themeTypes";
 import { changeTheme } from "./core/store/slices/themeSlice";
-import { Sun, Moon, Monitor } from "lucide-react"
+import { Sun, Moon, Monitor } from "lucide-react";
 
 const themes: { value: Theme; label: string; icon: React.ReactNode }[] = [
   {
@@ -28,13 +28,13 @@ const themes: { value: Theme; label: string; icon: React.ReactNode }[] = [
     label: "System",
     icon: <Monitor className="h-4 w-4 mr-2 text-gray-500" />,
   },
-]
+];
 function App() {
   const theme = useSelector((state: AppState) => state.theme.current);
   const handleChange = (value: string) => {
-    const selected = value as Theme
+    const selected = value as Theme;
     changeTheme(selected);
-  }
+  };
   return (
     <div className="min-h-screen bg-background text-foreground">
       <nav className="flex items-center justify-between p-4 shadow border-b bg-card">
@@ -71,4 +71,3 @@ function App() {
 }
 
 export default App;
-

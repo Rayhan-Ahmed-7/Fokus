@@ -4,7 +4,7 @@ import { useTodoViewModel } from "../viewModel/useTodoViewModel";
 
 export function CreateTodo() {
   const { title, setTitle, createTodo, isCreating } = useTodoViewModel();
- const handleSubmit = () => {
+  const handleSubmit = () => {
     if (title.trim()) {
       createTodo({ title });
       setTitle("");

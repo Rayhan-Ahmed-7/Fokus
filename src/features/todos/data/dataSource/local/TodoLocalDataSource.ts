@@ -44,15 +44,16 @@ export class TodoLocalDataSource implements TodoDataSource {
   }
 
   // Similarly wrap updateTodo, updateTodoStatus, deleteTodo with ApiResponse
-  async updateTodo(id: string, { title }: { title: string }): Promise<ApiResponse<Todo>> {
+  async updateTodo(
+    id: string,
+    { title }: { title: string }
+  ): Promise<ApiResponse<Todo>> {
     const todos = (await this.fetchTodos()).data.results;
-    const updatedTodos = todos.map(todo =>
-      todo.id === id
-        ? { ...todo, title, updatedAt: new Date() }
-        : todo
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, title, updatedAt: new Date() } : todo
     );
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedTodos));
-    const updatedTodo = updatedTodos.find(todo => todo.id === id)!;
+    const updatedTodo = updatedTodos.find((todo) => todo.id === id)!;
     return {
       message: "Todo updated locally",
       status: 200,
@@ -61,15 +62,16 @@ export class TodoLocalDataSource implements TodoDataSource {
     };
   }
 
-  async updateTodoStatus(id: string, completed: boolean): Promise<ApiResponse<Todo>> {
+  async updateTodoStatus(
+    id: string,
+    completed: boolean
+  ): Promise<ApiResponse<Todo>> {
     const todos = (await this.fetchTodos()).data.results;
-    const updatedTodos = todos.map(todo =>
-      todo.id === id
-        ? { ...todo, completed, updatedAt: new Date() }
-        : todo
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, completed, updatedAt: new Date() } : todo
     );
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedTodos));
-    const updatedTodo = updatedTodos.find(todo => todo.id === id)!;
+    const updatedTodo = updatedTodos.find((todo) => todo.id === id)!;
     return {
       message: "Todo status updated locally",
       status: 200,
@@ -80,7 +82,7 @@ export class TodoLocalDataSource implements TodoDataSource {
 
   async deleteTodo(id: string): Promise<ApiResponse<void>> {
     const todos = (await this.fetchTodos()).data.results;
-    const filtered = todos.filter(todo => todo.id !== id);
+    const filtered = todos.filter((todo) => todo.id !== id);
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(filtered));
     return {
       message: "Todo deleted locally",

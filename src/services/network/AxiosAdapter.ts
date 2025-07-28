@@ -18,27 +18,57 @@ export class AxiosAdapter implements HttpInterface {
   }
 
   async get<T>(url: string, config?: HttpRequestConfig): Promise<T> {
-    const res = await this.axiosInstance.get<T>(url, this.transformConfig(config));
+    const res = await this.axiosInstance.get<T>(
+      url,
+      this.transformConfig(config)
+    );
     return res.data;
   }
 
-  async post<T>(url: string, data?: unknown, config?: HttpRequestConfig): Promise<T> {
-    const res = await this.axiosInstance.post<T>(url, data, this.transformConfig(config));
+  async post<T>(
+    url: string,
+    data?: unknown,
+    config?: HttpRequestConfig
+  ): Promise<T> {
+    const res = await this.axiosInstance.post<T>(
+      url,
+      data,
+      this.transformConfig(config)
+    );
     return res.data;
   }
 
-  async put<T>(url: string, data?: unknown, config?: HttpRequestConfig): Promise<T> {
-    const res = await this.axiosInstance.put<T>(url, data, this.transformConfig(config));
+  async put<T>(
+    url: string,
+    data?: unknown,
+    config?: HttpRequestConfig
+  ): Promise<T> {
+    const res = await this.axiosInstance.put<T>(
+      url,
+      data,
+      this.transformConfig(config)
+    );
     return res.data;
   }
 
-  async patch<T>(url: string, data?: unknown, config?: HttpRequestConfig): Promise<T> {
-    const res = await this.axiosInstance.patch<T>(url, data, this.transformConfig(config));
+  async patch<T>(
+    url: string,
+    data?: unknown,
+    config?: HttpRequestConfig
+  ): Promise<T> {
+    const res = await this.axiosInstance.patch<T>(
+      url,
+      data,
+      this.transformConfig(config)
+    );
     return res.data;
   }
 
   async delete<T>(url: string, config?: HttpRequestConfig): Promise<T> {
-    const res = await this.axiosInstance.delete<T>(url, this.transformConfig(config));
+    const res = await this.axiosInstance.delete<T>(
+      url,
+      this.transformConfig(config)
+    );
     return res.data;
   }
 }

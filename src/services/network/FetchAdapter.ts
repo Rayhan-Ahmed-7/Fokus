@@ -10,7 +10,10 @@ export class FetchAdapter implements HttpInterface {
     config?: HttpRequestConfig
   ): Promise<T> {
     const query = config?.queryParams
-      ? "?" + new URLSearchParams(config.queryParams as Record<string, string>).toString()
+      ? "?" +
+        new URLSearchParams(
+          config.queryParams as Record<string, string>
+        ).toString()
       : "";
 
     const controller = new AbortController();

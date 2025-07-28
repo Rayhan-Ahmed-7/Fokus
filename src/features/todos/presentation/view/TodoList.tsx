@@ -6,16 +6,30 @@ import { Trash } from "lucide-react";
 import { useTodoAnimations } from "../viewModel/useTodoAnimation";
 
 const TodoList = () => {
-  const { todos, isLoading, deleteTodo, toggleTodo, updateTodo, editingId, setEditingId, editingText, setEditingText } = useTodoViewModel();
+  const {
+    todos,
+    isLoading,
+    deleteTodo,
+    toggleTodo,
+    updateTodo,
+    editingId,
+    setEditingId,
+    editingText,
+    setEditingText,
+  } = useTodoViewModel();
   const { listRef } = useTodoAnimations();
 
   if (isLoading) return <div className="text-muted-foreground">Loading...</div>;
-  if (todos.length === 0) return <div className="text-muted-foreground">No todos available</div>;
+  if (todos.length === 0)
+    return <div className="text-muted-foreground">No todos available</div>;
 
   return (
     <ul className="space-y-3" ref={listRef}>
       {todos.map((todo) => (
-        <li key={todo.id} className="p-4 rounded-lg bg-muted/50 border shadow-sm flex justify-between items-center gap-2">
+        <li
+          key={todo.id}
+          className="p-4 rounded-lg bg-muted/50 border shadow-sm flex justify-between items-center gap-2"
+        >
           <div className="flex items-center gap-2 w-full">
             <Checkbox
               className="cursor-pointer"
@@ -50,7 +64,12 @@ const TodoList = () => {
               </span>
             )}
           </div>
-          <Button size="sm" variant="destructive" className="cursor-pointer" onClick={() => deleteTodo(todo.id)}>
+          <Button
+            size="sm"
+            variant="destructive"
+            className="cursor-pointer"
+            onClick={() => deleteTodo(todo.id)}
+          >
             <Trash />
           </Button>
         </li>
