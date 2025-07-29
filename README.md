@@ -92,51 +92,19 @@ src/
 | `pnpm format`  | Auto-format code using Prettier            |
 | `pnpm prepare` | Install Git hooks (via Husky)              |
 
----
-
-## 🧪 Testing Commands
-
-### 🔬 Vitest (Unit & Integration)
-
-| Script               | Description                        |
-| -------------------- | ---------------------------------- |
-| `pnpm test`          | Run all unit + integration tests   |
-| `pnpm test:ui`       | Run tests with Vitest UI dashboard |
-| `pnpm test:watch`    | Watch mode (live feedback)         |
-| `pnpm test:coverage` | Generate code coverage report      |
-
-### 🧪 Playwright (End-to-End)
-
-| Script                | Description                          |
-| --------------------- | ------------------------------------ |
-| `pnpm test:e2e`       | Run all e2e tests using Playwright   |
-| `pnpm test:e2e:ui`    | Open Playwright test UI              |
-| `pnpm test:e2e:debug` | Run e2e tests with debugging enabled |
-
-> ✅ Note: E2E tests are isolated from Vitest and only run via `pnpm test:e2e*` commands.
-
----
-
-Here’s a focused `README.md` section that **only includes** your:
+# ✅ Testing & Code Quality Setup
 
 - ✅ Vitest setup
-- ✅ Husky + lint-staged setup
 - ✅ Playwright setup
+- ✅ Husky + lint-staged setup
 
----
-
-````md
-## ✅ Testing & Code Quality Setup
-
----
-
-### 🧪 Vitest (Unit + Integration Testing)
+## 🧪 Vitest (Unit + Integration Testing)
 
 We use **Vitest** to write fast unit and integration tests in a JSDOM environment (ideal for testing React components and hooks).
 
-#### 🔧 Vitest is configured in `vite.config.ts`:
+### 🔧 Vitest is configured in `vite.config.ts`:
 
-```ts
+```
 import { defineConfig } from "vite";
 import path from "path";
 
@@ -154,9 +122,8 @@ export default defineConfig({
   },
 });
 ```
-````
 
-#### 🧪 Test Scripts
+### 🧪 Test Scripts
 
 | Command              | Description                      |
 | -------------------- | -------------------------------- |
@@ -189,7 +156,7 @@ export default defineConfig({
 });
 ```
 
-#### 🧪 E2E Test Scripts
+### 🧪 E2E Test Scripts
 
 | Command               | Description                          |
 | --------------------- | ------------------------------------ |
