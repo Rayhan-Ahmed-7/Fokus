@@ -39,7 +39,7 @@ export const Default: Story = {
 
 export const WithImage: Story = {
   render: () => (
-    <Card className="w-[350px] overflow-hidden">
+    <Card className="w-[350px] overflow-hidden pt-0">
       <img
         src="https://c4.wallpaperflare.com/wallpaper/905/357/240/the-batman-2022-batman-dc-comics-the-dark-knight-red-background-hd-wallpaper-preview.jpg"
         alt="Example"
