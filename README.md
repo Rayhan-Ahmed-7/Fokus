@@ -10,6 +10,8 @@
 | **Redux Toolkit (optional)**             | Global app state (auth, theme, etc.)                   |
 | **Vitest + RTL (React Testing Library)** | Fast and isolated unit/integration testing             |
 | **Playwright**                           | End-to-end testing with headless browser automation    |
+| **Storybook**                            | Isolated UI component development and documentation    |
+| **SonarQube**                            | Static code analysis, coverage tracking, code smells   |
 | **Husky + Lint Staged**                  | Git hooks for pre-commit checks (lint, test, format)   |
 | **ESLint + Prettier**                    | Code quality, auto formatting                          |
 | **Docker**                               | Containerization for local or production deployment    |
@@ -278,38 +280,6 @@ export const Destructive: Story = {
   },
 };
 
-export const Outline: Story = {
-  args: {
-    children: "Outline",
-    variant: "outline",
-    size: "default",
-  },
-};
-
-export const Secondary: Story = {
-  args: {
-    children: "Secondary",
-    variant: "secondary",
-    size: "default",
-  },
-};
-
-export const Ghost: Story = {
-  args: {
-    children: "Ghost",
-    variant: "ghost",
-    size: "default",
-  },
-};
-
-export const Link: Story = {
-  args: {
-    children: "Link Button",
-    variant: "link",
-    size: "default",
-  },
-};
-
 // Size variants
 
 export const Small: Story = {
@@ -319,22 +289,7 @@ export const Small: Story = {
     variant: "default",
   },
 };
-
-export const Large: Story = {
-  args: {
-    children: "Large",
-    size: "lg",
-    variant: "default",
-  },
-};
-
-export const Icon: Story = {
-  args: {
-    children: "🔔",
-    size: "icon",
-    variant: "default",
-  },
-};
+// Add More As Needed
 ```
 
 ### 🧪 Run Storybook
@@ -344,6 +299,80 @@ pnpm storybook
 ```
 
 > This will launch Storybook at [http://localhost:6006](http://localhost:6006) by default.
+
+## 📊 SonarQube Setup (Code Quality & Static Analysis)
+
+### 📚 Complete Readme Guide for SonarQube Setup By me.
+
+📎 [Setup Guide for SonarQube](https://github.com/Rayhan-Ahmed-7/sonar-qube-guide)
+
+SonarQube is used in this project to analyze and monitor code quality, test coverage, bugs, security hotspots, and maintainability.
+
+### 🛠 Configuration
+
+SonarQube is configured via a `sonar-project.properties` file at the root of the project:
+
+```properties
+# Project identification
+sonar.projectKey=dailygrind
+sonar.projectName=DailyGrind
+sonar.projectVersion=1.0.0
+
+# Project source configuration
+sonar.sources=src
+sonar.exclusions=**/__tests__/**, **/*.stories.tsx, **/*.test.ts, **/*.spec.ts
+sonar.tests=src
+sonar.test.inclusions=**/*.test.ts, **/*.spec.ts
+sonar.typescript.lcov.reportPaths=coverage/lcov.info
+
+# Encoding
+sonar.sourceEncoding=UTF-8
+
+# SonarQube server URL
+sonar.host.url=http://localhost:9000
+
+# Auth Token (use environment variable in CI)
+sonar.login=sqa_3c96e02f683936556d6441d1e8a1bfbe084c0d21
+```
+
+> **Note:** Do not commit `sonar.login` in public repos. Instead, use an environment variable like `SONAR_TOKEN`.
+
+---
+
+### 📦 Dependencies Required
+
+Install the SonarScanner CLI:
+
+```bash
+pnpm add -D sonar-scanner
+```
+
+---
+
+### ▶️ Run Sonar Analysis
+
+Make sure code coverage is generated first:
+
+```bash
+pnpm test:coverage
+```
+
+Then run the scanner:
+
+```bash
+pnpx sonar-scanner
+```
+
+---
+
+### 📁 Ignore Generated Output
+
+Make sure `.gitignore` includes:
+
+```
+coverage/
+.scannerwork/
+```
 
 ---
 
