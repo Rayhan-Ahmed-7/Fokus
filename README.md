@@ -153,18 +153,21 @@ export default defineConfig({
     slowMo: 1000,
     viewport: { width: 1280, height: 720 },
     screenshot: "only-on-failure",
-    video: "retain-on-failure",
+    video: "on",
   },
+  reporter: [["html", { outputFolder: "playwright-report", open: "never" }]],
 });
 ```
 
 ### 🧪 E2E Test Scripts
 
-| Command               | Description                          |
-| --------------------- | ------------------------------------ |
-| `pnpm test:e2e`       | Run all Playwright E2E tests         |
-| `pnpm test:e2e:ui`    | Launch Playwright UI test runner     |
-| `pnpm test:e2e:debug` | Debug mode with step-by-step control |
+| Command                | Description                                          |
+| ---------------------- | ---------------------------------------------------- |
+| `pnpm test:e2e`        | Run all Playwright E2E tests                         |
+| `pnpm test:e2e:ui`     | Launch Playwright UI test runner                     |
+| `pnpm test:e2e:debug`  | Debug mode with step-by-step control                 |
+| `pnpm test:e2e:report` | Run tests and open the Playwright HTML report viewer |
+| `pnpm test:e2e:html`   | Run tests with HTML reporter output                  |
 
 > E2E tests are excluded from `pnpm test` using the `exclude: ["e2e/**"]` setting in Vitest config.
 
