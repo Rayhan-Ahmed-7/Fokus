@@ -26,6 +26,10 @@ dist-ssr
 # Vitest / Testing coverage reports
 coverage/
 
+# Playwright artifacts
+test-results/
+playwright-report/
+
 # SonarQube
 .scannerwork/
 
