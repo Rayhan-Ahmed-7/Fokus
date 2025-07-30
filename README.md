@@ -107,32 +107,43 @@ We use **Vitest** to write fast unit and integration tests in a JSDOM environmen
 ### 🔧 Vitest is configured in `vite.config.ts`:
 
 ```
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import path from "path";
 
 export default defineConfig({
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"), // Allows `@/` imports from /src
+      "@": path.resolve(__dirname, "src"),
     },
   },
   test: {
-    exclude: ["e2e/**"], // Exclude Playwright E2E tests
     include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
-    environment: "jsdom", // Simulates browser environment
-    globals: true, // Allows global test functions like `describe`, `it`
+    exclude: ["e2e/**","**/*.stories.*"],
+    environment: "jsdom",
+    globals: true,
+    reporters: ['default', 'junit'],
+    outputFile: {
+      junit: 'coverage/unit-test-results.xml',
+    },
+    coverage: {
+      provider:"v8",
+      reporter: ["text", "lcov", "html"],
+      reportsDirectory: "./coverage",
+      exclude: ["e2e/**",".storybook/**","**/*.stories.*"],
+    },
   },
 });
 ```
 
 ### 🧪 Test Scripts
 
-| Command              | Description                      |
-| -------------------- | -------------------------------- |
-| `pnpm test`          | Run all unit & integration tests |
-| `pnpm test:watch`    | Watch mode for development       |
-| `pnpm test:ui`       | Visual test runner UI            |
-| `pnpm test:coverage` | Generates a coverage report      |
+| Command              | Description                            |
+| -------------------- | -------------------------------------- |
+| `pnpm test`          | Run all unit & integration tests       |
+| `pnpm test:watch`    | Watch mode for development             |
+| `pnpm test:ui`       | Visual test runner UI                  |
+| `pnpm test:coverage` | Generates a coverage report            |
+| `pnpm test:report`   | Generates a coverage report & view it. |
 
 ---
 
