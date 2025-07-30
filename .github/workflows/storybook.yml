@@ -1,0 +1,31 @@
+name: 📚 Deploy Storybook to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy-storybook:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📂 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📝 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 📚 Build Storybook
+        run: pnpm exec storybook build --output-dir storybook-static
+
+      - name: 🚀 Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./storybook-static

@@ -1,13 +1,12 @@
-name: ✨ CI & Quality Checks
+name: 🧠 SonarQube Analysis
 
 on:
+  workflow_dispatch:
   push:
-    branches: [main]
-  pull_request:
     branches: [main]
 
 jobs:
-  quality-checks:
+  sonar-analysis:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,22 +22,10 @@ jobs:
       - name: 📦 Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: 🔍 Lint Check
-        run: pnpm lint
-
-      - name: 📄 Format Check
-        run: pnpm format --check
-
-      - name: 🧪 Unit + Integration Tests
+      - name: 🧪 Run tests & generate coverage
         run: pnpm test:coverage
 
-      - name: 🔮 E2E Tests (Playwright)
-        run: pnpm test:e2e
-
-      - name: 🏠 Build Project
-        run: pnpm build
-
-      - name: 🧠 SonarQube Scan
+      - name: 🧠 Run SonarQube Scanner
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |

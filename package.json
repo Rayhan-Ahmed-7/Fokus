@@ -12,6 +12,8 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:debug": "playwright test --debug",
+    "test:e2e:report": "pnpm test:e2e && pnpm exec playwright show-report",
+    "test:e2e:html": "pnpm test:e2e --reporter=html",
     "sonar": "pnpm test:coverage && pnpm dlx sonar-scanner",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
