@@ -23,5 +23,12 @@ dist-ssr
 *.sln
 *.sw?
 
+# Vitest / Testing coverage reports
+coverage/
+
+# SonarQube
+.scannerwork/
+
+# Storybook
 *storybook.log
 storybook-static
