@@ -118,18 +118,19 @@ export default defineConfig({
   },
   test: {
     include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
-    exclude: ["e2e/**","**/*.stories.*"],
+    exclude: ["e2e/**", "**/*.stories.*"],
     environment: "jsdom",
     globals: true,
-    reporters: ['default', 'junit'],
+    reporters: ["default", "junit", "html"],
     outputFile: {
-      junit: 'coverage/unit-test-results.xml',
+      junit: "coverage/unit-test-results.xml",
+      html: "coverage/vitest-results.html",
     },
     coverage: {
-      provider:"v8",
+      provider: "v8",
       reporter: ["text", "lcov", "html"],
       reportsDirectory: "./coverage",
-      exclude: ["e2e/**",".storybook/**","**/*.stories.*"],
+      exclude: ["e2e/**", ".storybook/**", "**/*.stories.*"],
     },
   },
 });

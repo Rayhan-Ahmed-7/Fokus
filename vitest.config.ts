@@ -12,9 +12,10 @@ export default defineConfig({
     exclude: ["e2e/**", "**/*.stories.*"],
     environment: "jsdom",
     globals: true,
-    reporters: ["default", "junit"],
+    reporters: ["default", "junit", "html"],
     outputFile: {
       junit: "coverage/unit-test-results.xml",
+      html: "coverage/vitest-results.html",
     },
     coverage: {
       provider: "v8",
