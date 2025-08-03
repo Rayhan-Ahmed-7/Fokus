@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/app.Dockerfile
+    ports:
+      - "4173:4173" # ✅ Match Vite preview port
+
+  test-runner:
+    build:
+      context: .
+      dockerfile: docker/test.Dockerfile
+    volumes:
+      - ./coverage:/app/coverage
+      - ./playwright-report:/app/playwright-report
+
+  storybook:
+    image: node:20
+    working_dir: /app
+    volumes:
+      - .:/app
+      - ./storybook-static:/app/storybook-static
+    command: sh -c "corepack enable && pnpm install --frozen-lockfile && pnpm build-storybook -o storybook-static"
+
+  sonarqube:
+    image: sonarqube:community
+    ports:
+      - "9000:9000"
+    environment:
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+
+  sonar-scanner:
+    build:
+      context: .
+      dockerfile: docker/sonar-scanner.Dockerfile
+    depends_on:
+      - sonarqube
+
+  report-server:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./coverage:/usr/share/nginx/html/coverage
+      - ./playwright-report:/usr/share/nginx/html/e2e
+      - ./storybook-static:/usr/share/nginx/html/storybook
+    depends_on:
+      - app
