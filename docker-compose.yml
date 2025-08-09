@@ -1,28 +1,51 @@
-version: "3.9"
-
 services:
   app:
     build:
       context: .
       dockerfile: docker/app.Dockerfile
     ports:
-      - "4173:4173" # ✅ Match Vite preview port
+      - "4173:4173"
+    environment:
+      - NODE_ENV=production
+      - BASE_URL=http://app:4173
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "--quiet", "http://0.0.0.0:4173/"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
   test-runner:
     build:
       context: .
       dockerfile: docker/test.Dockerfile
+    depends_on:
+      - app
+    environment:
+      - BASE_URL=http://app:4173
     volumes:
-      - ./coverage:/app/coverage
-      - ./playwright-report:/app/playwright-report
+      - reports:/app/reports
+    # no ports; test-runner is a job-like container that writes into reports
 
   storybook:
     image: node:20
     working_dir: /app
     volumes:
       - .:/app
-      - ./storybook-static:/app/storybook-static
-    command: sh -c "corepack enable && pnpm install --frozen-lockfile && pnpm build-storybook -o storybook-static"
+      - reports:/app/reports
+    environment:
+      - CI=true
+    command: >
+      sh -c "corepack enable && pnpm install --frozen-lockfile && pnpm build-storybook -o storybook-static && mkdir -p /app/reports/storybook && cp -r storybook-static /app/reports/storybook"
+
+  report-server:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - reports:/usr/share/nginx/html:ro
+    depends_on:
+      - test-runner
+      - storybook
 
   sonarqube:
     image: sonarqube:community
@@ -30,6 +53,7 @@ services:
       - "9000:9000"
     environment:
       - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
+    # Sonar can take a while to boot; you'll see logs during start.
 
   sonar-scanner:
     build:
@@ -37,14 +61,10 @@ services:
       dockerfile: docker/sonar-scanner.Dockerfile
     depends_on:
       - sonarqube
-
-  report-server:
-    image: nginx:alpine
-    ports:
-      - "8080:80"
+    environment:
+      - SONAR_TOKEN=${SONAR_TOKEN}
     volumes:
-      - ./coverage:/usr/share/nginx/html/coverage
-      - ./playwright-report:/usr/share/nginx/html/e2e
-      - ./storybook-static:/usr/share/nginx/html/storybook
-    depends_on:
-      - app
+      - .:/app
+
+volumes:
+  reports:

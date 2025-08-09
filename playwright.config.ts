@@ -1,10 +1,12 @@
 // playwright.config.ts
 import { defineConfig } from "@playwright/test";
+import dotenv from "dotenv";
 
+dotenv.config();
 export default defineConfig({
   testDir: "./e2e",
   use: {
-    baseURL: "http://localhost:5173", // or your Vite port
+    baseURL: process.env.BASE_URL, // or your Vite port
     headless: true,
     launchOptions: {
       slowMo: 1000,
