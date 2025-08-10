@@ -7,6 +7,8 @@ RUN npm install -g pnpm@10.14.0
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
+RUN apt-get update && apt-get install -y ca-certificates && update-ca-certificates
+
 COPY . .
 
 RUN npx playwright install --with-deps
