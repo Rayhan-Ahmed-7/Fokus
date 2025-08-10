@@ -13,4 +13,4 @@ COPY . .
 
 RUN npx playwright install --with-deps
 
-CMD ["sh", "-c", "npx wait-on ${BASE_URL:-http://app:4173} && pnpm test:e2e:html && mkdir -p /app/reports/e2e && cp -r playwright-report /app/reports/e2e"]
+CMD ["sh", "-c", "pnpm test:e2e:html && mkdir -p /app/reports/e2e && cp -r playwright-report /app/reports/e2e"]

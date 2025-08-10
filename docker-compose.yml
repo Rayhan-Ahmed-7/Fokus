@@ -9,6 +9,11 @@ services:
       - "4173:4173"
     networks:
       - ci_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4173"]
+      interval: 5s
+      timeout: 2s
+      retries: 20
 
   # 2. Storybook
   storybook:
@@ -33,17 +38,24 @@ services:
       - app
     networks:
       - ci_network
+    volumes:
+      - reports:/app/reports
+      - ./:/app
 
   playwright:
     build:
       context: .
       dockerfile: docker/playwright.Dockerfile
     depends_on:
-      - app
+      app:
+        condition: service_healthy
     environment:
       BASE_URL: http://app:4173
     networks:
       - ci_network
+    volumes:
+      - reports:/app/reports
+      - ./tests:/app/e2e  # Mount your test code inside container for test run
 
   # 4. SonarQube server
   sonarqube:
