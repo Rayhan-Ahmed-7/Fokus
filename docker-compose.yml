@@ -1,70 +1,95 @@
 services:
+  # 1. Main app service
   app:
     build:
       context: .
       dockerfile: docker/app.Dockerfile
+    container_name: dailygrind_app
     ports:
       - "4173:4173"
-    environment:
-      - NODE_ENV=production
-      - BASE_URL=http://app:4173
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "--quiet", "http://0.0.0.0:4173/"]
-      interval: 5s
-      timeout: 3s
-      retries: 5
+    networks:
+      - ci_network
 
-  test-runner:
+  # 2. Storybook
+  storybook:
+    image: node:20-bullseye
+    working_dir: /app
+    environment:
+      - CI=true               # prevents interactive prompts / auto-opening
+    command: sh -c "corepack enable && corepack prepare pnpm@10.14.0 --activate && pnpm install --frozen-lockfile && pnpm storybook --host 0.0.0.0 -p 6006 --ci"
+    volumes:
+      - .:/app
+    ports:
+      - "6006:6006"
+    networks:
+      - ci_network
+
+  # 3. Tests (unit/integration + E2E)
+  vitest:
     build:
       context: .
-      dockerfile: docker/test.Dockerfile
+      dockerfile: docker/vitest.Dockerfile
+    depends_on:
+      - app
+    networks:
+      - ci_network
+
+  playwright:
+    build:
+      context: .
+      dockerfile: docker/playwright.Dockerfile
     depends_on:
       - app
     environment:
-      - BASE_URL=http://app:4173
-    volumes:
-      - reports:/app/reports
-    # no ports; test-runner is a job-like container that writes into reports
+      BASE_URL: http://app:4173
+    networks:
+      - ci_network
 
-  storybook:
-    image: node:20
-    working_dir: /app
-    volumes:
-      - .:/app
-      - reports:/app/reports
-    environment:
-      - CI=true
-    command: >
-      sh -c "corepack enable && pnpm install --frozen-lockfile && pnpm build-storybook -o storybook-static && mkdir -p /app/reports/storybook && cp -r storybook-static /app/reports/storybook"
-
-  report-server:
-    image: nginx:alpine
-    ports:
-      - "8080:80"
-    volumes:
-      - reports:/usr/share/nginx/html:ro
-    depends_on:
-      - test-runner
-      - storybook
-
+  # 4. SonarQube server
   sonarqube:
     image: sonarqube:community
+    container_name: dailygrind_sonarqube
     ports:
       - "9000:9000"
+    networks:
+      - ci_network
     environment:
       - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
-    # Sonar can take a while to boot; you'll see logs during start.
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_logs:/opt/sonarqube/logs
+      - sonarqube_extensions:/opt/sonarqube/extensions
 
+  # 5. Sonar Scanner
   sonar-scanner:
     build:
       context: .
       dockerfile: docker/sonar-scanner.Dockerfile
+    environment:
+      SONAR_TOKEN: ${SONAR_TOKEN}
     depends_on:
       - sonarqube
-    environment:
-      - SONAR_TOKEN=${SONAR_TOKEN}
+    networks:
+      - ci_network
+
+  # 6. Reports viewer (nginx)
+  reports-viewer:
+    image: nginx:alpine
+    container_name: dailygrind_reports
+    ports:
+      - "8080:80"
     volumes:
-      - .:/app
+      - reports:/usr/share/nginx/html:ro
+    networks:
+      - ci_network
+
+networks:
+  ci_network:
+    name: ci_network
+    driver: bridge
 
 volumes:
   reports:
+  sonarqube_data:
+  sonarqube_logs:
+  sonarqube_extensions:

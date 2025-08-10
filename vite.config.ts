@@ -12,4 +12,16 @@ export default defineConfig({
       "@features": path.resolve(__dirname, "./src/features"),
     },
   },
+  preview: {
+    host: true,
+    allowedHosts: true,
+  },
+  server: {
+    host: true, // listen on all interfaces
+    port: 4173,
+    strictPort: true,
+    cors: true,
+    // allow hostnames for dev server
+    allowedHosts: true,
+  },
 });

@@ -1,21 +1,26 @@
-# Builder stage: Debian based for easier package installs
+# app.Dockerfile (paste replace)
+# Stage 1: builder (Debian) - build the app
 FROM node:20-bullseye AS builder
 
 RUN apt-get update && apt-get install -y git tini && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-COPY . .
+COPY package.json pnpm-lock.yaml ./
+RUN corepack enable && corepack prepare pnpm@10.14.0 --activate
+RUN pnpm install --frozen-lockfile
 
-RUN corepack enable && CI=true pnpm install --no-frozen-lockfile
+COPY . .
 RUN pnpm build
 
-# Runtime stage: lighter image, only tini needed
-FROM node:20-alpine
+# Stage 2: runtime (Debian) - ensure pnpm is available at runtime
+FROM node:20-bullseye AS runtime
 
-RUN apk add --no-cache tini
+# Enable corepack + pnpm in the runtime so `pnpm preview` exists
+RUN corepack enable && corepack prepare pnpm@10.14.0 --activate
+RUN apt-get update && apt-get install -y tini && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-
+# copy only necessary artifacts
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json

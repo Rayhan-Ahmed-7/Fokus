@@ -6,7 +6,8 @@ dotenv.config();
 export default defineConfig({
   testDir: "./e2e",
   use: {
-    baseURL: process.env.BASE_URL, // or your Vite port
+    ignoreHTTPSErrors: true,
+    baseURL: process.env.BASE_URL || "http://app:4173", // or your Vite port
     headless: true,
     launchOptions: {
       slowMo: 1000,
