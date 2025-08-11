@@ -14,7 +14,7 @@ export default defineConfig({
   },
   preview: {
     host: true,
-    allowedHosts: true,
+    allowedHosts: ["app", "localhost", "127.0.0.1"],
   },
   server: {
     host: true, // listen on all interfaces

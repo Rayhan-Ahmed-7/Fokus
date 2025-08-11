@@ -9,4 +9,4 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
-CMD ["sh", "-c", "pnpm test:coverage && mkdir -p /app/reports/unit && cp -r coverage /app/reports/unit"]
+CMD ["sh", "-c", "pnpm test:coverage && mkdir -p /app/reports/unit && cp -r coverage/* /app/reports/unit"]

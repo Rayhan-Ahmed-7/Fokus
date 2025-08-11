@@ -1,4 +1,3 @@
-# app.Dockerfile (paste replace)
 # Stage 1: builder (Debian) - build the app
 FROM node:20-bullseye AS builder
 
@@ -20,10 +19,12 @@ RUN corepack enable && corepack prepare pnpm@10.14.0 --activate
 RUN apt-get update && apt-get install -y tini && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-# copy only necessary artifacts
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/vite.config.ts ./vite.config.ts
+
 
 EXPOSE 4173
+
 CMD ["tini", "--", "pnpm", "preview", "--host", "0.0.0.0", "--port", "4173"]
