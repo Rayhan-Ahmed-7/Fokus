@@ -13,11 +13,11 @@ export default defineConfig({
     },
   },
   preview: {
-    host: true,
-    allowedHosts: ["app", "localhost", "127.0.0.1"],
+    host: "0.0.0.0",
+    port: 4173,
   },
   server: {
-    host: true, // listen on all interfaces
+    host: "0.0.0.0", // listen on all interfaces
     port: 4173,
     strictPort: true,
     cors: true,
