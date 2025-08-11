@@ -6,13 +6,12 @@ dotenv.config();
 export default defineConfig({
   testDir: "./e2e",
   use: {
-    ignoreHTTPSErrors: true,
+    ignoreHTTPSErrors: false,
     baseURL: process.env.BASE_URL, // or your Vite port
     headless: true,
     browserName: "chromium",
     launchOptions: {
       headless: true,
-      args: ["--ignore-certificate-errors"],
       slowMo: 1000,
     },
     viewport: { width: 1280, height: 720 },

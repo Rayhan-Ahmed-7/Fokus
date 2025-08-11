@@ -55,7 +55,7 @@ services:
       - ci_network
     volumes:
       - reports:/app/reports
-      - ./tests:/app/e2e  # Mount your test code inside container for test run
+      - ./e2e:/app/e2e  # Mount your test code inside container for test run
 
   # 4. SonarQube server
   sonarqube:
