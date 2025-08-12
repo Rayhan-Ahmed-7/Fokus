@@ -14,4 +14,4 @@ ENV JAVA_HOME=/opt/java/openjdk
 ENV PATH="${JAVA_HOME}/bin:/opt/sonar-scanner/bin:${PATH}"
 ENV SONAR_SCANNER_OPTS="-Xmx2048m"
 
-CMD ["sonar-scanner", "-Dsonar.host.url=http://qube:9000", "-Dsonar.login=${SONAR_TOKEN}"]
+CMD ["sonar-scanner", "-Dsonar.host.url=http://qube:9000", "-Dsonar.token=${SONAR_TOKEN}"]
