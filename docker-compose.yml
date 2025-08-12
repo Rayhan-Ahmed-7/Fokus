@@ -1,6 +1,6 @@
 services:
   # 1. Main app service
-  app:
+  frontend:
     build:
       context: .
       dockerfile: docker/app.Dockerfile
@@ -35,7 +35,7 @@ services:
       context: .
       dockerfile: docker/vitest.Dockerfile
     depends_on:
-      - app
+      - frontend
     networks:
       - ci_network
     volumes:
@@ -47,10 +47,10 @@ services:
       context: .
       dockerfile: docker/playwright.Dockerfile
     depends_on:
-      app:
+      frontend:
         condition: service_healthy
     environment:
-      BASE_URL: http://app:4173
+      BASE_URL: http://frontend:4173
     networks:
       - ci_network
     volumes:
@@ -58,11 +58,16 @@ services:
       - ./e2e:/app/e2e  # Mount your test code inside container for test run
 
   # 4. SonarQube server
-  sonarqube:
+  qube:
     image: sonarqube:community
-    container_name: dailygrind_sonarqube
+    container_name: sonarqube
     ports:
       - "9000:9000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/api/system/status"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
     networks:
       - ci_network
     environment:
@@ -78,9 +83,18 @@ services:
       context: .
       dockerfile: docker/sonar-scanner.Dockerfile
     environment:
-      SONAR_TOKEN: ${SONAR_TOKEN}
+      SONAR_HOST_URL: http://qube:9000
+      SONAR_TOKEN: squ_f397cb43d7f79164f8bc05fe3233b71c00160a12
+    volumes:
+      - .:/usr/src
+    working_dir: /usr/src
     depends_on:
-      - sonarqube
+      qube:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          memory: 4G
     networks:
       - ci_network
 
