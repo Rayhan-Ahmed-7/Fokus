@@ -9,4 +9,4 @@ RUN pnpm install --frozen-lockfile
 
 COPY . .
 
-CMD ["sh", "-c", "pnpm test:coverage && mkdir -p /app/reports/unit && cp -r coverage/* /app/reports/unit"]
+CMD ["sh", "-c", "pnpm test:coverage && mkdir -p /app/reports/unit && mkdir -p /app/reports/coverage && cp -r vitest-result/* /app/reports/unit && cp -r coverage/* /app/reports/coverage"]

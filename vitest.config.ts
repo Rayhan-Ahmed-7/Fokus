@@ -14,8 +14,8 @@ export default defineConfig({
     globals: true,
     reporters: ["default", "junit", "html"],
     outputFile: {
-      junit: "coverage/unit-test-results.xml",
-      html: "coverage/vitest-results.html",
+      junit: "vitest-result/index.xml",
+      html: "vitest-result/index.html",
     },
     coverage: {
       provider: "v8",

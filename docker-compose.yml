@@ -40,7 +40,10 @@ services:
       - ci_network
     volumes:
       - reports:/app/reports
-      - ./:/app
+      - ./src:/app/src
+      - ./vitest.config.ts:/app/vitest.config.ts
+      - ./package.json:/app/package.json
+      - ./pnpm-lock.yaml:/app/pnpm-lock.yaml
 
   playwright:
     build:
@@ -84,7 +87,7 @@ services:
       dockerfile: docker/sonar-scanner.Dockerfile
     environment:
       SONAR_HOST_URL: http://qube:9000
-      SONAR_TOKEN: squ_f397cb43d7f79164f8bc05fe3233b71c00160a12
+      SONAR_TOKEN: squ_a14c17adcf0a0cb9c4701a38d7f3c84c444569db
     volumes:
       - .:/usr/src
     working_dir: /usr/src
@@ -100,7 +103,9 @@ services:
 
   # 6. Reports viewer (nginx)
   reports-viewer:
-    image: nginx:alpine
+    build:
+      context: ./docker
+      dockerfile: nginx.Dockerfile
     container_name: dailygrind_reports
     ports:
       - "8080:80"

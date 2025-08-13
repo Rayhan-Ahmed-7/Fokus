@@ -7,7 +7,7 @@ export default defineConfig({
   testDir: "./e2e",
   use: {
     ignoreHTTPSErrors: true,
-    baseURL: process.env.BASE_URL || "http://app:4173", // or your Vite port
+    baseURL: process.env.BASE_URL || "http://frontend:4173", // or your Vite port
     headless: true,
     browserName: "chromium",
     launchOptions: {

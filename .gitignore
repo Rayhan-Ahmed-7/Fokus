@@ -25,6 +25,7 @@ dist-ssr
 .pnpm-store
 # Vitest / Testing coverage reports
 coverage/
+vitest-result
 
 # Playwright artifacts
 test-results/
