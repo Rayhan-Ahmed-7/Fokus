@@ -1,6 +1,8 @@
 // playwright.config.ts
 import { defineConfig, devices } from "@playwright/test";
 import dotenv from "dotenv";
+import * as os from "node:os";
+import { Status } from "allure-js-commons";
 
 dotenv.config();
 export default defineConfig({
@@ -58,7 +60,29 @@ export default defineConfig({
   },
   reporter: [
     ["line"],
-    ["allure-playwright"],
+    [
+      "allure-playwright",
+      {
+        logo: "la",
+        theme: "dark",
+        layout: "split",
+        categories: [
+          {
+            name: "foo",
+            messageRegex: "bar",
+            traceRegex: "baz",
+            matchedStatuses: [Status.FAILED, Status.BROKEN],
+          },
+        ],
+        environmentInfo: {
+          os_platform: os.platform(),
+          os_release: os.release(),
+          os_version: os.version(),
+          node_version: process.version,
+          reporttitle: "Todo App Test Report", // Additional metadata
+        },
+      },
+    ],
     [
       "json",
       {
