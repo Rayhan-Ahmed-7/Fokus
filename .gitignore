@@ -28,6 +28,10 @@ coverage/
 vitest-result
 
 # Playwright artifacts
+allure-results/
+allure-report/
+.allure
+jsonReports/
 test-results/
 playwright-report/
 

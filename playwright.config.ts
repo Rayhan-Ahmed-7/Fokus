@@ -1,10 +1,48 @@
 // playwright.config.ts
-import { defineConfig } from "@playwright/test";
+import { defineConfig, devices } from "@playwright/test";
 import dotenv from "dotenv";
 
 dotenv.config();
 export default defineConfig({
   testDir: "./e2e",
+  projects: [
+    {
+      name: "Chrome",
+      use: {
+        ...devices["Desktop Chrome"],
+        viewport: {
+          width: 1920,
+          height: 1080,
+        },
+      },
+    },
+    {
+      name: "Firefox",
+      use: {
+        ...devices["Desktop Firefox"],
+        viewport: {
+          width: 1920,
+          height: 1080,
+        },
+      },
+    },
+    {
+      name: "Safari",
+      use: {
+        ...devices["Desktop Safari"],
+        viewport: {
+          width: 1920,
+          height: 1080,
+        },
+      },
+    },
+    {
+      name: "Mobile Safari",
+      use: {
+        ...devices["iPhone 14 Pro Max"],
+      },
+    },
+  ],
   use: {
     ignoreHTTPSErrors: true,
     baseURL: process.env.BASE_URL || "http://frontend:4173", // or your Vite port
@@ -14,9 +52,19 @@ export default defineConfig({
       headless: true,
       slowMo: 1000,
     },
-    viewport: { width: 1280, height: 720 },
-    screenshot: "only-on-failure",
+    viewport: { width: 1920, height: 1080 },
+    screenshot: "on",
     video: "on",
   },
-  reporter: [["html", { outputFolder: "playwright-report", open: "never" }]],
+  reporter: [
+    ["line"],
+    ["allure-playwright"],
+    [
+      "json",
+      {
+        outputFile: "jsonReports/jsonReport.json",
+      },
+    ],
+    ["html", { outputFolder: "playwright-report", open: "never" }],
+  ],
 });
