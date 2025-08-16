@@ -31,6 +31,7 @@ vitest-result
 allure-results/
 allure-report/
 allure-awesome-report/
+history.json
 .allure
 jsonReports/
 test-results/

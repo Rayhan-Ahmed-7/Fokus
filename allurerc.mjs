@@ -3,7 +3,7 @@ import { defineConfig } from "allure";
 export default defineConfig({
   name: "Fokus Test Report",
   output: "./allure-report",
-  historyPath: "./history.jsonl",
+  historyPath: "./history.json",
   plugins: {
     awesome: {
       options: {
