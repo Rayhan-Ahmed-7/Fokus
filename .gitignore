@@ -30,6 +30,7 @@ vitest-result
 # Playwright artifacts
 allure-results/
 allure-report/
+allure-awesome-report/
 .allure
 jsonReports/
 test-results/

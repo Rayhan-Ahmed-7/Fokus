@@ -8,7 +8,7 @@ export default defineConfig({
     awesome: {
       options: {
         reportName: "DailyGrind Test Report", // Change site title
-        logo: "branding/logo.jpg", // Custom logo path
+        logo: "../assets/logo.jpg", // Custom logo path
         theme: "dark",
         layout: "split",
         reportLanguage: "en",

@@ -15,7 +15,7 @@
     "test:e2e:debug": "playwright test --debug",
     "test:e2e:report": "pnpm test:e2e && pnpm exec playwright show-report",
     "test:e2e:html": "pnpm test:e2e --browser=all --reporter=html",
-    "generate:allure:report": "pnpm test:e2e && pnpx allure generate ./allure-results -o ./allure-report && pnpx allure open ./allure-report/awesome",
+    "generate:allure:report": "pnpm test:e2e && pnpx allure generate ./allure-results -o ./allure-report && mkdir -p ./allure-report/assets && cp assets/logo.jpg ./allure-report/assets/ && pnpx allure open ./allure-report",
     "sonar": "pnpm test:coverage && pnpm dlx sonar-scanner",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
