@@ -1,13 +1,13 @@
 import { defineConfig } from "allure";
 
 export default defineConfig({
-  name: "DailyGrind Test Report",
+  name: "Fokus Test Report",
   output: "./allure-report",
   historyPath: "./history.jsonl",
   plugins: {
     awesome: {
       options: {
-        reportName: "DailyGrind Test Report", // Change site title
+        reportName: "Fokus Test Report", // Change site title
         logo: "./assets/logo.jpg", // Custom logo path
         theme: "dark",
         layout: "split",
