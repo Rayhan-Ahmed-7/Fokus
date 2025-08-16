@@ -4,7 +4,6 @@ services:
     build:
       context: .
       dockerfile: docker/app.Dockerfile
-    container_name: dailygrind_app
     ports:
       - "4173:4173"
     networks:
@@ -59,6 +58,7 @@ services:
     volumes:
       - reports:/app/reports
       - ./e2e:/app/e2e  # Mount your test code inside container for test run
+      - ./assets:/app/assets   # <-- mount logo assets
 
   # 4. SonarQube server
   qube:
@@ -106,7 +106,7 @@ services:
     build:
       context: ./docker
       dockerfile: nginx.Dockerfile
-    container_name: dailygrind_reports
+    container_name: fokus_reports
     ports:
       - "8080:80"
     volumes:
