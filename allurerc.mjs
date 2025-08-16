@@ -14,7 +14,7 @@ export default defineConfig({
         reportLanguage: "en",
         ci: {
           type: "github",
-          url: "https://github.com/your/repo",
+          url: "https://github.com/Rayhan-Ahmed-7",
           name: "GitHub Actions",
         },
       },
