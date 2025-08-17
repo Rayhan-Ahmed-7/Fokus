@@ -22,9 +22,20 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
+.pnpm-store
 # Vitest / Testing coverage reports
 coverage/
+vitest-result
+
+# Playwright artifacts
+allure-results/
+allure-report/
+allure-awesome-report/
+history.json
+.allure
+jsonReports/
+test-results/
+playwright-report/
 
 # SonarQube
 .scannerwork/
