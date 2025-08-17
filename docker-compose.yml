@@ -87,7 +87,7 @@ services:
       dockerfile: docker/sonar-scanner.Dockerfile
     environment:
       SONAR_HOST_URL: http://qube:9000
-      SONAR_TOKEN: squ_a14c17adcf0a0cb9c4701a38d7f3c84c444569db
+      SONAR_TOKEN: squ_5666f98ece49710db50f500e914ead5dc8fab2e8
     volumes:
       - .:/usr/src
     working_dir: /usr/src
