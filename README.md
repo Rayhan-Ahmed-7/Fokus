@@ -329,8 +329,8 @@ SonarQube is configured via a `sonar-project.properties` file at the root of the
 
 ```properties
 # Project identification
-sonar.projectKey=dailygrind
-sonar.projectName=DailyGrind
+sonar.projectKey=fokus
+sonar.projectName=Fokus
 sonar.projectVersion=1.0.0
 
 # Project source configuration
@@ -339,15 +339,15 @@ sonar.exclusions=**/__tests__/**, **/*.stories.tsx, **/*.test.ts, **/*.spec.ts
 sonar.tests=src
 sonar.test.inclusions=**/*.test.ts, **/*.spec.ts
 sonar.typescript.lcov.reportPaths=coverage/lcov.info
-
+sonar.javascript.node.maxspace=8192
 # Encoding
 sonar.sourceEncoding=UTF-8
 
 # SonarQube server URL
-sonar.host.url=http://localhost:9000
+sonar.host.url=http://qube:9000
 
-# Auth Token (use environment variable in CI)
-sonar.login=sqa_3c96e02f683936556d6441d1e8a1bfbe084c0d21
+# If you're using authentication token:
+sonar.token=${SONAR_TOKEN}
 ```
 
 > **Note:** Do not commit `sonar.login` in public repos. Instead, use an environment variable like `SONAR_TOKEN`.
@@ -388,6 +388,52 @@ Make sure `.gitignore` includes:
 coverage/
 .scannerwork/
 ```
+
+---
+
+## 📸 Screenshots & Reports
+
+All screenshots and reports are located in the [`docImage/`](./docImage) folder.
+
+### 🖼️ App Screens
+
+| Home Page                        |
+| -------------------------------- |
+| ![Home](./docImage/app-home.png) |
+
+---
+
+### 🧪 Test Reports
+
+#### ✅ Vitest (Unit & Integration Coverage)
+
+![Vitest Report](./docImage/vitest-report.png)
+
+#### 🎭 Playwright E2E Report (Allure)
+
+![Playwright Report](./docImage/playwright-allure.png)
+
+---
+
+### 📖 Storybook (UI Components)
+
+![Storybook](./docImage/storybook.png)
+
+---
+
+### 📊 SonarQube Analysis
+
+#### 🗂️ Project Dashboard
+
+![Project Dashboard](./docImage/sonarqube-project.png)
+
+#### 📈 Overall Code Scope
+
+![Overall Code Scope](./docImage/sonarqube-codescope.png)
+
+#### ⚠️ Risk Overview
+
+![Risk Overview](./docImage/sonarqube-risk.png)
 
 ---
 
