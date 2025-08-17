@@ -107,32 +107,44 @@ We use **Vitest** to write fast unit and integration tests in a JSDOM environmen
 ### 🔧 Vitest is configured in `vite.config.ts`:
 
 ```
-import { defineConfig } from "vite";
+import { defineConfig } from "vitest/config";
 import path from "path";
 
 export default defineConfig({
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"), // Allows `@/` imports from /src
+      "@": path.resolve(__dirname, "src"),
     },
   },
   test: {
-    exclude: ["e2e/**"], // Exclude Playwright E2E tests
     include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
-    environment: "jsdom", // Simulates browser environment
-    globals: true, // Allows global test functions like `describe`, `it`
+    exclude: ["e2e/**", "**/*.stories.*"],
+    environment: "jsdom",
+    globals: true,
+    reporters: ["default", "junit", "html"],
+    outputFile: {
+      junit: "coverage/unit-test-results.xml",
+      html: "coverage/vitest-results.html",
+    },
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "lcov", "html"],
+      reportsDirectory: "./coverage",
+      exclude: ["e2e/**", ".storybook/**", "**/*.stories.*"],
+    },
   },
 });
 ```
 
 ### 🧪 Test Scripts
 
-| Command              | Description                      |
-| -------------------- | -------------------------------- |
-| `pnpm test`          | Run all unit & integration tests |
-| `pnpm test:watch`    | Watch mode for development       |
-| `pnpm test:ui`       | Visual test runner UI            |
-| `pnpm test:coverage` | Generates a coverage report      |
+| Command              | Description                            |
+| -------------------- | -------------------------------------- |
+| `pnpm test`          | Run all unit & integration tests       |
+| `pnpm test:watch`    | Watch mode for development             |
+| `pnpm test:ui`       | Visual test runner UI                  |
+| `pnpm test:coverage` | Generates a coverage report            |
+| `pnpm test:report`   | Generates a coverage report & view it. |
 
 ---
 
@@ -153,18 +165,21 @@ export default defineConfig({
     slowMo: 1000,
     viewport: { width: 1280, height: 720 },
     screenshot: "only-on-failure",
-    video: "retain-on-failure",
+    video: "on",
   },
+  reporter: [["html", { outputFolder: "playwright-report", open: "never" }]],
 });
 ```
 
 ### 🧪 E2E Test Scripts
 
-| Command               | Description                          |
-| --------------------- | ------------------------------------ |
-| `pnpm test:e2e`       | Run all Playwright E2E tests         |
-| `pnpm test:e2e:ui`    | Launch Playwright UI test runner     |
-| `pnpm test:e2e:debug` | Debug mode with step-by-step control |
+| Command                | Description                                          |
+| ---------------------- | ---------------------------------------------------- |
+| `pnpm test:e2e`        | Run all Playwright E2E tests                         |
+| `pnpm test:e2e:ui`     | Launch Playwright UI test runner                     |
+| `pnpm test:e2e:debug`  | Debug mode with step-by-step control                 |
+| `pnpm test:e2e:report` | Run tests and open the Playwright HTML report viewer |
+| `pnpm test:e2e:html`   | Run tests with HTML reporter output                  |
 
 > E2E tests are excluded from `pnpm test` using the `exclude: ["e2e/**"]` setting in Vitest config.
 
@@ -314,8 +329,8 @@ SonarQube is configured via a `sonar-project.properties` file at the root of the
 
 ```properties
 # Project identification
-sonar.projectKey=dailygrind
-sonar.projectName=DailyGrind
+sonar.projectKey=fokus
+sonar.projectName=Fokus
 sonar.projectVersion=1.0.0
 
 # Project source configuration
@@ -324,15 +339,15 @@ sonar.exclusions=**/__tests__/**, **/*.stories.tsx, **/*.test.ts, **/*.spec.ts
 sonar.tests=src
 sonar.test.inclusions=**/*.test.ts, **/*.spec.ts
 sonar.typescript.lcov.reportPaths=coverage/lcov.info
-
+sonar.javascript.node.maxspace=8192
 # Encoding
 sonar.sourceEncoding=UTF-8
 
 # SonarQube server URL
-sonar.host.url=http://localhost:9000
+sonar.host.url=http://qube:9000
 
-# Auth Token (use environment variable in CI)
-sonar.login=sqa_3c96e02f683936556d6441d1e8a1bfbe084c0d21
+# If you're using authentication token:
+sonar.token=${SONAR_TOKEN}
 ```
 
 > **Note:** Do not commit `sonar.login` in public repos. Instead, use an environment variable like `SONAR_TOKEN`.
@@ -373,6 +388,52 @@ Make sure `.gitignore` includes:
 coverage/
 .scannerwork/
 ```
+
+---
+
+## 📸 Screenshots & Reports
+
+All screenshots and reports are located in the [`docImage/`](./docImage) folder.
+
+### 🖼️ App Screens
+
+| Home Page                        |
+| -------------------------------- |
+| ![Home](./docImage/app-home.png) |
+
+---
+
+### 🧪 Test Reports
+
+#### ✅ Vitest (Unit & Integration Coverage)
+
+![Vitest Report](./docImage/vitest-report.png)
+
+#### 🎭 Playwright E2E Report (Allure)
+
+![Playwright Report](./docImage/playwright-allure.png)
+
+---
+
+### 📖 Storybook (UI Components)
+
+![Storybook](./docImage/storybook.png)
+
+---
+
+### 📊 SonarQube Analysis
+
+#### 🗂️ Project Dashboard
+
+![Project Dashboard](./docImage/sonarqube-project.png)
+
+#### 📈 Overall Code Scope
+
+![Overall Code Scope](./docImage/sonarqube-codescope.png)
+
+#### ⚠️ Risk Overview
+
+![Risk Overview](./docImage/sonarqube-risk.png)
 
 ---
 
