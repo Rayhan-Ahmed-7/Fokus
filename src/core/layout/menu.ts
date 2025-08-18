@@ -1,6 +1,6 @@
 import {
   Cpu,
-  Gamepad2,
+  Grid,
   CheckSquare,
   Home,
   Target,
@@ -9,9 +9,21 @@ import {
   Shuffle,
   Star,
   Eye,
-  MessageCircle,
   Siren,
   Lock,
+  ArrowDown,
+  Zap,
+  Repeat,
+  CornerDownRight,
+  GitMerge,
+  CornerRightDown,
+  Gamepad2,
+  Search,
+  ArrowDownUp,
+  ChartNetwork,
+  Sprout,
+  Pickaxe,
+  Network,
 } from "lucide-react";
 
 export const menuData = [
@@ -28,10 +40,53 @@ export const menuData = [
   {
     label: "Algorithms",
     icon: Cpu,
-    defaultOpen: false, // menu collapsed by default
+    defaultOpen: false,
     children: [
-      { label: "Sorting", path: "/algorithms/sorting", icon: Cpu },
-      { label: "Searching", path: "/algorithms/searching", icon: Cpu },
+      {
+        label: "Sorting",
+        path: "/algorithms/sorting",
+        icon: ArrowDownUp,
+        children: [
+          {
+            label: "Bubble Sort",
+            path: "/algorithms/sorting/bubble",
+            icon: Repeat,
+          },
+          {
+            label: "Selection Sort",
+            path: "/algorithms/sorting/selection",
+            icon: ArrowDown,
+          },
+          {
+            label: "Insertion Sort",
+            path: "/algorithms/sorting/insertion",
+            icon: CornerRightDown,
+          },
+          {
+            label: "Merge Sort",
+            path: "/algorithms/sorting/merge",
+            icon: GitMerge,
+          },
+          { label: "Quick Sort", path: "/algorithms/sorting/quick", icon: Zap },
+        ],
+      },
+      {
+        label: "Searching",
+        path: "/algorithms/searching",
+        icon: Search,
+        children: [
+          {
+            label: "Linear Search",
+            path: "/algorithms/searching/linear",
+            icon: ArrowDown,
+          },
+          {
+            label: "Binary Search",
+            path: "/algorithms/searching/binary",
+            icon: Zap,
+          },
+        ],
+      },
     ],
   },
   {
@@ -40,8 +95,8 @@ export const menuData = [
     defaultOpen: false,
     children: [
       { label: "Stack", path: "/dsa/stack", icon: Layers },
-      { label: "Queue", path: "/dsa/queue", icon: Layers },
-      { label: "Graph", path: "/dsa/graph", icon: Layers },
+      { label: "Queue", path: "/dsa/queue", icon: CornerDownRight },
+      { label: "Graph", path: "/dsa/graph", icon: ChartNetwork },
     ],
   },
   {
@@ -51,7 +106,7 @@ export const menuData = [
     children: [
       {
         label: "Creational",
-        icon: Factory,
+        icon: Pickaxe,
         defaultOpen: false,
         children: [
           {
@@ -68,7 +123,7 @@ export const menuData = [
       },
       {
         label: "Structural",
-        icon: Layers,
+        icon: Network,
         defaultOpen: false,
         children: [
           {
@@ -85,7 +140,7 @@ export const menuData = [
       },
       {
         label: "Behavioral",
-        icon: MessageCircle,
+        icon: Sprout,
         defaultOpen: false,
         children: [
           {
@@ -106,8 +161,6 @@ export const menuData = [
     label: "Games",
     icon: Gamepad2,
     defaultOpen: false,
-    children: [
-      { label: "Tic Tac Toe", path: "/games/tictactoe", icon: Gamepad2 },
-    ],
+    children: [{ label: "Tic Tac Toe", path: "/games/tictactoe", icon: Grid }],
   },
 ];

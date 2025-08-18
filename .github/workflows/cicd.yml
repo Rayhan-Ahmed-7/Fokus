@@ -2,9 +2,7 @@ name: ✨ CI & Quality Checks
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    branches: [live]
 
 jobs:
   quality-checks:

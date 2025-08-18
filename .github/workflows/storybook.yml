@@ -2,7 +2,7 @@ name: 📚 Deploy Storybook to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [live]
 
 jobs:
   deploy-storybook:
