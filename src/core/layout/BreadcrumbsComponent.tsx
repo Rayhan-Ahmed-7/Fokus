@@ -4,35 +4,47 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
 } from "@/components/ui/breadcrumb";
+import { Home, ChevronRight } from "lucide-react";
 
 type BreadcrumbsProps = {
   matches: AnyRouteMatch[];
 };
 
 const BreadcrumbsComponent = ({ matches }: BreadcrumbsProps) => {
+  const filteredMatches = matches.filter(
+    (match) => match.routeId !== "__root__"
+  );
+
   return (
-    <Breadcrumb className="text-sm text-gray-500 flex items-center">
-      {matches
-        .filter((match) => match.routeId !== "__root__") // skip root
-        .map((match, idx) => {
-          // In v1, meta is directly on the match
-          const meta = match.meta as { breadcrumb?: string } | undefined;
+    <Breadcrumb className="flex items-center text-sm text-gray-600 space-x-1">
+      {/* Home Icon */}
+      <BreadcrumbItem>
+        <BreadcrumbLink asChild>
+          <Link to="/" className="flex items-center hover:text-blue-600">
+            <Home className="w-4 h-4 mr-1" />
+            Home
+          </Link>
+        </BreadcrumbLink>
+      </BreadcrumbItem>
 
-          const label = meta?.breadcrumb ?? match.pathname ?? "Home";
+      {filteredMatches.map((match) => {
+        const meta = match.meta as { breadcrumb?: string } | undefined;
+        const label = meta?.breadcrumb ?? match.pathname ?? "Page";
 
-          return (
-            <BreadcrumbItem key={match.id} className="flex items-center">
-              <BreadcrumbLink asChild>
-                <Link to={match.pathname} className="hover:underline">
-                  {label}
-                </Link>
-              </BreadcrumbLink>
-              {idx < matches.length - 1 && (
-                <span className="mx-1 select-none">/</span>
-              )}
-            </BreadcrumbItem>
-          );
-        })}
+        return (
+          <BreadcrumbItem key={match.id} className="flex items-center">
+            <ChevronRight className="w-4 h-4 text-gray-400 mx-1" />
+            <BreadcrumbLink asChild>
+              <Link
+                to={match.pathname}
+                className="hover:text-blue-600 hover:underline"
+              >
+                {label.replace("/", "").replace("-", " ")}
+              </Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+        );
+      })}
     </Breadcrumb>
   );
 };
