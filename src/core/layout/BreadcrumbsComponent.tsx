@@ -10,6 +10,18 @@ type BreadcrumbsProps = {
   matches: AnyRouteMatch[];
 };
 
+const formatLabel = (path: string) => {
+  // Take the last segment of the path
+  const segments = path.split("/").filter(Boolean);
+  const lastSegment = segments[segments.length - 1] ?? "Home";
+
+  // Replace hyphens with spaces and capitalize
+  return lastSegment
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
 const BreadcrumbsComponent = ({ matches }: BreadcrumbsProps) => {
   const filteredMatches = matches.filter(
     (match) => match.routeId !== "__root__"
@@ -29,7 +41,7 @@ const BreadcrumbsComponent = ({ matches }: BreadcrumbsProps) => {
 
       {filteredMatches.map((match) => {
         const meta = match.meta as { breadcrumb?: string } | undefined;
-        const label = meta?.breadcrumb ?? match.pathname ?? "Page";
+        const label = meta?.breadcrumb ?? formatLabel(match.pathname ?? "");
 
         return (
           <BreadcrumbItem key={match.id} className="flex items-center">
@@ -39,7 +51,7 @@ const BreadcrumbsComponent = ({ matches }: BreadcrumbsProps) => {
                 to={match.pathname}
                 className="hover:text-blue-600 hover:underline"
               >
-                {label.replace("/", "").replace("-", " ")}
+                {label}
               </Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
