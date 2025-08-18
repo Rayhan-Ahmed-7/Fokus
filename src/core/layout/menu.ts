@@ -13,7 +13,6 @@ import {
   Lock,
   ArrowDown,
   Zap,
-  Repeat,
   CornerDownRight,
   GitMerge,
   CornerRightDown,
@@ -23,7 +22,10 @@ import {
   ChartNetwork,
   Sprout,
   Pickaxe,
-  Network,
+  NetworkIcon,
+  BrickWallShield,
+  Bubbles,
+  HandGrab,
 } from "lucide-react";
 
 export const menuData = [
@@ -50,12 +52,12 @@ export const menuData = [
           {
             label: "Bubble Sort",
             path: "/algorithms/sorting/bubble",
-            icon: Repeat,
+            icon: Bubbles,
           },
           {
             label: "Selection Sort",
             path: "/algorithms/sorting/selection",
-            icon: ArrowDown,
+            icon: HandGrab,
           },
           {
             label: "Insertion Sort",
@@ -91,7 +93,7 @@ export const menuData = [
   },
   {
     label: "DSA",
-    icon: Layers,
+    icon: NetworkIcon,
     defaultOpen: false,
     children: [
       { label: "Stack", path: "/dsa/stack", icon: Layers },
@@ -123,7 +125,7 @@ export const menuData = [
       },
       {
         label: "Structural",
-        icon: Network,
+        icon: BrickWallShield,
         defaultOpen: false,
         children: [
           {
