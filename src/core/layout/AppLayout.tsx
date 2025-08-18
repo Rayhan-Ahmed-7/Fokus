@@ -11,8 +11,10 @@ const AppLayout = () => {
         <AppSidebar />
       </div>
       <main className="flex-1 overflow-auto p-6">
-        <SidebarTrigger />
-        <BreadcrumbsComponent matches={matches} />
+        <div className="flex items-center gap-4 mb-4">
+          <SidebarTrigger />
+          <BreadcrumbsComponent matches={matches} />
+        </div>
         <Outlet />
       </main>
     </SidebarProvider>
