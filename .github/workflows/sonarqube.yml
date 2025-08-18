@@ -3,7 +3,7 @@ name: 🧠 SonarQube Analysis
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [live]
 
 jobs:
   sonar-analysis:
