@@ -10,9 +10,9 @@ const AppLayout = () => {
       <div className="flex h-screen">
         <AppSidebar />
       </div>
-      <main className="flex-1 overflow-auto p-6">
-        <div className="flex items-center gap-4 mb-4">
-          <SidebarTrigger />
+      <main className="flex-1 overflow-auto">
+        <div className="flex items-center gap-4 mb-4 p-6 pb-0">
+          <SidebarTrigger className="cursor-pointer" />
           <BreadcrumbsComponent matches={matches} />
         </div>
         <Outlet />
