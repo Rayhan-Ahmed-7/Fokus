@@ -1,7 +1,6 @@
 import { rootRoute } from "./root.route";
 import { todosRoute } from "./todos.route";
 import { gamesRoute, ticTacToeRoute } from "./games.route";
-import { notFoundRoute } from "./notfound.route";
 import { homeRoute } from "./home.route";
 import {
   algorithmsRoute,
@@ -51,5 +50,4 @@ export const routeTree = rootRoute.addChildren([
     behavioralRoute.addChildren([observerRoute, strategyRoute]),
   ]),
   gamesRoute.addChildren([ticTacToeRoute]),
-  notFoundRoute,
 ]);
