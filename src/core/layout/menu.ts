@@ -26,6 +26,7 @@ import {
   BrickWallShield,
   Bubbles,
   HandGrab,
+  Pizza,
 } from "lucide-react";
 
 export const menuData = [
@@ -115,6 +116,11 @@ export const menuData = [
             label: "Singleton",
             path: "/patterns/creational/singleton",
             icon: Lock,
+          },
+          {
+            label: "Builder",
+            path: "/patterns/creational/builder",
+            icon: Pizza,
           },
           {
             label: "Factory",
