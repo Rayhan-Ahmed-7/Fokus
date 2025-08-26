@@ -20,6 +20,7 @@ import { dsaRoute, graphRoute, queueRoute, stackRoute } from "./dsa.route";
 import {
   adapterRoute,
   behavioralRoute,
+  builderRoute,
   creationalRoute,
   decoratorRoute,
   factoryRoute,
@@ -45,7 +46,7 @@ export const routeTree = rootRoute.addChildren([
   ]),
   dsaRoute.addChildren([stackRoute, queueRoute, graphRoute]),
   patternsRoute.addChildren([
-    creationalRoute.addChildren([singletonRoute, factoryRoute]),
+    creationalRoute.addChildren([singletonRoute, builderRoute, factoryRoute]),
     structuralRoute.addChildren([adapterRoute, decoratorRoute]),
     behavioralRoute.addChildren([observerRoute, strategyRoute]),
   ]),
