@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Trash } from "lucide-react";
 import { useTodoAnimations } from "../viewModel/useTodoAnimation";
+import { T } from "@/core/i18/T";
 
 const TodoList = () => {
   const {
@@ -21,7 +22,11 @@ const TodoList = () => {
 
   if (isLoading) return <div className="text-muted-foreground">Loading...</div>;
   if (todos.length === 0)
-    return <div className="text-muted-foreground">No todos available</div>;
+    return (
+      <div className="text-muted-foreground text-center">
+        {T("noTodos", "todos")}
+      </div>
+    );
 
   return (
     <ul className="space-y-3" ref={listRef}>
