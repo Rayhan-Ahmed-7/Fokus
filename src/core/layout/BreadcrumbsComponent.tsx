@@ -11,10 +11,6 @@ type BreadcrumbsProps = {
   matches: AnyRouteMatch[];
 };
 
-type BreadcrumbData = {
-  breadcrumb?: string;
-};
-
 const formatLabel = (path: string) => {
   const segments = path.split("/").filter(Boolean);
   const lastSegment = segments[segments.length - 1] ?? "Home";
@@ -43,11 +39,9 @@ const BreadcrumbsComponent = ({ matches }: BreadcrumbsProps) => {
       </BreadcrumbItem>
 
       {filteredMatches.map((match) => {
-        // Cast match to include loader data
-        const data = (match as AnyRouteMatch & { data?: BreadcrumbData }).data;
-        console.log(data, match);
-        const label = data?.breadcrumb
-          ? t(data.breadcrumb)
+        // pull breadcrumb from staticData
+        const label = match.staticData?.breadcrumb
+          ? t(match.staticData.breadcrumb)
           : formatLabel(match.pathname ?? "");
 
         return (
