@@ -12,12 +12,18 @@ import QuickSortPage from "@/features/algorithms/sorting/view/QuickSortPage";
 export const algorithmsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "algorithms",
+  staticData: {
+    breadcrumb: "algorithms",
+  },
 });
 
 // Parent: /algorithms/sorting
 export const sortingRoute = createRoute({
   getParentRoute: () => algorithmsRoute,
   path: "sorting",
+  staticData: {
+    breadcrumb: "algorithms.sorting",
+  },
 });
 
 // Child routes: /algorithms/sorting/*
@@ -25,28 +31,43 @@ export const bubbleSortRoute = createRoute({
   getParentRoute: () => sortingRoute,
   path: "bubble",
   component: BubbleSortPage,
+  staticData: {
+    breadcrumb: "algorithms.sorting.bubble",
+  },
 });
 
 export const selectionSortRoute = createRoute({
   getParentRoute: () => sortingRoute,
   path: "selection",
   component: SelectionSortPage,
+  staticData: {
+    breadcrumb: "algorithms.sorting.selection",
+  },
 });
 
 export const insertionSortRoute = createRoute({
   getParentRoute: () => sortingRoute,
   path: "insertion",
   component: InsertionSortPage,
+  staticData: {
+    breadcrumb: "algorithms.sorting.insertion",
+  },
 });
 
 export const mergeSortRoute = createRoute({
   getParentRoute: () => sortingRoute,
   path: "merge",
   component: MergeSortPage,
+  staticData: {
+    breadcrumb: "algorithms.sorting.merge",
+  },
 });
 
 export const quickSortRoute = createRoute({
   getParentRoute: () => sortingRoute,
   path: "quick",
   component: QuickSortPage,
+  staticData: {
+    breadcrumb: "algorithms.sorting.quick",
+  },
 });
