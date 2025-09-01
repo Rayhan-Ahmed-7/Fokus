@@ -7,6 +7,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import EnglishFlag from "@/assets/flags/united-kingdom.svg?react";
+import GermanFlag from "@/assets/flags/germany.svg?react";
+import BengaliFlag from "@/assets/flags/bangladesh.svg?react";
+
+const languages = [
+  { code: "en", label: "English", flag: <EnglishFlag /> },
+  { code: "de", label: "Germany", flag: <GermanFlag /> },
+  { code: "bn", label: "বাংলা", flag: <BengaliFlag /> },
+];
+
 export function LanguageSelector() {
   const { i18n } = useTranslation();
 
@@ -21,9 +31,11 @@ export function LanguageSelector() {
         <SelectValue placeholder="Select Language" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="en">🇬🇧 English</SelectItem>
-        <SelectItem value="de">🇩🇪 Deutsch</SelectItem>
-        <SelectItem value="bn">🇧🇩 বাংলা</SelectItem>
+        {languages.map(({ code, label, flag }) => (
+          <SelectItem key={code} value={code}>
+            {flag} {label}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   );
