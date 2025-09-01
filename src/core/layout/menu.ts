@@ -31,60 +31,64 @@ import {
 
 export const menuData = [
   {
-    label: "Home",
+    label: "home", // 👈 translation key
     icon: Home,
     path: "/",
   },
   {
-    label: "Todos",
+    label: "todos",
     icon: CheckSquare,
     path: "/todos",
   },
   {
-    label: "Algorithms",
+    label: "algorithms",
     icon: Cpu,
     defaultOpen: false,
     children: [
       {
-        label: "Sorting",
+        label: "algorithms.sorting",
         path: "/algorithms/sorting",
         icon: ArrowDownUp,
         children: [
           {
-            label: "Bubble Sort",
+            label: "algorithms.sorting.bubble",
             path: "/algorithms/sorting/bubble",
             icon: Bubbles,
           },
           {
-            label: "Selection Sort",
+            label: "algorithms.sorting.selection",
             path: "/algorithms/sorting/selection",
             icon: HandGrab,
           },
           {
-            label: "Insertion Sort",
+            label: "algorithms.sorting.insertion",
             path: "/algorithms/sorting/insertion",
             icon: CornerRightDown,
           },
           {
-            label: "Merge Sort",
+            label: "algorithms.sorting.merge",
             path: "/algorithms/sorting/merge",
             icon: GitMerge,
           },
-          { label: "Quick Sort", path: "/algorithms/sorting/quick", icon: Zap },
+          {
+            label: "algorithms.sorting.quick",
+            path: "/algorithms/sorting/quick",
+            icon: Zap,
+          },
         ],
       },
       {
-        label: "Searching",
+        label: "algorithms.searching",
         path: "/algorithms/searching",
         icon: Search,
         children: [
           {
-            label: "Linear Search",
+            label: "algorithms.searching.linear",
             path: "/algorithms/searching/linear",
             icon: ArrowDown,
           },
           {
-            label: "Binary Search",
+            label: "algorithms.searching.binary",
             path: "/algorithms/searching/binary",
             icon: Zap,
           },
@@ -93,71 +97,71 @@ export const menuData = [
     ],
   },
   {
-    label: "DSA",
+    label: "dsa",
     icon: NetworkIcon,
     defaultOpen: false,
     children: [
-      { label: "Stack", path: "/dsa/stack", icon: Layers },
-      { label: "Queue", path: "/dsa/queue", icon: CornerDownRight },
-      { label: "Graph", path: "/dsa/graph", icon: ChartNetwork },
+      { label: "dsa.stack", path: "/dsa/stack", icon: Layers },
+      { label: "dsa.queue", path: "/dsa/queue", icon: CornerDownRight },
+      { label: "dsa.graph", path: "/dsa/graph", icon: ChartNetwork },
     ],
   },
   {
-    label: "Design Patterns",
+    label: "designPatterns",
     icon: Target,
     defaultOpen: false,
     children: [
       {
-        label: "Creational",
+        label: "designPatterns.creational",
         icon: Pickaxe,
         defaultOpen: false,
         children: [
           {
-            label: "Singleton",
+            label: "designPatterns.creational.singleton",
             path: "/patterns/creational/singleton",
             icon: Lock,
           },
           {
-            label: "Builder",
+            label: "designPatterns.creational.builder",
             path: "/patterns/creational/builder",
             icon: Pizza,
           },
           {
-            label: "Factory",
+            label: "designPatterns.creational.factory",
             path: "/patterns/creational/factory",
             icon: Factory,
           },
         ],
       },
       {
-        label: "Structural",
+        label: "designPatterns.structural",
         icon: BrickWallShield,
         defaultOpen: false,
         children: [
           {
-            label: "Adapter",
+            label: "designPatterns.structural.adapter",
             path: "/patterns/structural/adapter",
             icon: Shuffle,
           },
           {
-            label: "Decorator",
+            label: "designPatterns.structural.decorator",
             path: "/patterns/structural/decorator",
             icon: Star,
           },
         ],
       },
       {
-        label: "Behavioral",
+        label: "designPatterns.behavioral",
         icon: Sprout,
         defaultOpen: false,
         children: [
           {
-            label: "Observer",
+            label: "designPatterns.behavioral.observer",
             path: "/patterns/behavioral/observer",
             icon: Eye,
           },
           {
-            label: "Strategy",
+            label: "designPatterns.behavioral.strategy",
             path: "/patterns/behavioral/strategy",
             icon: Siren,
           },
@@ -166,9 +170,11 @@ export const menuData = [
     ],
   },
   {
-    label: "Games",
+    label: "games",
     icon: Gamepad2,
     defaultOpen: false,
-    children: [{ label: "Tic Tac Toe", path: "/games/tictactoe", icon: Grid }],
+    children: [
+      { label: "games.tictactoe", path: "/games/tictactoe", icon: Grid },
+    ],
   },
 ];
