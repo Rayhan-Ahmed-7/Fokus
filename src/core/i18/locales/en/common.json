@@ -1,0 +1,23 @@
+{
+  "save": "Save",
+  "cancel": "Cancel",
+  "edit": "Edit",
+  "delete": "Delete",
+  "update": "Update",
+  "search": "Search",
+  "loading": "Loading...",
+  "no_data": "No data found",
+  "confirm": "Confirm",
+  "yes": "Yes",
+  "no": "No",
+  "back": "Back",
+  "next": "Next",
+  "previous": "Previous",
+  "submit": "Submit",
+  "reset": "Reset",
+  "optional": "Optional",
+  "required": "Required",
+  "actions": "Actions",
+  "language": "Language",
+  "theme": "Theme"
+}
