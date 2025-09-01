@@ -15,6 +15,7 @@ import type { TFunction } from "i18next";
 import { ChevronRight } from "lucide-react";
 import type { ComponentType } from "react";
 import React from "react";
+import i18n from "../i18";
 
 export type MenuItemType = {
   label: string;
@@ -29,7 +30,11 @@ export function renderMenu(items: MenuItemType[], t: TFunction<"menu">) {
     <SidebarMenu>
       {items.map((item) => {
         const hasChildren = item.children && item.children.length > 0;
+        console.log(i18n.language); // current language
 
+        console.log(
+          `Rendering menu item: ${item.label}, translation: ${t(item.label)}`
+        );
         if (hasChildren) {
           const [open, setOpen] = React.useState(!!item.defaultOpen);
 
