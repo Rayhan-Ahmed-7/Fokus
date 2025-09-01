@@ -19,9 +19,7 @@ const AppLayout = () => {
           </div>
           <LanguageSelector />
         </div>
-        <div className="p-6">
-          <Outlet />
-        </div>
+        <Outlet />
       </main>
     </SidebarProvider>
   );
