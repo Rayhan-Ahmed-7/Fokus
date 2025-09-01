@@ -1,9 +1,11 @@
 import { createRoute } from "@tanstack/react-router";
 import { rootRoute } from "./root.route";
 import HomePage from "@/features/home/view/HomePage";
+import { breadcrumbLoader } from "@/core/utils/breadcrumb";
 
 export const homeRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
   component: HomePage,
+  loader: breadcrumbLoader("home"),
 });
