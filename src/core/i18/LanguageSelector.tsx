@@ -23,6 +23,7 @@ export function LanguageSelector() {
       <SelectContent>
         <SelectItem value="en">🇬🇧 English</SelectItem>
         <SelectItem value="de">🇩🇪 Deutsch</SelectItem>
+        <SelectItem value="bn">🇧🇩 বাংলা</SelectItem>
       </SelectContent>
     </Select>
   );
