@@ -2,6 +2,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AppSidebar from "./AppSidebar";
 import { Outlet, useMatches } from "@tanstack/react-router";
 import BreadcrumbsComponent from "./BreadcrumbsComponent";
+import { LanguageSelector } from "../i18/LanguageSelector";
 
 const AppLayout = () => {
   const matches = useMatches();
@@ -12,8 +13,11 @@ const AppLayout = () => {
       </div>
       <main className="flex-1 overflow-auto">
         <div className="flex items-center gap-4 mb-4 p-6 pb-0">
-          <SidebarTrigger className="cursor-pointer" />
-          <BreadcrumbsComponent matches={matches} />
+          <div className="flex items-center gap-4 w-full">
+            <SidebarTrigger className="cursor-pointer" />
+            <BreadcrumbsComponent matches={matches} />
+          </div>
+          <LanguageSelector />
         </div>
         <Outlet />
       </main>

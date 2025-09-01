@@ -9,7 +9,7 @@ import "./index.css";
 import RouteProvider from "./core/router/provider.tsx";
 import { ThemeProvider } from "./core/theme/ThemeProvider.tsx";
 import { Toaster } from "./components/ui/sonner.tsx";
-
+import "./core/i18";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider store={store}>
