@@ -110,8 +110,8 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.21 0.006 285.885);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.696 0.17 162.48);
-  --primary-foreground: oklch(0.393 0.095 152.535);
+  --primary: oklch(0.723 0.219 149.579);
+  --primary-foreground: oklch(0.982 0.018 155.826);
   --secondary: oklch(0.274 0.006 286.033);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.274 0.006 286.033);
@@ -160,4 +160,26 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* custom css */
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-muted); /* Track color from theme */
+  border-radius: var(
+    --radius-lg
+  ); /* Rounded corners using your radius variable */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary); /* Thumb color from theme */
+  border-radius: var(--radius-lg);
+  border: 3px solid var(--color-muted); /* Space around thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-primary-foreground); /* Hover effect */
 }
