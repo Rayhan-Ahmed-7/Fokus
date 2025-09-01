@@ -1,0 +1,14 @@
+{
+  "title": "Todo List",
+  "add": "Add",
+  "adding": "Adding...",
+  "placeholder": "Add new todo",
+  "remove": "Remove",
+  "edit": "Edit",
+  "save": "Save",
+  "cancel": "Cancel",
+  "completed": "Completed",
+  "pending": "Pending",
+  "search": "Search todos...",
+  "noTodos": "No todos available"
+}
