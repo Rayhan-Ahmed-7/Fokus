@@ -6,4 +6,7 @@ export const homeRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
   component: HomePage,
+  staticData: {
+    breadcrumb: "home",
+  },
 });

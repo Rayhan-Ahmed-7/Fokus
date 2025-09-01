@@ -11,9 +11,11 @@ import {
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar";
 import { Link } from "@tanstack/react-router";
+import type { TFunction } from "i18next";
 import { ChevronRight } from "lucide-react";
 import type { ComponentType } from "react";
 import React from "react";
+import i18n from "../i18";
 
 export type MenuItemType = {
   label: string;
@@ -23,12 +25,16 @@ export type MenuItemType = {
   defaultOpen?: boolean;
 };
 
-export function renderMenu(items: MenuItemType[]) {
+export function renderMenu(items: MenuItemType[], t: TFunction<"menu">) {
   return (
     <SidebarMenu>
       {items.map((item) => {
         const hasChildren = item.children && item.children.length > 0;
+        console.log(i18n.language); // current language
 
+        console.log(
+          `Rendering menu item: ${item.label}, translation: ${t(item.label)}`
+        );
         if (hasChildren) {
           const [open, setOpen] = React.useState(!!item.defaultOpen);
 
@@ -39,7 +45,7 @@ export function renderMenu(items: MenuItemType[]) {
                   <SidebarMenuButton className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
                       {item.icon && <item.icon className="w-4 h-4" />}
-                      <span>{item.label}</span>
+                      <span>{t(item.label)}</span>
                     </div>
                     <ChevronRight
                       className={`w-4 h-4 transition-transform duration-200 ${
@@ -53,7 +59,7 @@ export function renderMenu(items: MenuItemType[]) {
                   <SidebarMenuSub>
                     {item.children!.map((child) =>
                       child.children ? (
-                        <div key={child.label}>{renderMenu([child])}</div>
+                        <div key={child.label}>{renderMenu([child], t)}</div>
                       ) : (
                         <SidebarMenuSubItem key={child.label}>
                           <SidebarMenuButton
@@ -65,7 +71,7 @@ export function renderMenu(items: MenuItemType[]) {
                               className="flex items-center gap-2"
                             >
                               {child.icon && <child.icon className="w-4 h-4" />}
-                              {child.label}
+                              {t(child.label)}
                             </Link>
                           </SidebarMenuButton>
                         </SidebarMenuSubItem>
@@ -82,7 +88,7 @@ export function renderMenu(items: MenuItemType[]) {
               <SidebarMenuButton asChild className="flex items-center gap-2">
                 <Link to={item.path!} className="flex items-center gap-2">
                   {item.icon && <item.icon className="w-4 h-4" />}
-                  {item.label}
+                  {t(item.label)}
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>

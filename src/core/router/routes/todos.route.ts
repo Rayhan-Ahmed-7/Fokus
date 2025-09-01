@@ -5,4 +5,7 @@ export const todosRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "todos",
   component: TodoPage,
+  staticData: {
+    breadcrumb: "todos",
+  },
 });

@@ -1,0 +1,14 @@
+{
+  "title": "Aufgabenliste",
+  "add": "Hinzufügen",
+  "adding": "Hinzugefügt...",
+  "placeholder": "Neue Aufgabe hinzufügen",
+  "remove": "Entfernen",
+  "edit": "Bearbeiten",
+  "save": "Speichern",
+  "cancel": "Abbrechen",
+  "completed": "Abgeschlossen",
+  "pending": "Ausstehend",
+  "search": "Aufgaben suchen...",
+  "noTodos": "Keine Aufgaben verfügbar"
+}

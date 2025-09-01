@@ -26,6 +26,16 @@ e2e/
 ├── *.spec.ts
 src/
 ├── core/
+│   ├── i18n/                👈 global i18n config lives here
+│   │   ├── index.ts          (i18n initialization: react-i18next setup)
+│   │   ├── locales/          (global/common translations)
+│   │   │   ├── en/
+│   │   │   │   ├── common.json
+│   │   │   │   └── errors.json
+│   │   │   └── de/
+│   │   │       ├── common.json
+│   │   │       └── errors.json
+│   │   └── types.ts          (optional: i18n types for keys)
 │   ├── di/
 │   ├── error/
 │   ├── router/
@@ -49,9 +59,12 @@ src/
 │       │    └── useCases/
 │       │        └── __tests__/
 │       │           └── *.test.ts
-│       └── presentation/
-│           ├── view/
-│           └── viewModel/
+│       ├── presentation/
+│       │   ├── view/
+│       │   └── viewModel/
+│       └── locales/          👈 NEW (feature-scoped translations)
+│           ├── en.json
+│           └── de.json
 ├── data/
 │   ├── dataSource/
 │   │   ├── remote/

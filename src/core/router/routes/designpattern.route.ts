@@ -7,6 +7,7 @@ import AdapterPage from "@/features/patterns/structural/adapter/view/AdapterPage
 import DecoratorPage from "@/features/patterns/structural/decorator/view/DecoratorPage";
 import ObserverPage from "@/features/patterns/behavioral/observer/view/ObserverPage";
 import StrategyPage from "@/features/patterns/behavioral/strategy/view/StrategyPage";
+import BuilderPage from "@/features/patterns/creational/builder/View/BuilderPage";
 
 // Patterns parent
 export const patternsRoute = createRoute({
@@ -24,6 +25,11 @@ export const singletonRoute = createRoute({
   getParentRoute: () => creationalRoute,
   path: "singleton",
   component: SingletonPage,
+});
+export const builderRoute = createRoute({
+  getParentRoute: () => creationalRoute,
+  path: "builder",
+  component: BuilderPage,
 });
 
 export const factoryRoute = createRoute({
