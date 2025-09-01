@@ -8,8 +8,10 @@ import ThemeSwitcher from "./ThemeSwitcher";
 import { menuData } from "./menu";
 import { renderMenu } from "./renderMenu";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { useTranslation } from "react-i18next";
 
 const AppSidebar = () => {
+  const { t } = useTranslation("menu");
   return (
     <Sidebar className="h-full">
       {/* Header */}
@@ -21,7 +23,7 @@ const AppSidebar = () => {
       </SidebarHeader>
       {/* Content */}
       <SidebarContent className="overflow-auto">
-        {renderMenu(menuData)}
+        {renderMenu(menuData, t)}
       </SidebarContent>
       {/* Footer */}
       <SidebarFooter className="p-3 border-t">
