@@ -3,8 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckSquare, Cpu, Layers, Target, Gamepad2 } from "lucide-react";
 import gsap from "gsap";
+import { useTranslation } from "react-i18next";
 
 function HomePage() {
+  const { t } = useTranslation("home");
   const heroRef = useRef<HTMLDivElement | null>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
   const blobsRef = useRef<HTMLDivElement[]>([]);
@@ -49,24 +51,14 @@ function HomePage() {
   }, []);
 
   const features = [
-    { label: "Todos", icon: CheckSquare, desc: "Manage tasks smartly" },
-    { label: "Algorithms", icon: Cpu, desc: "Sorting, Searching, etc." },
-    { label: "DSA", icon: Layers, desc: "Stack, Queue, Graph" },
-    {
-      label: "Patterns",
-      icon: Target,
-      desc: "Creational, Structural, Behavioral",
-    },
-    { label: "Games", icon: Gamepad2, desc: "Tic Tac Toe & more" },
+    { key: "todos", icon: CheckSquare },
+    { key: "algorithms", icon: Cpu },
+    { key: "dsa", icon: Layers },
+    { key: "patterns", icon: Target },
+    { key: "games", icon: Gamepad2 },
   ];
 
-  const marqueeItems = [
-    "⚡ Sorting Visualizer",
-    "🧩 Graph Explorer",
-    "🎮 Tic Tac Toe",
-    "🎯 Design Patterns in Action",
-    "📝 Todo Productivity",
-  ];
+  const marqueeItems = t("marquee", { returnObjects: true }) as string[];
 
   return (
     <div className="relative min-h-screen overflow-hidden p-8 ">
@@ -96,22 +88,21 @@ function HomePage() {
         className="text-center relative z-10 space-y-6 py-16"
       >
         <h1 className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
-          Learn. Build. Play.
+          {t("heroTitle")}
         </h1>
         <p className="text-foreground max-w-2xl mx-auto text-lg">
-          Todos, Algorithms, Data Structures, Design Patterns, and Games — all
-          in one interactive place.
+          {t("heroDescription")}
         </p>
-        <Button size="lg" className="rounded-2xl shadow-lg text-foreground">
-          Get Started
+        <Button size="lg" className="rounded-lg shadow-lg text-foreground">
+          {t("getStarted")}
         </Button>
       </section>
 
       {/* Feature Grid */}
-      <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mt-12 relative z-10">
+      <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-12 relative z-10">
         {features.map((f, i) => (
           <Card
-            key={f.label}
+            key={f.key}
             ref={(el: HTMLDivElement | null) => {
               if (el) cardsRef.current[i] = el;
             }}
@@ -119,8 +110,12 @@ function HomePage() {
           >
             <CardContent className="flex flex-col items-center justify-center p-6 space-y-4">
               <f.icon className="w-10 h-10 text-primary group-hover:scale-110 transition-transform" />
-              <h3 className="font-semibold text-lg">{f.label}</h3>
-              <p className="text-sm text-foreground text-center">{f.desc}</p>
+              <h3 className="font-semibold text-lg">
+                {t(`features.${f.key}.label`)}
+              </h3>
+              <p className="text-sm text-foreground text-center">
+                {t(`features.${f.key}.desc`)}
+              </p>
             </CardContent>
           </Card>
         ))}
