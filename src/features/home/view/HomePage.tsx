@@ -87,7 +87,7 @@ function HomePage() {
         ref={heroRef}
         className="text-center relative z-10 space-y-6 py-16"
       >
-        <h1 className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+        <h1 className="text-5xl md:text-6xl leading-20 font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
           {t("heroTitle")}
         </h1>
         <p className="text-foreground max-w-2xl mx-auto text-lg">
@@ -99,7 +99,7 @@ function HomePage() {
       </section>
 
       {/* Feature Grid */}
-      <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-12 relative z-10">
+      <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mt-12 relative z-10">
         {features.map((f, i) => (
           <Card
             key={f.key}
