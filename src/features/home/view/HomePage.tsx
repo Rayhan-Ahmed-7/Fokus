@@ -1,173 +1,180 @@
-import { useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { CheckSquare, Cpu, Layers, Target, Gamepad2 } from "lucide-react";
-import gsap from "gsap";
-import { useTranslation } from "react-i18next";
+import React, { useRef, useState, useEffect } from "react";
 
-function HomePage() {
-  const { t } = useTranslation("home");
-  const heroRef = useRef<HTMLDivElement | null>(null);
-  const cardsRef = useRef<HTMLDivElement[]>([]);
-  const blobsRef = useRef<HTMLDivElement[]>([]);
-
-  useEffect(() => {
-    // Hero text animation
-    if (heroRef.current) {
-      gsap.fromTo(
-        heroRef.current.children,
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power3.out" }
-      );
-    }
-
-    if (cardsRef.current.length) {
-      gsap.fromTo(
-        cardsRef.current,
-        { y: 40, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: "power3.out",
-          delay: 0.5,
-        }
-      );
-    }
-
-    // Floating blobs animation
-    blobsRef.current.forEach((blob, i) => {
-      if (!blob) return;
-      gsap.to(blob, {
-        x: "random(-30,30)",
-        y: "random(-30,30)",
-        duration: 6 + i,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-      });
-    });
-  }, []);
-
-  const features = [
-    { key: "todos", icon: CheckSquare },
-    { key: "algorithms", icon: Cpu },
-    { key: "dsa", icon: Layers },
-    { key: "patterns", icon: Target },
-    { key: "games", icon: Gamepad2 },
-  ];
-
-  const marqueeItems = t("marquee", { returnObjects: true }) as string[];
-
-  return (
-    <div className="relative min-h-screen overflow-hidden p-8 ">
-      {/* Background: gradient + soft blobs + grid */}
-      <div className="absolute inset-0 -z-10">
-        <div
-          ref={(el: HTMLDivElement | null) => {
-            if (el) blobsRef.current[0] = el;
-          }}
-          className="absolute top-10 left-20 w-72 h-72 rounded-full bg-purple-300 opacity-30 blur-3xl"
-        />
-        <div
-          ref={(el: HTMLDivElement | null) => {
-            if (el) blobsRef.current[1] = el;
-          }}
-          className="absolute bottom-10 right-20 w-96 h-96 rounded-full bg-indigo-300 opacity-30 blur-3xl"
-        />
-        {/* Grid overlay */}
-        <div className="absolute inset-0 bg-grid pointer-events-none" />
-        {/* Radial fade for edges */}
-        <div className="absolute inset-0 pointer-events-none [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
-      </div>
-
-      {/* Hero Section */}
-      <section
-        ref={heroRef}
-        className="text-center relative z-10 space-y-6 py-16"
-      >
-        <h1 className="text-5xl md:text-6xl leading-20 font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
-          {t("heroTitle")}
-        </h1>
-        <p className="text-foreground max-w-2xl mx-auto text-lg">
-          {t("heroDescription")}
-        </p>
-        <Button size="lg" className="rounded-lg shadow-lg text-foreground">
-          {t("getStarted")}
-        </Button>
-      </section>
-
-      {/* Feature Grid */}
-      <section className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 mt-12 relative z-10">
-        {features.map((f, i) => (
-          <Card
-            key={f.key}
-            ref={(el: HTMLDivElement | null) => {
-              if (el) cardsRef.current[i] = el;
-            }}
-            className="hover:shadow-xl transition-all rounded-2xl cursor-pointer group bg-background backdrop-blur"
-          >
-            <CardContent className="flex flex-col items-center justify-center p-6 space-y-4">
-              <f.icon className="w-10 h-10 text-primary group-hover:scale-110 transition-transform" />
-              <h3 className="font-semibold text-lg">
-                {t(`features.${f.key}.label`)}
-              </h3>
-              <p className="text-sm text-foreground text-center">
-                {t(`features.${f.key}.desc`)}
-              </p>
-            </CardContent>
-          </Card>
-        ))}
-      </section>
-
-      {/* Showcase Marquee (infinite loop) */}
-      <section className="mt-16 relative z-10">
-        <div className="marquee">
-          <div className="marquee__inner" aria-hidden="true">
-            {[...marqueeItems, ...marqueeItems, ...marqueeItems].map(
-              (text, idx) => (
-                <span
-                  key={idx}
-                  className="mx-6 text-foreground text-lg font-medium opacity-80 hover:opacity-100 transition-opacity"
-                >
-                  {text}
-                </span>
-              )
-            )}
-          </div>
-        </div>
-      </section>
-
-      <style>{`
-        /* Grid background */
-        .bg-grid {
-          background-image:
-            linear-gradient(to right, rgba(100,116,139,0.12) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(100,116,139,0.12) 1px, transparent 1px);
-          background-size: 24px 24px;
-        }
-
-        /* Marquee */
-        .marquee { overflow: hidden; position: relative; }
-        .marquee__inner {
-          display: inline-flex;
-          align-items: center;
-          gap: 3rem;
-          width: max-content;
-          animation: marquee 20s linear infinite;
-          will-change: transform;
-        }
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-33.33%); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .marquee__inner { animation-duration: 0.01ms; animation-iteration-count: 1; }
-        }
-      `}</style>
-    </div>
-  );
+interface Section {
+  id: string;
+  content: React.ReactNode[];
 }
 
-export default HomePage;
+const lorem = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. `;
+
+const sections: Section[] = [
+  {
+    id: "career",
+    content: [
+      <h2 key="h2" className="text-xl font-bold mb-2">
+        Career Objective
+      </h2>,
+      ...Array.from({ length: 5 }, (_, i) => <p key={i}>{lorem}</p>),
+      // <img key="img" height="200px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmDpXglAt0d12uwI8kvWsKKYHhLsImPb5vgg&s" alt="Sample" />,
+    ],
+  },
+  {
+    id: "work",
+    content: [
+      <h2 key="h2" className="text-xl font-bold mb-2">
+        Work Experience
+      </h2>,
+      ...Array.from({ length: 20 }, (_, i) => <p key={i}>{lorem}</p>),
+    ],
+  },
+  {
+    id: "skills",
+    content: [
+      <h2 key="h2" className="text-xl font-bold mb-2">
+        Skills
+      </h2>,
+      <ul key="ul" className="list-disc pl-6">
+        {Array.from({ length: 50 }).map((_, i) => (
+          <li key={i}>Skill #{i + 1}</li>
+        ))}
+      </ul>,
+    ],
+  },
+];
+
+const PAGE_HEIGHT = 1123;
+const PAGE_WIDTH = 794;
+
+export const CVPreview: React.FC = () => {
+  const [pages, setPages] = useState<React.ReactNode[][]>([]);
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const measureRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!measureRef.current) return;
+
+    // Flatten all elements for measurement
+    const allElements: React.ReactNode[] = [];
+    sections.forEach((sec) => allElements.push(...sec.content));
+
+    // Wait for images to load
+    const images = measureRef.current.querySelectorAll("img");
+    let loaded = 0;
+
+    const checkLoad = () => {
+      loaded++;
+      if (loaded === images.length) measurePages();
+    };
+
+    if (images.length === 0) {
+      measurePages();
+    } else {
+      images.forEach((img) => {
+        if ((img as HTMLImageElement).complete) {
+          checkLoad();
+        } else {
+          img.addEventListener("load", checkLoad);
+          img.addEventListener("error", checkLoad);
+        }
+      });
+    }
+
+    function measurePages() {
+      const children = Array.from(
+        measureRef.current!.children
+      ) as HTMLDivElement[];
+      const finalPages: React.ReactNode[][] = [];
+      let currentPageEls: React.ReactNode[] = [];
+      let currentHeight = 0;
+
+      children.forEach((child, idx) => {
+        const h = child.getBoundingClientRect().height;
+        const el = allElements[idx];
+
+        if (currentHeight + h > PAGE_HEIGHT) {
+          finalPages.push(currentPageEls);
+          currentPageEls = [el];
+          currentHeight = h;
+        } else {
+          currentPageEls.push(el);
+          currentHeight += h;
+        }
+      });
+
+      if (currentPageEls.length) finalPages.push(currentPageEls);
+      setPages(finalPages);
+      setCurrentPage(0);
+    }
+  }, []);
+
+  return (
+    <div className="flex flex-col items-center gap-4 p-6">
+      {/* Hidden container for measurement */}
+      <div
+        ref={measureRef}
+        style={{
+          position: "absolute",
+          visibility: "hidden",
+          width: PAGE_WIDTH - 24,
+        }}
+      >
+        {sections.map((s) =>
+          s.content.map((c, i) => <div key={s.id + "-" + i}>{c}</div>)
+        )}
+      </div>
+
+      {/* Page navigation */}
+      <div className="flex items-center gap-4">
+        <button
+          onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
+          disabled={currentPage === 0}
+          className="px-2 py-1 border rounded"
+        >
+          ⬅
+        </button>
+
+        <div
+          className="relative border shadow-lg bg-white overflow-hidden"
+          style={{ width: PAGE_WIDTH, height: PAGE_HEIGHT }}
+        >
+          <div
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{
+              width: `${pages.length * PAGE_WIDTH}px`,
+              transform: `translateX(-${currentPage * PAGE_WIDTH}px)`,
+            }}
+          >
+            {pages.map((page, i) => (
+              <div
+                key={i}
+                className="p-6 flex-shrink-0"
+                style={{ width: PAGE_WIDTH, height: PAGE_HEIGHT }}
+              >
+                {page}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <button
+          onClick={() =>
+            setCurrentPage((p) => Math.min(pages.length - 1, p + 1))
+          }
+          disabled={currentPage === pages.length - 1}
+          className="px-2 py-1 border rounded"
+        >
+          ➡
+        </button>
+      </div>
+
+      <div className="text-gray-600">
+        Page {currentPage + 1} / {pages.length || 1}
+      </div>
+    </div>
+  );
+};
+
+export default CVPreview;
