@@ -7,6 +7,9 @@ import BinarySearchPage from "@/features/algorithms/searching/view/BinarySearchP
 export const searchingRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "algorithms/searching",
+  staticData: {
+    breadcrumb: "algorithms.searching",
+  },
 });
 
 // Child routes
@@ -14,10 +17,16 @@ export const linearSearchRoute = createRoute({
   getParentRoute: () => searchingRoute,
   path: "linear",
   component: LinearSearchPage,
+  staticData: {
+    breadcrumb: "algorithms.searching.linear",
+  },
 });
 
 export const binarySearchRoute = createRoute({
   getParentRoute: () => searchingRoute,
   path: "binary",
   component: BinarySearchPage,
+  staticData: {
+    breadcrumb: "algorithms.searching.binary",
+  },
 });

@@ -1,0 +1,36 @@
+{
+  "heroTitle": "Lernen. Bauen. Spielen.",
+  "heroDescription": "Todos, Algorithmen, Datenstrukturen, Designmuster und Spiele — alles an einem interaktiven Ort.",
+  "getStarted": "Loslegen",
+
+  "features": {
+    "todos": {
+      "label": "Todos",
+      "desc": "Aufgaben clever verwalten"
+    },
+    "algorithms": {
+      "label": "Algorithmen",
+      "desc": "Sortieren, Suchen usw."
+    },
+    "dsa": {
+      "label": "DSA",
+      "desc": "Stack, Queue, Graph"
+    },
+    "patterns": {
+      "label": "Muster",
+      "desc": "Kreationell, Strukturell, Verhalten"
+    },
+    "games": {
+      "label": "Spiele",
+      "desc": "Tic Tac Toe & mehr"
+    }
+  },
+
+  "marquee": [
+    "⚡ Sortier-Visualizer",
+    "🧩 Graph Explorer",
+    "🎮 Tic Tac Toe",
+    "🎯 Designmuster in Aktion",
+    "📝 Todo-Produktivität"
+  ]
+}

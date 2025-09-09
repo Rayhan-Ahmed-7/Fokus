@@ -9,21 +9,29 @@ import bnMenu from "./locales/bn/menu.json";
 import enTodos from "@/features/todos/locales/en.json";
 import deTodos from "@/features/todos/locales/de.json";
 import bnTodos from "@/features/todos/locales/bn.json";
+
+import enHome from "@/features/home/locales/en.json";
+import deHome from "@/features/home/locales/de.json";
+import bnHome from "@/features/home/locales/bn.json";
+
 i18n.use(initReactI18next).init({
   resources: {
     en: {
       menu: enMenu,
       common: enCommon,
+      home: enHome,
       todos: enTodos,
     },
     de: {
       menu: deMenu,
       common: deCommon,
+      home: deHome,
       todos: deTodos,
     },
     bn: {
       menu: bnMenu,
       common: bnCommon,
+      home: bnHome,
       todos: bnTodos,
     },
   },

@@ -21,5 +21,8 @@
   "required": "Required",
   "actions": "Actions",
   "language": "Language",
-  "theme": "Theme"
+  "theme": "Theme",
+  "light": "Light",
+  "dark": "Dark",
+  "system": "System"
 }
