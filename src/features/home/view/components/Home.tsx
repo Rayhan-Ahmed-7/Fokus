@@ -87,7 +87,7 @@ function Home() {
         ref={heroRef}
         className="text-center relative z-10 space-y-6 py-16"
       >
-        <h1 className="text-5xl md:text-6xl leading-20 font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+        <h1 className="text-4xl md:text-6xl leading-20 font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
           {t("heroTitle")}
         </h1>
         <p className="text-foreground max-w-2xl mx-auto text-lg">

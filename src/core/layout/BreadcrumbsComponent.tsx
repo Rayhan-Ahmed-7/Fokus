@@ -28,7 +28,7 @@ const BreadcrumbsComponent = ({ matches }: BreadcrumbsProps) => {
   );
 
   return (
-    <Breadcrumb className="flex items-center text-sm text-gray-600 space-x-1">
+    <Breadcrumb className="items-center text-sm text-gray-600 space-x-1 md:flex hidden">
       <BreadcrumbItem>
         <BreadcrumbLink asChild>
           <Link to="/" className="flex items-center hover:text-blue-600">
