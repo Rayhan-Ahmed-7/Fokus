@@ -21,5 +21,8 @@
   "required": "Erforderlich",
   "actions": "Aktionen",
   "language": "Sprache",
-  "theme": "Thema"
+  "theme": "Thema",
+  "light": "Hell",
+  "dark": "Dunkel",
+  "system": "System"
 }

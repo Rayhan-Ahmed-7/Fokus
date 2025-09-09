@@ -10,6 +10,7 @@ import type { Theme } from "@/core/store/types/themeTypes";
 import { Sun, Moon, Monitor } from "lucide-react";
 import { changeTheme } from "@/core/store/slices/themeSlice";
 import type { AppState } from "@/core/store";
+import { useTranslation } from "react-i18next";
 
 const themes: { value: Theme; label: string; icon: React.ReactNode }[] = [
   {
@@ -30,6 +31,7 @@ const themes: { value: Theme; label: string; icon: React.ReactNode }[] = [
 ];
 
 const ThemeSwitcher = () => {
+  const { t } = useTranslation("common");
   const theme = useSelector((state: AppState) => state.theme.current);
 
   const handleChange = (value: string) => {
@@ -47,7 +49,7 @@ const ThemeSwitcher = () => {
           <SelectItem key={theme.value} value={theme.value}>
             <div className="flex items-center">
               {theme.icon}
-              <span>{theme.label}</span>
+              <span>{t(theme.value)}</span>
             </div>
           </SelectItem>
         ))}

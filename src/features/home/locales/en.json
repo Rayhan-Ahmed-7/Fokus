@@ -1,0 +1,36 @@
+{
+  "heroTitle": "Learn. Build. Play.",
+  "heroDescription": "Todos, Algorithms, Data Structures, Design Patterns, and Games — all in one interactive place.",
+  "getStarted": "Get Started",
+
+  "features": {
+    "todos": {
+      "label": "Todos",
+      "desc": "Manage tasks smartly"
+    },
+    "algorithms": {
+      "label": "Algorithms",
+      "desc": "Sorting, Searching, etc."
+    },
+    "dsa": {
+      "label": "DSA",
+      "desc": "Stack, Queue, Graph"
+    },
+    "patterns": {
+      "label": "Patterns",
+      "desc": "Creational, Structural, Behavioral"
+    },
+    "games": {
+      "label": "Games",
+      "desc": "Tic Tac Toe & more"
+    }
+  },
+
+  "marquee": [
+    "⚡ Sorting Visualizer",
+    "🧩 Graph Explorer",
+    "🎮 Tic Tac Toe",
+    "🎯 Design Patterns in Action",
+    "📝 Todo Productivity"
+  ]
+}
