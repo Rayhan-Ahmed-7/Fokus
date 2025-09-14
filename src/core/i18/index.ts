@@ -19,7 +19,10 @@ import enHome from "@/features/home/locales/en.json";
 import deHome from "@/features/home/locales/de.json";
 import bnHome from "@/features/home/locales/bn.json";
 import arHome from "@/features/home/locales/ar.json";
+import { store } from "../store";
 
+const initialLang = store.getState().theme.language || "ar";
+console.log("Initial Language:", initialLang);
 i18n.use(initReactI18next).init({
   resources: {
     ar: {
@@ -47,7 +50,7 @@ i18n.use(initReactI18next).init({
       todos: bnTodos,
     },
   },
-  lng: "en", // default language
+  lng: "ar", // default language
   fallbackLng: "en",
   ns: ["menu", "common", "todos"], // namespaces (can extend with feature-based)
   interpolation: {

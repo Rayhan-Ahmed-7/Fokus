@@ -47,7 +47,6 @@ export function renderMenu(items: MenuItemType[], t: TFunction<"menu">) {
                     />
                   </SidebarMenuButton>
                 </CollapsibleTrigger>
-
                 <CollapsibleContent>
                   <SidebarMenuSub>
                     {item.children!.map((child) =>

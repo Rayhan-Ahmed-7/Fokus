@@ -12,7 +12,9 @@ import {
   GermanFlag,
   SaudiArabFlag,
 } from "@/assets/flags";
-import { changeDirection } from "../store/slices/themeSlice";
+import { changeDirection, changeLanguage } from "../store/slices/themeSlice";
+import { useAppSelector } from "../store/hooks";
+import { useEffect } from "react";
 
 const languages = [
   { code: "en", label: "English", flag: <EnglishFlag /> },
@@ -23,16 +25,21 @@ const languages = [
 
 export function LanguageSelector() {
   const { i18n } = useTranslation();
+  const currentLang = useAppSelector((state) => state.theme.language);
 
-  const handleChange = (lang: string) => {
-    i18n.changeLanguage(lang);
-    changeDirection(lang === "ar" ? "rtl" : "ltr");
-    document.documentElement.lang = lang;
-    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  useEffect(() => {
+    // if (currentLang) {
+    // }
+  }, [currentLang, i18n]);
+
+  const handleChange = (lang: "en" | "de" | "bn" | "ar") => {
+    i18n.changeLanguage(currentLang);
+    changeDirection(currentLang === "ar" ? "rtl" : "ltr");
+    changeLanguage(lang);
   };
 
   return (
-    <Select value={i18n.language} onValueChange={handleChange}>
+    <Select value={currentLang} onValueChange={handleChange}>
       <SelectTrigger className="w-40">
         <SelectValue placeholder="Select Language" />
       </SelectTrigger>
