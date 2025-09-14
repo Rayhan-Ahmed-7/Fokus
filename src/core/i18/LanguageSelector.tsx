@@ -6,15 +6,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-import EnglishFlag from "@/assets/flags/united-kingdom.svg?react";
-import GermanFlag from "@/assets/flags/germany.svg?react";
-import BengaliFlag from "@/assets/flags/bangladesh.svg?react";
+import {
+  BengaliFlag,
+  EnglishFlag,
+  GermanFlag,
+  SaudiArabFlag,
+} from "@/assets/flags";
+import { changeDirection } from "../store/slices/themeSlice";
 
 const languages = [
   { code: "en", label: "English", flag: <EnglishFlag /> },
   { code: "de", label: "Germany", flag: <GermanFlag /> },
   { code: "bn", label: "বাংলা", flag: <BengaliFlag /> },
+  { code: "ar", label: "Saudi Arab", flag: <SaudiArabFlag /> },
 ];
 
 export function LanguageSelector() {
@@ -22,7 +26,9 @@ export function LanguageSelector() {
 
   const handleChange = (lang: string) => {
     i18n.changeLanguage(lang);
-    document.documentElement.lang = lang; // update <html lang="..">
+    changeDirection(lang === "ar" ? "rtl" : "ltr");
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
   };
 
   return (
