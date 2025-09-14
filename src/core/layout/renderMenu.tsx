@@ -42,9 +42,8 @@ export function renderMenu(items: MenuItemType[], t: TFunction<"menu">) {
                       <span>{t(item.label)}</span>
                     </div>
                     <ChevronRight
-                      className={`w-4 h-4 transition-transform duration-200 ${
-                        open ? "rotate-90" : "rotate-0"
-                      }`}
+                      className={`w-4 h-4 transition-transform duration-200
+                      ${open ? "rotate-90 rtl:rotate-90" : "rotate-0 rtl:rotate-180"}`}
                     />
                   </SidebarMenuButton>
                 </CollapsibleTrigger>
