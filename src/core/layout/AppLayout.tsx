@@ -3,12 +3,15 @@ import AppSidebar from "./AppSidebar";
 import { Outlet, useMatches } from "@tanstack/react-router";
 import BreadcrumbsComponent from "./BreadcrumbsComponent";
 import { LanguageSelector } from "../i18/LanguageSelector";
+import { useAppSelector } from "../store/hooks";
 
 const AppLayout = () => {
   const matches = useMatches();
+  const direction = useAppSelector((state) => state.theme.direction);
+
   return (
-    <SidebarProvider>
-      <div className="flex h-screen">
+    <SidebarProvider dir={direction}>
+      <div className={` flex h-screen`}>
         <AppSidebar />
       </div>
       <main className="flex-1 overflow-auto">
