@@ -4,11 +4,22 @@ import { Outlet, useMatches } from "@tanstack/react-router";
 import BreadcrumbsComponent from "./BreadcrumbsComponent";
 import { LanguageSelector } from "../i18/LanguageSelector";
 import { useAppSelector } from "../store/hooks";
+import { useEffect } from "react";
+import { changeDirection } from "../store/slices/themeSlice";
+import { changeLanguage } from "i18next";
 
 const AppLayout = () => {
   const matches = useMatches();
   const direction = useAppSelector((state) => state.theme.direction);
+  const currentLang = useAppSelector((state) => state.theme.language);
 
+  useEffect(() => {
+    if (currentLang) {
+      changeLanguage(currentLang);
+      changeDirection(currentLang === "ar" ? "rtl" : "ltr");
+      changeLanguage(currentLang);
+    }
+  }, []);
   return (
     <SidebarProvider dir={direction}>
       <div className={` flex h-screen`}>
