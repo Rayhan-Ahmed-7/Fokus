@@ -50,7 +50,7 @@ i18n.use(initReactI18next).init({
       todos: bnTodos,
     },
   },
-  lng: "ar", // default language
+  lng: initialLang, // default language
   fallbackLng: "en",
   ns: ["menu", "common", "todos"], // namespaces (can extend with feature-based)
   interpolation: {
