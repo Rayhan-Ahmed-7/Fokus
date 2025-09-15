@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import {
   Select,
   SelectContent,
@@ -12,9 +11,10 @@ import {
   GermanFlag,
   SaudiArabFlag,
 } from "@/assets/flags";
-import { changeDirection, changeLanguage } from "../store/slices/themeSlice";
+import { changeAppLanguage, changeDirection } from "../store/slices/themeSlice";
 import { useAppSelector } from "../store/hooks";
-import { useEffect } from "react";
+import { changeLanguage } from "i18next";
+import type { Language } from "../store/types/themeTypes";
 
 const languages = [
   { code: "en", label: "English", flag: <EnglishFlag /> },
@@ -24,18 +24,12 @@ const languages = [
 ];
 
 export function LanguageSelector() {
-  const { i18n } = useTranslation();
   const currentLang = useAppSelector((state) => state.theme.language);
 
-  useEffect(() => {
-    // if (currentLang) {
-    // }
-  }, [currentLang, i18n]);
-
-  const handleChange = (lang: "en" | "de" | "bn" | "ar") => {
-    i18n.changeLanguage(currentLang);
-    changeDirection(currentLang === "ar" ? "rtl" : "ltr");
+  const handleChange = (lang: Language) => {
     changeLanguage(lang);
+    changeDirection(lang === "ar" ? "rtl" : "ltr");
+    changeAppLanguage(lang);
   };
 
   return (
