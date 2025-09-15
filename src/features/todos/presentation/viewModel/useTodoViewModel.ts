@@ -33,7 +33,7 @@ export const useTodoViewModel = () => {
       createTodoUseCase.execute({ title }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["todos"] });
-      toast.success("Todo created successfully");
+      toast.success("Todo created successfully", 500000);
     },
     onError: (error) => {
       toast.error(error.message || "Failed to create todo");
