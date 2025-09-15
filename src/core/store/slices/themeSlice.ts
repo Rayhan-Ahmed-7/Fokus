@@ -41,7 +41,7 @@ export const changeTheme = (theme: Theme) => {
 export const changeDirection = (dir: Direction) => {
   dispatch(setDirection(dir));
 };
-export const changeLanguage = (lang: Language) => {
+export const changeAppLanguage = (lang: Language) => {
   dispatch(setLanguage(lang));
 };
 const themeReducer = themeSlice.reducer;
