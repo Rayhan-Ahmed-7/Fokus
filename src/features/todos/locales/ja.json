@@ -1,0 +1,14 @@
+{
+  "title": "やることリスト",
+  "add": "追加",
+  "adding": "追加中...",
+  "placeholder": "新しいタスクを追加",
+  "remove": "削除",
+  "edit": "編集",
+  "save": "保存",
+  "cancel": "キャンセル",
+  "completed": "完了",
+  "pending": "未完了",
+  "search": "タスクを検索...",
+  "noTodos": "タスクがありません"
+}
