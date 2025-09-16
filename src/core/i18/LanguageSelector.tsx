@@ -20,7 +20,7 @@ const languages = [
   { code: "en", label: "English", flag: <EnglishFlag /> },
   { code: "de", label: "Germany", flag: <GermanFlag /> },
   { code: "bn", label: "বাংলা", flag: <BengaliFlag /> },
-  { code: "ar", label: "Saudi Arab", flag: <SaudiArabFlag /> },
+  { code: "ar-SA", label: "Saudi Arab", flag: <SaudiArabFlag /> },
 ];
 
 export function LanguageSelector() {
@@ -28,7 +28,7 @@ export function LanguageSelector() {
 
   const handleChange = (lang: Language) => {
     changeLanguage(lang);
-    changeDirection(lang === "ar" ? "rtl" : "ltr");
+    changeDirection(lang === "ar-SA" ? "rtl" : "ltr");
     changeAppLanguage(lang);
   };
 
