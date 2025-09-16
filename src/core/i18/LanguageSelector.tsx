@@ -7,8 +7,10 @@ import {
 } from "@/components/ui/select";
 import {
   BengaliFlag,
+  ChinaFlag,
   EnglishFlag,
   GermanFlag,
+  JapanFlag,
   SaudiArabFlag,
 } from "@/assets/flags";
 import { changeAppLanguage, changeDirection } from "../store/slices/themeSlice";
@@ -21,6 +23,8 @@ const languages = [
   { code: "de", label: "Germany", flag: <GermanFlag /> },
   { code: "bn", label: "বাংলা", flag: <BengaliFlag /> },
   { code: "ar-SA", label: "Saudi Arab", flag: <SaudiArabFlag /> },
+  { code: "ja", label: "Japan", flag: <JapanFlag /> },
+  { code: "zh-Hans-CN-u-nu-hanidec", label: "China", flag: <ChinaFlag /> },
 ];
 
 export function LanguageSelector() {
