@@ -8,7 +8,7 @@ const TodoPage = () => {
     <div className="space-y-6 p-6">
       <h1 className="text-2xl font-bold">{t("todos:title")}</h1>
       {t("common:currency", { amount: 1234.56 })}
-      {t("common:number", { amount: 1234.56, locale: "ar-SA" })}
+      {t("common:number", { amount: 1234.56 })}
       <CreateTodo />
       <TodoList />
     </div>
