@@ -16,7 +16,7 @@ const AppLayout = () => {
   useEffect(() => {
     if (currentLang) {
       changeLanguage(currentLang);
-      changeDirection(currentLang === "ar" ? "rtl" : "ltr");
+      changeDirection(currentLang === "ar-SA" ? "rtl" : "ltr");
       changeLanguage(currentLang);
     }
   }, []);
