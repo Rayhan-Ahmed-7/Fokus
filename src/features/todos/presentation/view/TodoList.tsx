@@ -5,8 +5,12 @@ import { Input } from "@/components/ui/input";
 import { Trash } from "lucide-react";
 import { useTodoAnimations } from "../viewModel/useTodoAnimation";
 import { T } from "@/core/i18/T";
+import { TodoRepositoryImpl } from "../../data/repository/TodoRepositoryImpl";
+import { TodoLocalDataSource } from "../../data/dataSource/local/TodoLocalDataSource";
 
 const TodoList = () => {
+  // const repo = new TodoRepositoryImpl(new TodoRemoteDataSource(new FetchAdapter()));
+  const repo = new TodoRepositoryImpl(new TodoLocalDataSource());
   const {
     todos,
     isLoading,
@@ -17,7 +21,7 @@ const TodoList = () => {
     setEditingId,
     editingText,
     setEditingText,
-  } = useTodoViewModel();
+  } = useTodoViewModel({ repo: repo });
   const { listRef } = useTodoAnimations();
 
   if (isLoading) return <div className="text-muted-foreground">Loading...</div>;
