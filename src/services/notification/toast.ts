@@ -1,21 +1,35 @@
+import i18n from "@/core/i18";
 import { toast as sonner } from "sonner";
 
 type ToastType = "success" | "error" | "warning" | "info";
 
 class Toast {
   private showToast(type: ToastType, message: string, duration?: number) {
+    const t = i18n.t.bind(i18n);
     switch (type) {
       case "success":
-        sonner.success("Success", { description: message, duration: duration });
+        sonner.success(t("common:success"), {
+          description: message,
+          duration: duration,
+        });
         break;
       case "error":
-        sonner.error("Error", { description: message, duration: duration });
+        sonner.error(t("common:error"), {
+          description: message,
+          duration: duration,
+        });
         break;
       case "warning":
-        sonner.warning("Warning", { description: message, duration: duration });
+        sonner.warning(t("common:warning"), {
+          description: message,
+          duration: duration,
+        });
         break;
       case "info":
-        sonner.info("Info", { description: message, duration: duration });
+        sonner.info(t("common:info"), {
+          description: message,
+          duration: duration,
+        });
         break;
       default:
         throw new Error("Invalid toast type");

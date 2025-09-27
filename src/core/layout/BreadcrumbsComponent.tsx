@@ -28,11 +28,11 @@ const BreadcrumbsComponent = ({ matches }: BreadcrumbsProps) => {
   );
 
   return (
-    <Breadcrumb className="flex items-center text-sm text-gray-600 space-x-1">
+    <Breadcrumb className="items-center text-sm text-gray-600 space-x-1 md:flex hidden">
       <BreadcrumbItem>
         <BreadcrumbLink asChild>
           <Link to="/" className="flex items-center hover:text-blue-600">
-            <Home className="w-4 h-4 mr-1" />
+            <Home className="w-4 h-4 me-1" />
             {t("home")}
           </Link>
         </BreadcrumbLink>
@@ -46,7 +46,7 @@ const BreadcrumbsComponent = ({ matches }: BreadcrumbsProps) => {
 
         return (
           <BreadcrumbItem key={match.id} className="flex items-center">
-            <ChevronRight className="w-4 h-4 text-gray-400 mx-1" />
+            <ChevronRight className="w-4 h-4 text-gray-400 ms-1 rtl:rotate-180" />
             <BreadcrumbLink asChild>
               <Link
                 to={match.pathname}

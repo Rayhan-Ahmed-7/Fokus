@@ -2,11 +2,14 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useTodoViewModel } from "../viewModel/useTodoViewModel";
 import { T } from "@/core/i18/T";
+import { todoRepo } from "../..";
 // import { useTranslation } from "react-i18next";
 
 export function CreateTodo() {
   // const { t } = useTranslation("todos");
-  const { title, setTitle, createTodo, isCreating } = useTodoViewModel();
+  const { title, setTitle, createTodo, isCreating } = useTodoViewModel({
+    repo: todoRepo,
+  });
   const handleSubmit = () => {
     if (title.trim()) {
       createTodo({ title });

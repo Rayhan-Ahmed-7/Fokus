@@ -9,11 +9,16 @@ import { menuData } from "./menu";
 import { renderMenu } from "./renderMenu";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useTranslation } from "react-i18next";
+import { useAppSelector } from "../store/hooks";
 
 const AppSidebar = () => {
+  const theme = useAppSelector((state) => state.theme);
   const { t } = useTranslation("menu");
   return (
-    <Sidebar className="h-full">
+    <Sidebar
+      side={theme.direction == "ltr" ? "left" : "right"}
+      className="h-full"
+    >
       {/* Header */}
       <SidebarHeader className="flex items-center gap-2 px-4 py-3 border-b">
         <Avatar className="w-12 h-12">

@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import {
   Select,
   SelectContent,
@@ -6,27 +5,39 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-import EnglishFlag from "@/assets/flags/united-kingdom.svg?react";
-import GermanFlag from "@/assets/flags/germany.svg?react";
-import BengaliFlag from "@/assets/flags/bangladesh.svg?react";
+import {
+  BengaliFlag,
+  ChinaFlag,
+  EnglishFlag,
+  GermanFlag,
+  JapanFlag,
+  SaudiArabFlag,
+} from "@/assets/flags";
+import { changeAppLanguage, changeDirection } from "../store/slices/themeSlice";
+import { useAppSelector } from "../store/hooks";
+import { changeLanguage } from "i18next";
+import type { Language } from "../store/types/themeTypes";
 
 const languages = [
   { code: "en", label: "English", flag: <EnglishFlag /> },
   { code: "de", label: "Germany", flag: <GermanFlag /> },
   { code: "bn", label: "বাংলা", flag: <BengaliFlag /> },
+  { code: "ar-SA", label: "Saudi Arab", flag: <SaudiArabFlag /> },
+  { code: "ja", label: "Japan", flag: <JapanFlag /> },
+  { code: "zh-Hans-CN-u-nu-hanidec", label: "China", flag: <ChinaFlag /> },
 ];
 
 export function LanguageSelector() {
-  const { i18n } = useTranslation();
+  const currentLang = useAppSelector((state) => state.theme.language);
 
-  const handleChange = (lang: string) => {
-    i18n.changeLanguage(lang);
-    document.documentElement.lang = lang; // update <html lang="..">
+  const handleChange = (lang: Language) => {
+    changeLanguage(lang);
+    changeDirection(lang === "ar-SA" ? "rtl" : "ltr");
+    changeAppLanguage(lang);
   };
 
   return (
-    <Select value={i18n.language} onValueChange={handleChange}>
+    <Select value={currentLang} onValueChange={handleChange}>
       <SelectTrigger className="w-40">
         <SelectValue placeholder="Select Language" />
       </SelectTrigger>

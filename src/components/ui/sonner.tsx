@@ -4,17 +4,19 @@ import { useSelector } from "react-redux";
 import type { AppState } from "@/core/store";
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const theme = useSelector((state: AppState) => state.theme.current);
+  const theme = useSelector((state: AppState) => state.theme);
 
   return (
     <Sonner
-      theme={theme}
+      theme={theme.current}
       richColors
+      dir={theme.direction}
+      position={theme.direction === "rtl" ? "bottom-left" : "bottom-right"}
       closeButton
       className="toaster group"
       toastOptions={{
         classNames: {
-          content: "ml-1",
+          content: "ms-1",
         },
         style: {
           background: "var(--background)",

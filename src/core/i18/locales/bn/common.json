@@ -24,5 +24,11 @@
   "theme": "থিম",
   "light": "লাইট",
   "dark": "ডার্ক",
-  "system": "সিস্টেম"
+  "system": "সিস্টেম",
+  "success": "সফলতা",
+  "info": "তথ্য",
+  "warning": "সতর্কবার্তা",
+  "error": "ত্রুটি",
+  "number": "{amount, number}",
+  "currency": "{amount, number, ::currency/bdt}"
 }

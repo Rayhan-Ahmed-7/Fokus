@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Trash } from "lucide-react";
 import { useTodoAnimations } from "../viewModel/useTodoAnimation";
 import { T } from "@/core/i18/T";
+import { todoRepo } from "../..";
 
 const TodoList = () => {
   const {
@@ -17,7 +18,7 @@ const TodoList = () => {
     setEditingId,
     editingText,
     setEditingText,
-  } = useTodoViewModel();
+  } = useTodoViewModel({ repo: todoRepo });
   const { listRef } = useTodoAnimations();
 
   if (isLoading) return <div className="text-muted-foreground">Loading...</div>;
