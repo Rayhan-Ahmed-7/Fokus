@@ -1,10 +1,11 @@
 import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
 import { useTodoViewModel } from "./useTodoViewModel";
+import { todoRepo } from "../..";
 
 export const useTodoAnimations = () => {
   const listRef = useRef<HTMLUListElement>(null);
-  const { todos } = useTodoViewModel();
+  const { todos } = useTodoViewModel({ repo: todoRepo });
   useEffect(() => {
     if (listRef.current) {
       gsap.fromTo(

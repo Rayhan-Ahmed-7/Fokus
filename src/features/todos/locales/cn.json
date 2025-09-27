@@ -1,0 +1,14 @@
+{
+  "title": "待办事项列表",
+  "add": "添加",
+  "adding": "添加中...",
+  "placeholder": "添加新待办事项",
+  "remove": "移除",
+  "edit": "编辑",
+  "save": "保存",
+  "cancel": "取消",
+  "completed": "已完成",
+  "pending": "待处理",
+  "search": "搜索待办事项...",
+  "noTodos": "暂无待办事项"
+}

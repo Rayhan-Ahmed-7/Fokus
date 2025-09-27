@@ -24,5 +24,11 @@
   "theme": "Theme",
   "light": "Light",
   "dark": "Dark",
-  "system": "System"
+  "system": "System",
+  "success": "Success",
+  "info": "Info",
+  "warning": "Warning",
+  "error": "Error",
+  "number": "{amount, number}",
+  "currency": "{amount, number, ::currency/usd}"
 }

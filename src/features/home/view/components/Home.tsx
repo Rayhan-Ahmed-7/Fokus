@@ -4,9 +4,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { CheckSquare, Cpu, Layers, Target, Gamepad2 } from "lucide-react";
 import gsap from "gsap";
 import { useTranslation } from "react-i18next";
+import { useAppSelector } from "@/core/store/hooks";
 
 function Home() {
   const { t } = useTranslation("home");
+  const direction = useAppSelector((state) => state.theme.direction);
+
   const heroRef = useRef<HTMLDivElement | null>(null);
   const cardsRef = useRef<HTMLDivElement[]>([]);
   const blobsRef = useRef<HTMLDivElement[]>([]);
@@ -36,16 +39,16 @@ function Home() {
       );
     }
 
-    // Floating blobs animation
     blobsRef.current.forEach((blob, i) => {
       if (!blob) return;
+
       gsap.to(blob, {
-        x: "random(-30,30)",
-        y: "random(-30,30)",
-        duration: 6 + i,
+        x: gsap.utils.random(-30, 30),
+        y: gsap.utils.random(-30, 30),
+        duration: 6 + i, // slightly different duration for each blob
         repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
+        ease: "sine.easeOut",
+        delay: i * 0.5, // stagger the start of each blob
       });
     });
   }, []);
@@ -61,7 +64,7 @@ function Home() {
   const marqueeItems = t("marquee", { returnObjects: true }) as string[];
 
   return (
-    <div className="relative min-h-screen overflow-hidden p-8 ">
+    <div className="relative min-h-screen overflow-hidden p-8">
       {/* Background: gradient + soft blobs + grid */}
       <div className="absolute inset-0 -z-10">
         <div
@@ -87,7 +90,7 @@ function Home() {
         ref={heroRef}
         className="text-center relative z-10 space-y-6 py-16"
       >
-        <h1 className="text-5xl md:text-6xl leading-20 font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
+        <h1 className="text-4xl md:text-6xl leading-20 font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
           {t("heroTitle")}
         </h1>
         <p className="text-foreground max-w-2xl mx-auto text-lg">
@@ -121,9 +124,16 @@ function Home() {
         ))}
       </section>
 
-      {/* Showcase Marquee (infinite loop) */}
+      {/* Showcase Marquee (RTL/LTR-aware) */}
       <section className="mt-16 relative z-10">
-        <div className="marquee">
+        <div
+          className="marquee"
+          style={
+            {
+              "--marquee-translate": direction === "rtl" ? "33.33%" : "-33.33%",
+            } as React.CSSProperties
+          }
+        >
           <div className="marquee__inner" aria-hidden="true">
             {[...marqueeItems, ...marqueeItems, ...marqueeItems].map(
               (text, idx) => (
@@ -160,7 +170,7 @@ function Home() {
         }
         @keyframes marquee {
           0% { transform: translateX(0); }
-          100% { transform: translateX(-33.33%); }
+          100% { transform: translateX(var(--marquee-translate)); }
         }
         @media (prefers-reduced-motion: reduce) {
           .marquee__inner { animation-duration: 0.01ms; animation-iteration-count: 1; }
