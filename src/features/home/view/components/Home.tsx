@@ -96,7 +96,10 @@ function Home() {
         <p className="text-foreground max-w-2xl mx-auto text-lg">
           {t("heroDescription")}
         </p>
-        <Button size="lg" className="rounded-lg shadow-lg text-foreground">
+        <Button
+          size="lg"
+          className="rounded-lg shadow-lg font-semibold text-primary-foreground"
+        >
           {t("getStarted")}
         </Button>
       </section>
