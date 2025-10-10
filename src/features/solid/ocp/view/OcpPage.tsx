@@ -17,10 +17,10 @@ import { gsap } from "gsap";
 // ----------------------------
 const LockedRobot = ({
   hasWings,
-  hasJetpack,
+  hasArms,
 }: {
   hasWings: boolean;
-  hasJetpack: boolean;
+  hasArms: boolean;
 }) => (
   <svg viewBox="0 0 120 140" className="w-full h-full">
     {/* Body - locked/solid */}
@@ -84,13 +84,13 @@ const LockedRobot = ({
         <text x="15" y="75" fontSize="16">
           ⚠️
         </text>
-        <text x="95" y="75" fontSize="16">
+        <text x="90" y="75" fontSize="16">
           ⚠️
         </text>
       </>
     )}
 
-    {hasJetpack && (
+    {hasArms && (
       <>
         <line
           x1="60"
@@ -109,7 +109,7 @@ const LockedRobot = ({
 
     {/* Expression */}
     <text x="60" y="95" fontSize="20" textAnchor="middle" fill="#fef3c7">
-      {hasWings || hasJetpack ? "😣" : "😐"}
+      {hasWings || hasArms ? "😣" : "😐"}
     </text>
   </svg>
 );
@@ -132,8 +132,8 @@ const ModularRobot = ({ extensions }: { extensions: string[] }) => (
     />
 
     {/* Render extensions */}
+    {extensions.includes("arm") && <ArmModule />}
     {extensions.includes("wings") && <WingsModule />}
-    {extensions.includes("jetpack") && <JetpackModule />}
     {extensions.includes("shield") && <ShieldModule />}
 
     {/* Head */}
@@ -182,41 +182,20 @@ const WingsModule = () => (
       stroke="#2563eb"
       strokeWidth="2"
     />
-    <text x="40" y="35" fontSize="20" textAnchor="middle">
-      🪽
-    </text>
   </svg>
 );
 
-const JetpackModule = () => (
-  <svg viewBox="0 0 60 60" className="w-full h-full">
-    <rect
-      x="15"
-      y="10"
-      width="30"
-      height="35"
-      fill="#a855f7"
-      stroke="#9333ea"
-      strokeWidth="2"
-      rx="5"
-    />
-    <circle cx="22" cy="45" r="3" fill="#fbbf24" />
-    <circle cx="38" cy="45" r="3" fill="#fbbf24" />
-    <text x="30" y="30" fontSize="20" textAnchor="middle">
-      🚀
-    </text>
+const ArmModule = () => (
+  <svg viewBox="0 0 120 140" className="w-full h-full">
+    {/* hands */}
+    <rect x="20" y="55" width="10" height="35" fill="#16a34a" rx="2" />
+    <rect x="90" y="55" width="10" height="35" fill="#16a34a" rx="2" />
   </svg>
 );
 
 const ShieldModule = () => (
   <svg viewBox="0 0 60 70" className="w-full h-full">
-    <path
-      d="M 30 10 L 50 20 L 50 45 Q 50 60, 30 65 Q 10 60, 10 45 L 10 20 Z"
-      fill="#f59e0b"
-      stroke="#d97706"
-      strokeWidth="2"
-    />
-    <text x="30" y="45" fontSize="20" textAnchor="middle">
+    <text x="10" y="55" fontSize="20" textAnchor="middle">
       🛡️
     </text>
   </svg>
@@ -238,10 +217,10 @@ export default function OcpPage() {
   const availableExtensions = [
     { id: "wings", name: "Wings Module", icon: "🪽", component: WingsModule },
     {
-      id: "jetpack",
-      name: "Jetpack Module",
+      id: "arm",
+      name: "Arm Module",
       icon: "🚀",
-      component: JetpackModule,
+      component: ArmModule,
     },
     {
       id: "shield",
@@ -398,7 +377,7 @@ export default function OcpPage() {
                   >
                     <LockedRobot
                       hasWings={extensions.includes("wings")}
-                      hasJetpack={extensions.includes("jetpack")}
+                      hasArms={extensions.includes("arm")}
                     />
                     {showDamage && (
                       <div
