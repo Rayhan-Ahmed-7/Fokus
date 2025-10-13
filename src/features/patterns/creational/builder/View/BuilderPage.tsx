@@ -229,12 +229,12 @@ export default function PizzaPage() {
         🍕 Build Your Pizza
       </h1>
       <div className="w-full flex lg:flex-row flex-col items-center gap-5">
-        <pre className="flex-1 mt-8 p-4 bg-muted dark:bg-gray-800 rounded-lg w-full max-w-lg text-sm text-muted-foreground dark:text-gray-200 shadow-inner">
+        <pre className="flex-1/5 mt-8 p-4 bg-muted dark:bg-gray-800 rounded-lg w-full max-w-lg text-sm text-muted-foreground dark:text-gray-200 shadow-inner">
           {JSON.stringify(pizza, null, 2)}
         </pre>
 
         {/* Pizza Preview */}
-        <div className="flex-1 relative flex items-center justify-center bg-card dark:bg-gray-800 rounded-md shadow-lg p-4">
+        <div className="flex-2/5 relative flex items-center justify-center bg-card dark:bg-gray-800 rounded-md shadow-lg p-4">
           <svg viewBox="0 0 200 200" className="w-full h-full">
             {svgDefs}
             <circle
@@ -278,8 +278,8 @@ export default function PizzaPage() {
           </svg>
         </div>
         {/* Controls */}
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-lg mt-8">
-          <div className="space-y-4">
+        <div className="flex-2/5 grid grid-cols-1 lg:grid-cols-2 gap-6 w-full max-w-lg mt-8">
+          <div className="space-y-4 md:col-span-2">
             <h3 className="text-lg font-semibold text-foreground dark:text-foreground">
               Sauce
             </h3>
@@ -301,7 +301,7 @@ export default function PizzaPage() {
             </div>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-4 md:col-span-2">
             <h3 className="text-lg font-semibold text-foreground dark:text-foreground">
               Cheese
             </h3>
