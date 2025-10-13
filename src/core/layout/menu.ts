@@ -27,6 +27,10 @@ import {
   Bubbles,
   HandGrab,
   Pizza,
+  KeyRound,
+  RocketIcon,
+  LockKeyholeOpenIcon,
+  UserLockIcon,
 } from "lucide-react";
 
 export const menuData = [
@@ -93,6 +97,38 @@ export const menuData = [
             icon: Zap,
           },
         ],
+      },
+    ],
+  },
+  {
+    label: "solid",
+    icon: RocketIcon,
+    defaultOpen: false,
+    children: [
+      {
+        label: "solid.singleResponsibility",
+        path: "/solid/single-responsibility",
+        icon: UserLockIcon,
+      },
+      {
+        label: "solid.openClosed",
+        path: "/solid/open-closed",
+        icon: LockKeyholeOpenIcon,
+      },
+      {
+        label: "solid.liskovSubstitution",
+        path: "/solid/liskov-substitution",
+        icon: Shuffle,
+      },
+      {
+        label: "solid.interfaceSegregation",
+        path: "/solid/interface-segregation",
+        icon: Layers,
+      },
+      {
+        label: "solid.dependencyInversion",
+        path: "/solid/dependency-inversion",
+        icon: KeyRound,
       },
     ],
   },

@@ -1,5 +1,11 @@
+import ComingSoon from "@/components/CommingSoon/CommingSoon";
+
 const SelectionSortPage = () => {
-  return <div></div>;
+  return (
+    <div>
+      <ComingSoon />
+    </div>
+  );
 };
 
 export default SelectionSortPage;
