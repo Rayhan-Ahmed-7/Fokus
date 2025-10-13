@@ -1,5 +1,11 @@
+import ComingSoon from "@/components/CommingSoon/CommingSoon";
+
 const InsertionSortPage = () => {
-  return <div></div>;
+  return (
+    <div>
+      <ComingSoon />
+    </div>
+  );
 };
 
 export default InsertionSortPage;

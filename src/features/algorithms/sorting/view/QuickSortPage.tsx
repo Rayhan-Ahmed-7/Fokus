@@ -1,5 +1,11 @@
+import ComingSoon from "@/components/CommingSoon/CommingSoon";
+
 const QuickSortPage = () => {
-  return <div></div>;
+  return (
+    <div>
+      <ComingSoon />
+    </div>
+  );
 };
 
 export default QuickSortPage;
