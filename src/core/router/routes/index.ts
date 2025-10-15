@@ -30,6 +30,14 @@ import {
   strategyRoute,
   structuralRoute,
 } from "./designpattern.route";
+import {
+  ocpRoute,
+  solidRoute,
+  srpRoute,
+  dipRoute,
+  lspRoute,
+  ispRoute,
+} from "./solid.route";
 
 export const routeTree = rootRoute.addChildren([
   homeRoute,
@@ -44,6 +52,7 @@ export const routeTree = rootRoute.addChildren([
     ]),
     searchingRoute.addChildren([linearSearchRoute, binarySearchRoute]),
   ]),
+  solidRoute.addChildren([srpRoute, ocpRoute, lspRoute, ispRoute, dipRoute]),
   dsaRoute.addChildren([stackRoute, queueRoute, graphRoute]),
   patternsRoute.addChildren([
     creationalRoute.addChildren([singletonRoute, builderRoute, factoryRoute]),
