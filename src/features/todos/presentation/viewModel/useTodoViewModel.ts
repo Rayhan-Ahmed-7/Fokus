@@ -7,9 +7,9 @@ import { UpdateTodoStatus } from "@/features/todos/domain/useCases/UpdateTodoSta
 import { DeleteTodo } from "@/features/todos/domain/useCases/DeleteTodo";
 import { useState } from "react";
 import { toast } from "@/services/notification/toast";
-import type { TodoRepository } from "../../data/repository/TodoRepository";
+import type { ITodoRepository } from "../../data/repository/ITodoRepository";
 
-export const useTodoViewModel = ({ repo }: { repo: TodoRepository }) => {
+export const useTodoViewModel = ({ repo }: { repo: ITodoRepository }) => {
   const getTodosUseCase = new GetTodos(repo);
   const createTodoUseCase = new CreateTodo(repo);
   const updateTodoUseCase = new UpdateTodo(repo);

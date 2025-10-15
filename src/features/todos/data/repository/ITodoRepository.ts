@@ -2,7 +2,7 @@ import type { Todo } from "@/features/todos/domain/entities/Todo";
 import type { ApiResponse } from "@/shared/types/api-response.type";
 import type { PaginatedResponse } from "@/shared/types/paginated-response.type";
 
-export interface TodoRepository {
+export interface ITodoRepository {
   getTodos(): Promise<ApiResponse<PaginatedResponse<Todo>>>;
   createTodo(todo: {
     title: string;

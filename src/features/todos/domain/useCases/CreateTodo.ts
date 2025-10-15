@@ -1,9 +1,9 @@
-import type { TodoRepository } from "@/features/todos/data/repository/TodoRepository";
+import type { ITodoRepository } from "@/features/todos/data/repository/ITodoRepository";
 
 export class CreateTodo {
-  private todoRepo: TodoRepository;
+  private todoRepo: ITodoRepository;
 
-  constructor(todoRepo: TodoRepository) {
+  constructor(todoRepo: ITodoRepository) {
     this.todoRepo = todoRepo;
   }
 

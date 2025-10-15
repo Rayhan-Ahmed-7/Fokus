@@ -1,10 +1,10 @@
 import type { ApiResponse } from "@/shared/types/api-response.type";
 import type { Todo } from "../../domain/entities/Todo";
 import type { TodoDataSource } from "../dataSource/types/TodoDataSource";
-import type { TodoRepository } from "./TodoRepository";
+import type { ITodoRepository } from "./ITodoRepository";
 import type { PaginatedResponse } from "@/shared/types/paginated-response.type";
 
-export class TodoRepositoryImpl implements TodoRepository {
+export class TodoRepositoryImpl implements ITodoRepository {
   private dataSource: TodoDataSource;
   constructor(dataSource: TodoDataSource) {
     this.dataSource = dataSource;
