@@ -1,8 +1,8 @@
-import type { TodoRepository } from "../../data/repository/TodoRepository";
+import type { ITodoRepository } from "../../data/repository/ITodoRepository";
 
 export class DeleteTodo {
-  private repo: TodoRepository;
-  constructor(repo: TodoRepository) {
+  private repo: ITodoRepository;
+  constructor(repo: ITodoRepository) {
     this.repo = repo;
   }
   execute(id: string) {

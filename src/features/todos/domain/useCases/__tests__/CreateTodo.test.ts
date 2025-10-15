@@ -2,9 +2,9 @@ import { describe, it, expect, vi } from "vitest";
 import { CreateTodo } from "../CreateTodo";
 import type { Todo } from "../../entities/Todo";
 import type { ApiResponse } from "@/shared/types/api-response.type";
-import type { TodoRepository } from "@/features/todos/data/repository/TodoRepository";
+import type { ITodoRepository } from "@/features/todos/data/repository/ITodoRepository";
 
-const mockRepo: TodoRepository = {
+const mockRepo: ITodoRepository = {
   getTodos: vi.fn(),
   createTodo: vi.fn().mockResolvedValue({
     data: { id: "1", title: "Test Todo", completed: false },
