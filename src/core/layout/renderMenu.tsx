@@ -56,11 +56,14 @@ export function renderMenu(items: MenuItemType[], t: TFunction<"menu">) {
                         <SidebarMenuSubItem key={child.label}>
                           <SidebarMenuButton
                             asChild
-                            className="flex items-center gap-2"
+                            className="flex items-center gap-2 hover:bg-primary"
                           >
                             <Link
                               to={child.path!}
-                              className="flex items-center gap-2"
+                              className={`flex items-center gap-2`}
+                              activeProps={{
+                                className: "bg-primary",
+                              }}
                             >
                               {child.icon && <child.icon className="w-4 h-4" />}
                               {t(child.label)}
