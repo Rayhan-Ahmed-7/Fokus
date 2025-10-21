@@ -1,9 +1,9 @@
-import type { TodoRepository } from "./TodoRepository";
+import type { ITodoRepository } from "./ITodoRepository";
 import type { Todo } from "@/features/todos/domain/entities/Todo";
 import type { ApiResponse } from "@/shared/types/api-response.type";
 import type { PaginatedResponse } from "@/shared/types/paginated-response.type";
 
-export class FakeTodoRepositoryImpl implements TodoRepository {
+export class FakeTodoRepositoryImpl implements ITodoRepository {
   private todos: Todo[] = [];
 
   private createApiResponse<T>(

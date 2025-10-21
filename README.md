@@ -54,6 +54,14 @@ src/
 ├── features/
 │   └── todos/
 │       ├── data/
+│       │    ├── dataSource/
+│       │    │   ├── remote/
+│       │    │   └── local/
+│       │    ├── models/
+│       │    ├── repository/
+│       │    │   ├── FakeTodoRepositoryImpl.ts/
+│       │    │   ├── ITodoRepository.ts/
+│       │    │   └── TodoRepositoryImpl.ts/
 │       ├── domain/
 │       │    ├── entities/
 │       │    └── useCases/
@@ -70,7 +78,10 @@ src/
 │   │   ├── remote/
 │   │   └── local/
 │   ├── models/
-│   └── repository/
+│   ├── repository/
+│   │   ├── FakeTodoRepositoryImpl.ts/
+│   │   ├── ITodoRepository.ts/
+│   │   └── TodoRepositoryImpl.ts/
 ├── domain/
 │   ├── entities/
 │   └── useCases/
