@@ -38,10 +38,12 @@ import {
   lspRoute,
   ispRoute,
 } from "./solid.route";
+import { pillSplitterRoute } from "./pillSplitter.route";
 
 export const routeTree = rootRoute.addChildren([
   homeRoute,
   todosRoute,
+  pillSplitterRoute,
   algorithmsRoute.addChildren([
     sortingRoute.addChildren([
       bubbleSortRoute,
