@@ -64,7 +64,7 @@ const PillSplitter = () => {
   ];
 
   const borderRadius = 10;
-  const minSize = 35;
+  const minSize = 30;
   const clickTime = 200;
 
   const drawCross = useCallback(() => {
@@ -350,15 +350,66 @@ const PillSplitter = () => {
     []
   );
   const isAboveMinSize = useCallback(
-    (rect: Rectangle, selectRect?: Rectangle | null, startX?: number) => {
-      const { width, height } = rect;
-      if (width > minSize && height > minSize) {
+    (
+      rect: Rectangle,
+      crossHairX: number,
+      crossHairY: number,
+      selectRect?: Rectangle | null,
+      startX?: number
+    ) => {
+      const { x, y, width, height } = rect;
+      const rightEdge = x + width;
+      const bottomEdge = y + height;
+      const verticalIntersects = crossHairX > rect.x && crossHairX < rightEdge;
+      const horizontalIntersects =
+        crossHairY > rect.y && crossHairY < bottomEdge;
+      const afterCutHeightOfR =
+        crossHairY - rect.y > minSize && bottomEdge - crossHairY > minSize;
+      const afterCutWidthOfR =
+        crossHairX - rect.x > minSize && rightEdge - crossHairX > minSize;
+      if (
+        verticalIntersects &&
+        horizontalIntersects &&
+        afterCutHeightOfR &&
+        afterCutWidthOfR
+      ) {
+        console.log(afterCutHeightOfR, afterCutWidthOfR);
         return true;
       } else {
-        if (width < minSize && height > minSize + 5) {
-          return true;
+        if (verticalIntersects && horizontalIntersects && afterCutHeightOfR) {
+          console.log(afterCutHeightOfR, "height");
+          setRectangles((prevR) => {
+            const index = prevR.findIndex((r) => r.id == rect.id);
+            if (index > -1) {
+              const mx = crossHairX;
+              const my = crossHairY;
+              prevR[index].x = mx;
+              prevR[index].y = my;
+              return [...prevR];
+            } else {
+              return prevR;
+            }
+          });
+        } else if (
+          verticalIntersects &&
+          horizontalIntersects &&
+          afterCutWidthOfR
+        ) {
+          console.log(afterCutWidthOfR, "width");
+          setRectangles((prevR) => {
+            const index = prevR.findIndex((r) => r.id == rect.id);
+            if (index > -1) {
+              const mx = crossHairX;
+              const my = rect.y - (bottomEdge - crossHairY);
+              prevR[index].x = mx;
+              prevR[index].y = my;
+              return [...prevR];
+            } else {
+              return prevR;
+            }
+          });
         } else if (height < minSize && width > minSize + 5) {
-          return true;
+          return false;
         } else {
           if (selectRect && selectRect.id == rect.id && startX) {
             setRectangles((prevR) => {
@@ -389,7 +440,7 @@ const PillSplitter = () => {
         const rectsToCut = prevR.filter(
           (rect) =>
             shouldCutRect(rect, crossHairX, crossHairY) &&
-            isAboveMinSize(rect, selectRect, startX)
+            isAboveMinSize(rect, crossHairX, crossHairY, selectRect, startX)
         );
         // console.log(rectsToCut, "from to cut",);
         if (rectsToCut.length == 0) {
@@ -539,7 +590,7 @@ const PillSplitter = () => {
             originalWidth: width,
             fillColor: state.fillColor,
           };
-          const check = isAboveMinSize(newRectangle);
+          const check = width > minSize && height > minSize;
           if (check) {
             setRectangles((prev) => [...prev, newRectangle]);
           }
