@@ -33,5 +33,7 @@
   "designPatterns.behavioral.observer": "المراقب (Observer)",
   "designPatterns.behavioral.strategy": "الاستراتيجية (Strategy)",
   "games": "الألعاب",
-  "games.tictactoe": "لعبة إكس-أو"
+  "games.tictactoe": "لعبة إكس-أو",
+  "pillSplitter": "مقسم الحبوب",
+  "windowTiler": "مُرتب النوافذ"
 }
