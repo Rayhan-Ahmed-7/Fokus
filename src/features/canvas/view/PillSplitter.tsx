@@ -367,13 +367,18 @@ const PillSplitter = () => {
         crossHairY - rect.y > minSize && bottomEdge - crossHairY > minSize;
       const afterCutWidthOfR =
         crossHairX - rect.x > minSize && rightEdge - crossHairX > minSize;
+      console.log(
+        verticalIntersects,
+        horizontalIntersects,
+        afterCutHeightOfR,
+        afterCutWidthOfR
+      );
       if (
         verticalIntersects &&
         horizontalIntersects &&
         afterCutHeightOfR &&
         afterCutWidthOfR
       ) {
-        console.log(afterCutHeightOfR, afterCutWidthOfR);
         return true;
       } else {
         if (verticalIntersects && horizontalIntersects && afterCutHeightOfR) {
@@ -395,12 +400,20 @@ const PillSplitter = () => {
           horizontalIntersects &&
           afterCutWidthOfR
         ) {
-          console.log(afterCutWidthOfR, "width");
+          console.log(
+            afterCutWidthOfR,
+            "width",
+            rect.y,
+            bottomEdge,
+            crossHairY,
+            rect.y - (bottomEdge - crossHairY),
+            bottomEdge - crossHairY
+          );
           setRectangles((prevR) => {
             const index = prevR.findIndex((r) => r.id == rect.id);
             if (index > -1) {
               const mx = crossHairX;
-              const my = rect.y - (bottomEdge - crossHairY);
+              const my = crossHairY - rect.height;
               prevR[index].x = mx;
               prevR[index].y = my;
               return [...prevR];
@@ -408,8 +421,28 @@ const PillSplitter = () => {
               return prevR;
             }
           });
-        } else if (height < minSize && width > minSize + 5) {
-          return false;
+        } else if (verticalIntersects && !afterCutWidthOfR) {
+          setRectangles((prevR) => {
+            const index = prevR.findIndex((r) => r.id == rect.id);
+            if (index > -1) {
+              const mx = crossHairX;
+              prevR[index].x = mx;
+              return [...prevR];
+            } else {
+              return prevR;
+            }
+          });
+        } else if (horizontalIntersects && !afterCutHeightOfR) {
+          setRectangles((prevR) => {
+            const index = prevR.findIndex((r) => r.id == rect.id);
+            if (index > -1) {
+              const my = crossHairY - rect.height;
+              prevR[index].y = my;
+              return [...prevR];
+            } else {
+              return prevR;
+            }
+          });
         } else {
           if (selectRect && selectRect.id == rect.id && startX) {
             setRectangles((prevR) => {
