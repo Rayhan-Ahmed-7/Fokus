@@ -46,9 +46,9 @@ export const menuData = [
     path: "/todos",
   },
   {
-    label: "Pill Spliter",
+    label: "Pill Splitter",
     icon: Pill,
-    path: "/pill-spliter",
+    path: "/pill-splitter",
   },
   {
     label: "algorithms",

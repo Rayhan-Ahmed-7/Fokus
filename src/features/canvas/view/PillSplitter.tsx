@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import "../css/pillSpliter.css";
+import "../css/pillSplitter.css";
 
 interface Rectangle {
   x: number;
@@ -11,12 +11,12 @@ interface Rectangle {
   topRightRadius: number;
   bottomRightRadius: number;
   bottomLeftRadius: number;
-  orginalHeight?: number;
-  orginalWidth?: number;
+  originalHeight?: number;
+  originalWidth?: number;
   fillColor: string;
 }
 
-const PillSpliter = () => {
+const PillSplitter = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const drawingStateRef = useRef<{
@@ -40,7 +40,7 @@ const PillSpliter = () => {
     selectRect: null,
     clickStartTime: 0,
     hasMoved: false,
-    fillColor: "grey",
+    fillColor: "rgba(220, 220, 220, 0.8)",
   });
   const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({
     x: 0,
@@ -49,15 +49,22 @@ const PillSpliter = () => {
   const [rectangles, setRectangles] = useState<Rectangle[] | []>([]);
   const [tempRectangle, setTempRectangle] = useState<Rectangle | null>(null);
   const fillColors = [
-    "#FF5733",
-    "#33FF57",
-    "#3357FF",
-    "#F333FF",
-    "#33FFF5",
-    "#F5FF33",
+    "rgba(255, 99, 132, 0.7)", // soft red / rose
+    "rgba(255, 159, 64, 0.7)", // orange
+    "rgba(255, 205, 86, 0.7)", // yellow
+    "rgba(75, 192, 192, 0.7)", // teal
+    "rgba(54, 162, 235, 0.7)", // sky blue
+    "rgba(153, 102, 255, 0.7)", // violet
+    "rgba(201, 203, 207, 0.7)", // silver grey (neutral)
+    "rgba(255, 111, 181, 0.7)", // pink
+    "rgba(100, 221, 23, 0.7)", // lime green
+    "rgba(0, 188, 212, 0.7)", // cyan
+    "rgba(156, 39, 176, 0.7)", // deep purple
+    "rgba(255, 87, 34, 0.7)", // deep orange
   ];
-  const borderRadius = 15;
-  // const minSize = 30;
+
+  const borderRadius = 10;
+  const minSize = 35;
   const clickTime = 200;
 
   const drawCross = useCallback(() => {
@@ -163,7 +170,7 @@ const PillSpliter = () => {
     setMousePosition({ x: canvas.width / 2, y: canvas.height / 2 });
 
     drawAll();
-  });
+  }, []);
 
   useEffect(() => {
     drawAll();
@@ -192,7 +199,7 @@ const PillSpliter = () => {
     },
     []
   );
-  const cutRects = useCallback(
+  const cutRect = useCallback(
     (rect: Rectangle, crossHairX: number, crossHairY: number) => {
       const verticalIntersects =
         crossHairX > rect.x && crossHairX < rect.x + rect.width;
@@ -203,6 +210,7 @@ const PillSpliter = () => {
       const slicedRects: Rectangle[] = [];
 
       if (verticalIntersects && horizontalIntersects) {
+        // top left
         if (crossHairX - rect.x > 1 && crossHairY - rect.y > 1) {
           const leftR: Rectangle = {
             id: Date.now() * Math.random(),
@@ -214,12 +222,13 @@ const PillSpliter = () => {
             topRightRadius: 0,
             bottomRightRadius: 0,
             bottomLeftRadius: 0,
-            orginalWidth: rect.orginalWidth,
-            orginalHeight: rect.orginalHeight,
+            originalWidth: rect.originalWidth,
+            originalHeight: rect.originalHeight,
             fillColor: rect.fillColor,
           };
           slicedRects.push(leftR);
         }
+        // top right
         if (rightEdge - crossHairX > 1 && crossHairY - rect.y > 1) {
           const rightR: Rectangle = {
             id: Date.now() * Math.random(),
@@ -235,21 +244,7 @@ const PillSpliter = () => {
           };
           slicedRects.push(rightR);
         }
-        if (rightEdge - crossHairX > 1 && bottomEdge - crossHairY > 1) {
-          const rightBottomR: Rectangle = {
-            id: Date.now() * Math.random(),
-            x: crossHairX,
-            y: crossHairY,
-            width: rightEdge - crossHairX,
-            height: bottomEdge - crossHairY,
-            fillColor: rect.fillColor,
-            topLeftRadius: 0,
-            topRightRadius: 0,
-            bottomRightRadius: rect.bottomRightRadius,
-            bottomLeftRadius: 0,
-          };
-          slicedRects.push(rightBottomR);
-        }
+        // bottom left
         if (crossHairX - rect.x > 1 && bottomEdge - crossHairY > 1) {
           const leftBottomR: Rectangle = {
             id: Date.now() * Math.random(),
@@ -265,6 +260,22 @@ const PillSpliter = () => {
           };
           slicedRects.push(leftBottomR);
         }
+        // bottom right
+        if (rightEdge - crossHairX > 1 && bottomEdge - crossHairY > 1) {
+          const rightBottomR: Rectangle = {
+            id: Date.now() * Math.random(),
+            x: crossHairX,
+            y: crossHairY,
+            width: rightEdge - crossHairX,
+            height: bottomEdge - crossHairY,
+            fillColor: rect.fillColor,
+            topLeftRadius: 0,
+            topRightRadius: 0,
+            bottomRightRadius: rect.bottomRightRadius,
+            bottomLeftRadius: 0,
+          };
+          slicedRects.push(rightBottomR);
+        }
       } else if (verticalIntersects) {
         if (crossHairX - rect.x > 1) {
           slicedRects.push({
@@ -277,62 +288,93 @@ const PillSpliter = () => {
             topRightRadius: 0,
             bottomRightRadius: 0,
             bottomLeftRadius: rect.bottomLeftRadius,
-            orginalWidth: rect.orginalWidth,
-            orginalHeight: rect.orginalHeight,
+            originalWidth: rect.originalWidth,
+            originalHeight: rect.originalHeight,
             fillColor: rect.fillColor,
           });
         }
         if (rightEdge - crossHairX > 1) {
           slicedRects.push({
             id: Date.now() * Math.random(),
-            x: rightEdge - crossHairX,
+            x: crossHairX,
             y: rect.y,
-            width: crossHairX - rect.x,
+            width: rightEdge - crossHairX,
             height: rect.height,
             topLeftRadius: 0,
             topRightRadius: rect.topRightRadius,
             bottomRightRadius: rect.bottomRightRadius,
             bottomLeftRadius: 0,
-            orginalWidth: rect.orginalWidth,
-            orginalHeight: rect.orginalHeight,
+            originalWidth: rect.originalWidth,
+            originalHeight: rect.originalHeight,
             fillColor: rect.fillColor,
           });
         }
       } else if (horizontalIntersects) {
         if (crossHairY - rect.y > 1) {
-          slicedRects.push({
+          const hTopR = {
             id: Date.now() * Math.random(),
             x: rect.x,
             y: rect.y,
             width: rect.width,
             height: crossHairY - rect.y,
             topLeftRadius: rect.topLeftRadius,
-            topRightRadius: rect.topLeftRadius,
+            topRightRadius: rect.topRightRadius,
             bottomRightRadius: 0,
             bottomLeftRadius: 0,
-            orginalWidth: rect.orginalWidth,
-            orginalHeight: rect.orginalHeight,
+            originalWidth: rect.originalWidth,
+            originalHeight: rect.originalHeight,
             fillColor: rect.fillColor,
-          });
+          };
+          slicedRects.push(hTopR);
         }
         if (bottomEdge - crossHairY > 1) {
-          slicedRects.push({
+          const hBottomR = {
             id: Date.now() * Math.random(),
             x: rect.x,
-            y: rect.y,
+            y: crossHairY,
             width: rect.width,
             height: bottomEdge - crossHairY,
             topLeftRadius: 0,
             topRightRadius: 0,
             bottomRightRadius: rect.bottomRightRadius,
             bottomLeftRadius: rect.bottomLeftRadius,
-            orginalWidth: rect.orginalWidth,
-            orginalHeight: rect.orginalHeight,
+            originalWidth: rect.originalWidth,
+            originalHeight: rect.originalHeight,
             fillColor: rect.fillColor,
-          });
+          };
+          slicedRects.push(hBottomR);
         }
       }
       return slicedRects;
+    },
+    []
+  );
+  const isAboveMinSize = useCallback(
+    (rect: Rectangle, selectRect?: Rectangle | null, startX?: number) => {
+      const { width, height } = rect;
+      if (width > minSize && height > minSize) {
+        return true;
+      } else {
+        if (width < minSize && height > minSize + 5) {
+          return true;
+        } else if (height < minSize && width > minSize + 5) {
+          return true;
+        } else {
+          if (selectRect && selectRect.id == rect.id && startX) {
+            setRectangles((prevR) => {
+              const index = prevR.findIndex((r) => r.id == selectRect.id);
+              if (index > -1) {
+                const moveX = startX - rect.x;
+                const mx = rect.x + moveX;
+                prevR[index].x = mx;
+                return [...prevR];
+              } else {
+                return prevR;
+              }
+            });
+          }
+        }
+      }
     },
     []
   );
@@ -344,10 +386,12 @@ const PillSpliter = () => {
       startX: number
     ) => {
       setRectangles((prevR) => {
-        const rectsToCut = prevR.filter((rect) =>
-          shouldCutRect(rect, crossHairX, crossHairY)
+        const rectsToCut = prevR.filter(
+          (rect) =>
+            shouldCutRect(rect, crossHairX, crossHairY) &&
+            isAboveMinSize(rect, selectRect, startX)
         );
-        console.log(rectsToCut, "from to cut", selectRect, startX);
+        // console.log(rectsToCut, "from to cut",);
         if (rectsToCut.length == 0) {
           return prevR;
         }
@@ -355,14 +399,14 @@ const PillSpliter = () => {
         rectsToCut.forEach((rect) => {
           const index = newRects.findIndex((r) => r.id == rect.id);
           if (index > -1) {
-            const slicedRects = cutRects(rect, crossHairX, crossHairY);
+            const slicedRects = cutRect(rect, crossHairX, crossHairY);
             newRects.splice(index, 1, ...slicedRects);
           }
         });
         return newRects;
       });
     },
-    [shouldCutRect, cutRects]
+    [shouldCutRect, cutRect, isAboveMinSize]
   );
   const handleMouseMove = useCallback(
     (event: React.MouseEvent<HTMLCanvasElement>) => {
@@ -481,8 +525,7 @@ const PillSpliter = () => {
         } else {
           const width = Math.abs(x - state.startX);
           const height = Math.abs(y - state.startY);
-
-          const newReacttangle: Rectangle = {
+          const newRectangle: Rectangle = {
             x: Math.min(x, state.startX),
             y: Math.min(y, state.startY),
             width,
@@ -492,11 +535,14 @@ const PillSpliter = () => {
             topRightRadius: borderRadius,
             bottomRightRadius: borderRadius,
             bottomLeftRadius: borderRadius,
-            orginalHeight: height,
-            orginalWidth: width,
+            originalHeight: height,
+            originalWidth: width,
             fillColor: state.fillColor,
           };
-          setRectangles((prev) => [...prev, newReacttangle]);
+          const check = isAboveMinSize(newRectangle);
+          if (check) {
+            setRectangles((prev) => [...prev, newRectangle]);
+          }
 
           const index = Math.floor(Math.random() * fillColors.length);
           state.fillColor = fillColors[index];
@@ -505,7 +551,7 @@ const PillSpliter = () => {
         setTempRectangle(null);
       }
     },
-    [getMousePos]
+    [getMousePos, mousePosition]
   );
   return (
     <canvas
@@ -517,4 +563,4 @@ const PillSpliter = () => {
   );
 };
 
-export default PillSpliter;
+export default PillSplitter;
