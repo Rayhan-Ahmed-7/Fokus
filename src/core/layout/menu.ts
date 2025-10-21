@@ -31,6 +31,7 @@ import {
   RocketIcon,
   LockKeyholeOpenIcon,
   UserLockIcon,
+  Pill,
 } from "lucide-react";
 
 export const menuData = [
@@ -43,6 +44,11 @@ export const menuData = [
     label: "todos",
     icon: CheckSquare,
     path: "/todos",
+  },
+  {
+    label: "Pill Spliter",
+    icon: Pill,
+    path: "/pill-spliter",
   },
   {
     label: "algorithms",
