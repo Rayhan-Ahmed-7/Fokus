@@ -363,26 +363,24 @@ const PillSplitter = () => {
       const verticalIntersects = crossHairX > rect.x && crossHairX < rightEdge;
       const horizontalIntersects =
         crossHairY > rect.y && crossHairY < bottomEdge;
-      const afterCutHeightOfR =
+      const isAvailableHeightAfterCut =
         crossHairY - rect.y > minSize && bottomEdge - crossHairY > minSize;
-      const afterCutWidthOfR =
+      const isAvailableWidthAfterCut =
         crossHairX - rect.x > minSize && rightEdge - crossHairX > minSize;
-      console.log(
-        verticalIntersects,
-        horizontalIntersects,
-        afterCutHeightOfR,
-        afterCutWidthOfR
-      );
+
       if (
         verticalIntersects &&
         horizontalIntersects &&
-        afterCutHeightOfR &&
-        afterCutWidthOfR
+        isAvailableHeightAfterCut &&
+        isAvailableWidthAfterCut
       ) {
         return true;
       } else {
-        if (verticalIntersects && horizontalIntersects && afterCutHeightOfR) {
-          console.log(afterCutHeightOfR, "height");
+        if (
+          verticalIntersects &&
+          horizontalIntersects &&
+          isAvailableHeightAfterCut
+        ) {
           setRectangles((prevR) => {
             const index = prevR.findIndex((r) => r.id == rect.id);
             if (index > -1) {
@@ -398,17 +396,8 @@ const PillSplitter = () => {
         } else if (
           verticalIntersects &&
           horizontalIntersects &&
-          afterCutWidthOfR
+          isAvailableWidthAfterCut
         ) {
-          console.log(
-            afterCutWidthOfR,
-            "width",
-            rect.y,
-            bottomEdge,
-            crossHairY,
-            rect.y - (bottomEdge - crossHairY),
-            bottomEdge - crossHairY
-          );
           setRectangles((prevR) => {
             const index = prevR.findIndex((r) => r.id == rect.id);
             if (index > -1) {
@@ -421,7 +410,7 @@ const PillSplitter = () => {
               return prevR;
             }
           });
-        } else if (verticalIntersects && !afterCutWidthOfR) {
+        } else if (verticalIntersects && !isAvailableWidthAfterCut) {
           setRectangles((prevR) => {
             const index = prevR.findIndex((r) => r.id == rect.id);
             if (index > -1) {
@@ -432,7 +421,7 @@ const PillSplitter = () => {
               return prevR;
             }
           });
-        } else if (horizontalIntersects && !afterCutHeightOfR) {
+        } else if (horizontalIntersects && !isAvailableHeightAfterCut) {
           setRectangles((prevR) => {
             const index = prevR.findIndex((r) => r.id == rect.id);
             if (index > -1) {
@@ -443,6 +432,10 @@ const PillSplitter = () => {
               return prevR;
             }
           });
+        } else if (verticalIntersects && isAvailableWidthAfterCut) {
+          return true;
+        } else if (horizontalIntersects && isAvailableHeightAfterCut) {
+          return true;
         } else {
           if (selectRect && selectRect.id == rect.id && startX) {
             setRectangles((prevR) => {
