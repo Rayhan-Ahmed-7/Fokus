@@ -1,12 +1,8 @@
+import type { SortState } from "../util/constant";
+
 export interface StickData {
   value: number;
   id: number;
   position: number;
 }
-
-export enum SortState {
-  Idle = "IDLE",
-  Sorting = "SORTING",
-  Paused = "PAUSED",
-  Completed = "COMPLETED",
-}
+export type ISortState = (typeof SortState)[keyof typeof SortState];
