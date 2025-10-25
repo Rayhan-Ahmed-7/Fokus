@@ -55,6 +55,8 @@ const InsertionSortPage = () => {
   return (
     <SortingVisualizer
       title="Insertion Sort"
+      description="Watch the Insertion Sort algorithm in action with adjustable speed and array size."
+      algorithmName="Insertion Sort"
       generatorFn={insertionSortGenerator}
     />
   );

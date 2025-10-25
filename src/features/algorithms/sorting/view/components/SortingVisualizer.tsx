@@ -66,7 +66,7 @@ export default function SortingVisualizer({
 
   const getStickColor = (index: number) => {
     if (sticks[index].id === -1) {
-      return "bg-transparent border-2 border-dashed border-blue-400"; // Show the gap
+      return `bg-gradient-to-t from-indigo-500 via-fuchsia-500 to-rose-500 border-2 border-dashed border-foreground z-50`;
     }
     if (sortedIndices.includes(index)) return "bg-green-600 dark:bg-green-500";
     if (activeIndices.includes(index)) return "bg-rose-500 dark:bg-rose-400";
