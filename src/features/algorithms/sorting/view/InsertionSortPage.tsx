@@ -1,97 +1,64 @@
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-
-const generateArray = (size: number, minValue: number, maxValue: number) =>
-  Array.from(
-    { length: size },
-    () => Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue
-  );
-
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+import type { StickData } from "../types/sortingVisualizerTypes";
+import type { SortingHelpers } from "./components/SortingVisualizer";
+import SortingVisualizer from "./components/SortingVisualizer";
 
 const InsertionSortPage = () => {
-  const size = 20;
-  const minValue = 100;
-  const maxValue = 400;
-  const duration = 100; // ms between steps
-
-  const [sticks, setSticks] = useState(generateArray(size, minValue, maxValue));
-  const [isSorting, setIsSorting] = useState(false);
-  const [activeIndices, setActiveIndices] = useState<number[]>([]);
-  const [sortedIndices, setSortedIndices] = useState<number[]>([]);
-
-  const insertionSort = async () => {
-    setIsSorting(true);
-    const arr = [...sticks];
-
+  function* insertionSortGenerator(
+    arr: StickData[],
+    { setActiveIndices, setSortedIndices, setSticks }: SortingHelpers
+  ) {
     for (let i = 1; i < arr.length; i++) {
       let insertIndex = i;
-      const currentValue = arr[i];
+      const currentValue = { ...arr[i] }; // Make a copy
+
+      // Create a hole at position i
+      arr[i] = { ...currentValue, id: -1 }; // Mark as hole with id: -1
+      arr.forEach((s, idx) => (s.position = idx));
+      setSticks([...arr]);
+      setActiveIndices([i]);
+      yield;
+
       for (let j = i - 1; j >= 0; j--) {
-        await sleep(duration);
-        setActiveIndices([i, j]); // highlight compared elements
-        if (arr[j] > currentValue) {
-          arr[j + 1] = arr[j];
-          setSticks([...arr]);
+        if (arr[j].value > currentValue.value) {
+          setActiveIndices([j, j + 1]);
+          yield;
+
           insertIndex = j;
-          await sleep(duration);
+
+          // Shift element to the right
+          arr[j + 1] = { ...arr[j] };
+
+          // Move the hole to position j
+          arr[j] = { ...currentValue, id: -1 };
+
+          arr.forEach((s, idx) => (s.position = idx));
+          setSticks([...arr]);
+          yield;
         } else {
           break;
         }
       }
-      arr[insertIndex] = currentValue;
+
+      // Fill the hole with the actual element
+      arr[insertIndex] = { ...currentValue };
+      arr.forEach((s, idx) => (s.position = idx));
       setSticks([...arr]);
-      // Mark the last sorted element
+      setActiveIndices([]);
       setSortedIndices(Array.from({ length: i + 1 }, (_, k) => k));
+      yield;
     }
 
     setActiveIndices([]);
-    setIsSorting(false);
-  };
-
-  const regenerateArray = () => {
-    if (isSorting) return;
-    setSticks(generateArray(size, minValue, maxValue));
-    setSortedIndices([]);
-    setActiveIndices([]);
-  };
+    setSortedIndices(Array.from({ length: arr.length }, (_, i) => i));
+  }
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen gap-6 bg-slate-950">
-      <div className="flex items-end gap-1">
-        {sticks.map((stick, index) => {
-          let color = "bg-yellow-500"; // default
-          if (sortedIndices.includes(index)) color = "bg-green-600";
-          else if (activeIndices.includes(index)) color = "bg-rose-500";
-
-          return (
-            <div
-              key={index}
-              className={`${color} w-6 rounded-t transition-all duration-200 ease-in-out relative`}
-              style={{ height: `${stick}px` }}
-            >
-              <p className="absolute top-[-16px] text-[12px] text-foreground">
-                {stick}
-              </p>
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="flex gap-3">
-        <Button onClick={insertionSort} disabled={isSorting}>
-          {isSorting ? "Sorting..." : "Start Insertion Sort"}
-        </Button>
-
-        <Button
-          variant="outline"
-          onClick={regenerateArray}
-          disabled={isSorting}
-        >
-          Reset Array
-        </Button>
-      </div>
-    </div>
+    <SortingVisualizer
+      title="Insertion Sort"
+      description="Watch the Insertion Sort algorithm in action with adjustable speed and array size."
+      algorithmName="Insertion Sort"
+      generatorFn={insertionSortGenerator}
+    />
   );
 };
 

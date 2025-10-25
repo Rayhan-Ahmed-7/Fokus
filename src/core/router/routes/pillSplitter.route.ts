@@ -6,6 +6,6 @@ export const pillSplitterRoute = createRoute({
   path: "pill-splitter",
   component: PillSplitter,
   staticData: {
-    breadcrumb: "Pill Splitter",
+    breadcrumb: "pillSplitter",
   },
 });

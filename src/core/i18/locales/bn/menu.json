@@ -33,5 +33,7 @@
   "designPatterns.behavioral.observer": "অবজারভার",
   "designPatterns.behavioral.strategy": "স্ট্র্যাটেজি",
   "games": "গেমস",
-  "games.tictactoe": "টিক-ট্যাক-টো"
+  "games.tictactoe": "টিক-ট্যাক-টো",
+  "pillSplitter": "পিল বিভাজক",
+  "windowTiler": "উইন্ডো টাইলার"
 }

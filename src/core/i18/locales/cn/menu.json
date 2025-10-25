@@ -33,5 +33,7 @@
   "designPatterns.behavioral.observer": "观察者模式",
   "designPatterns.behavioral.strategy": "策略模式",
   "games": "游戏",
-  "games.tictactoe": "井字棋"
+  "games.tictactoe": "井字棋",
+  "pillSplitter": "药片切割器",
+  "windowTiler": "窗口平铺器"
 }

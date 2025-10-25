@@ -33,5 +33,7 @@
   "designPatterns.behavioral.observer": "Observer",
   "designPatterns.behavioral.strategy": "Strategy",
   "games": "Games",
-  "games.tictactoe": "Tic Tac Toe"
+  "games.tictactoe": "Tic Tac Toe",
+  "pillSplitter": "Pill Splitter",
+  "windowTiler": "Window Tiler"
 }
