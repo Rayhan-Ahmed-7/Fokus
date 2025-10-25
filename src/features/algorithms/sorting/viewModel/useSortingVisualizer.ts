@@ -1,5 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import { SortState, type StickData } from "../types/sortingVisualizerTypes";
+import {
+  type ISortState,
+  type StickData,
+} from "../types/sortingVisualizerTypes";
+import { SortState } from "../util/constant";
 
 // ==================== CONFIG ====================
 const CONFIG = {
@@ -38,11 +42,11 @@ const useSortingVisualizer = (
     void,
     unknown
   > | null>(null);
-  const [sortState, setSortState] = useState<SortState>(SortState.Idle);
+  const [sortState, setSortState] = useState<ISortState>(SortState.Idle);
 
   // --- Refs ---
   const sortGeneratorRef = useRef<Generator<void, void, unknown> | null>(null);
-  const sortStateRef = useRef<SortState>(SortState.Idle);
+  const sortStateRef = useRef<ISortState>(SortState.Idle);
 
   // --- Keep Refs Synced ---
   useEffect(() => {

@@ -9,8 +9,9 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Minus, Plus, Play, RotateCcw, Pause } from "lucide-react";
-import { SortState, type StickData } from "../../types/sortingVisualizerTypes";
+import { type StickData } from "../../types/sortingVisualizerTypes";
 import useSortingVisualizer from "../../viewModel/useSortingVisualizer";
+import { SortState } from "../../util/constant";
 
 type SortingVisualizerProps = {
   title: string;
