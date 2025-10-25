@@ -630,11 +630,74 @@ const PillSplitter = () => {
     },
     [getMousePos, mousePosition]
   );
+  const getTouchPos = useCallback(
+    (event: React.TouchEvent<HTMLCanvasElement>) => {
+      const canvas = canvasRef.current;
+      if (!canvas) return { x: 0, y: 0 };
+      const rect = canvas.getBoundingClientRect();
+      const touch = event.touches[0];
+      return {
+        x: touch.clientX - rect.left,
+        y: touch.clientY - rect.top,
+      };
+    },
+    []
+  );
+
+  const handleTouchStart = useCallback(
+    (event: React.TouchEvent<HTMLCanvasElement>) => {
+      event.preventDefault();
+      const pos = getTouchPos(event);
+      const mouseEvent = {
+        clientX: pos.x,
+        clientY: pos.y,
+      } as unknown as React.MouseEvent<HTMLCanvasElement>;
+      handleMouseDown(mouseEvent);
+    },
+    [getTouchPos, handleMouseDown]
+  );
+
+  const handleTouchMove = useCallback(
+    (event: React.TouchEvent<HTMLCanvasElement>) => {
+      event.preventDefault();
+      const pos = getTouchPos(event);
+      const mouseEvent = {
+        clientX: pos.x,
+        clientY: pos.y,
+      } as unknown as React.MouseEvent<HTMLCanvasElement>;
+      handleMouseMove(mouseEvent);
+    },
+    [getTouchPos, handleMouseMove]
+  );
+
+  const handleTouchEnd = useCallback(
+    (event: React.TouchEvent<HTMLCanvasElement>) => {
+      event.preventDefault();
+      // Create a fake mouseup equivalent using the last known touch position
+      const lastTouch = event.changedTouches[0];
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = lastTouch.clientX - rect.left;
+      const y = lastTouch.clientY - rect.top;
+
+      const mouseEvent = {
+        clientX: x,
+        clientY: y,
+      } as unknown as React.MouseEvent<HTMLCanvasElement>;
+      handleMouseUp(mouseEvent);
+    },
+    [handleMouseUp]
+  );
+
   return (
     <canvas
       onMouseMove={handleMouseMove}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
       ref={canvasRef}
     />
   );
