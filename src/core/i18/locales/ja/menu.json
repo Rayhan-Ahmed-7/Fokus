@@ -33,5 +33,7 @@
   "designPatterns.behavioral.observer": "オブザーバー",
   "designPatterns.behavioral.strategy": "ストラテジー",
   "games": "ゲーム",
-  "games.tictactoe": "三目並べ"
+  "games.tictactoe": "三目並べ",
+  "pillSplitter": "錠剤カッター",
+  "windowTiler": "ウィンドウタイル"
 }
