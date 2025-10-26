@@ -14,6 +14,7 @@ import { Play, RotateCcw, Pause, Search, Target } from "lucide-react";
 import useSearchVisualizer from "../../viewModel/useSearchVisualizer";
 import type { ISearchState, StickData } from "../../types/searchingTypes";
 import { SearchState } from "../../util/constant";
+import { toast } from "@/services/notification/toast";
 
 type SearchVisualizerProps = {
   title: string;
@@ -145,11 +146,9 @@ export default function SearchVisualizer({
               <div className="flex gap-3">
                 <Input
                   type="number"
-                  // value={targetValue}
+                  value={targetValue}
                   onChange={(e) => {
-                    setTargetValue(
-                      Number(e.target.value !== "" ? e.target.value : 1)
-                    );
+                    setTargetValue(e.target.value);
                   }}
                   disabled={searchState === SearchState.Searching}
                   className="flex-1"
@@ -207,11 +206,18 @@ export default function SearchVisualizer({
             {/* Buttons */}
             <div className="flex flex-wrap gap-3">
               <Button
-                onClick={
-                  searchState === SearchState.Searching
-                    ? togglePause
-                    : startSearch
-                }
+                onClick={() => {
+                  if (targetValue == "") {
+                    toast.error("Please Add a target value!");
+                    return;
+                  } else {
+                    if (searchState === SearchState.Searching) {
+                      togglePause();
+                    } else {
+                      startSearch();
+                    }
+                  }
+                }}
                 disabled={
                   searchState === SearchState.Found ||
                   searchState === SearchState.NotFound
