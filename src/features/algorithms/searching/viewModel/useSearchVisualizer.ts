@@ -53,7 +53,7 @@ const useSearchVisualizer = (
       requiresSorted
     )
   );
-  const [targetValue, setTargetValue] = useState<number>(50);
+  const [targetValue, setTargetValue] = useState<number | string>(50);
   const [activeIndex, setActiveIndex] = useState<number>(-1);
   const [checkedIndices, setCheckedIndices] = useState<number[]>([]);
   const [eliminatedIndices, setEliminatedIndices] = useState<number[]>([]);
@@ -106,7 +106,10 @@ const useSearchVisualizer = (
       setSearchState(SearchState.Searching);
     } else {
       resetVisualization();
-      const generator = searchGeneratorFn([...sticks], targetValue);
+      const generator = searchGeneratorFn(
+        [...sticks],
+        Number(targetValue ?? 1)
+      );
       setSearchGenerator(generator);
       setSearchState(SearchState.Searching);
       executeStep(generator);
