@@ -75,7 +75,7 @@ export default function SortingVisualizer({
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 p-4 md:p-8">
+    <div className="min-h-screen bg-linear-to-br p-4 md:p-8">
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
@@ -210,11 +210,11 @@ export default function SortingVisualizer({
                 {sticks.map((stick, index) => (
                   <div
                     key={stick.id}
-                    className={`${getStickColor(index)} rounded-t-lg transition-all duration-300 ease-in-out absolute bottom-0 shadow-lg`}
+                    className={`${getStickColor(index)} origin-bottom animate-wiggle-bounce-y rounded-t-lg transition-all duration-300 ease-in-out absolute bottom-0 shadow-lg`}
                     style={{
                       height: `${(stick.value / CONFIG.maxValue) * 80}%`,
                       width: `${stickWidth}px`,
-                      transform: `translateX(${index * (stickWidth + gap)}px)`,
+                      left: `${index * (stickWidth + gap)}px`,
                     }}
                   >
                     <p

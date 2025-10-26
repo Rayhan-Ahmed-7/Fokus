@@ -162,6 +162,47 @@
   }
 }
 
+/* Custom Animations */
+
+/* Default subtle breathing animation for all elements */
+@keyframes gentle-pulse {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.02);
+  }
+}
+
+.animate-gentle-pulse {
+  animation: gentle-pulse 2s ease-in-out infinite;
+}
+
+/* Active element wiggle bounce animation */
+@keyframes wiggle-bounce-y {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  15% {
+    transform: scaleY(1.15);
+  }
+  30% {
+    transform: scaleY(0.95);
+  }
+  45% {
+    transform: scaleY(1.08);
+  }
+  60% {
+    transform: scaleY(1);
+  }
+}
+
+.animate-wiggle-bounce-y {
+  animation: wiggle-bounce-y 0.8s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
 /* custom css */
 ::-webkit-scrollbar {
   width: 12px; /* Width of the scrollbar */
