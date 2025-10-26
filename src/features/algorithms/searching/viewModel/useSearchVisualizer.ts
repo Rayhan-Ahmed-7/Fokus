@@ -72,7 +72,6 @@ const useSearchVisualizer = (
     null
   );
   const searchStateRef = useRef<ISearchState>(SearchState.Idle);
-  const maxValueRef = useRef<number>(CONFIG.maxValue);
 
   useEffect(() => {
     searchGeneratorRef.current = searchGenerator;
@@ -139,7 +138,6 @@ const useSearchVisualizer = (
       CONFIG.maxValue,
       requiresSorted
     );
-    maxValueRef.current = Math.max(...newArray.map((s) => s.value));
     setSticks(newArray);
     resetVisualization();
   };
@@ -157,7 +155,6 @@ const useSearchVisualizer = (
       CONFIG.maxValue,
       requiresSorted
     );
-    maxValueRef.current = Math.max(...newArray.map((s) => s.value));
     setSticks(newArray);
     resetVisualization();
   };
@@ -191,7 +188,6 @@ const useSearchVisualizer = (
     comparisons,
     searchState,
     searchGenerator,
-    maxValueRef,
     CONFIG,
     setDuration,
     setTargetValue,

@@ -65,7 +65,6 @@ export default function SearchVisualizer({
     foundIndex,
     comparisons,
     searchState,
-    maxValueRef,
     CONFIG,
     setDuration,
     setTargetValue,
@@ -112,7 +111,6 @@ export default function SearchVisualizer({
     }
     return "bg-yellow-500 dark:bg-yellow-400 animate-gentle-pulse";
   };
-  console.log(activeIndex, "active index");
   return (
     <div className="min-h-screen bg-linear-to-br p-4 md:p-8">
       <div className="max-w-7xl mx-auto space-y-6">
@@ -147,8 +145,12 @@ export default function SearchVisualizer({
               <div className="flex gap-3">
                 <Input
                   type="number"
-                  value={targetValue}
-                  onChange={(e) => setTargetValue(Number(e.target.value))}
+                  // value={targetValue}
+                  onChange={(e) => {
+                    setTargetValue(
+                      Number(e.target.value !== "" ? e.target.value : 1)
+                    );
+                  }}
                   disabled={searchState === SearchState.Searching}
                   className="flex-1"
                   min={CONFIG.minValue}
@@ -246,6 +248,59 @@ export default function SearchVisualizer({
           </CardContent>
         </Card>
 
+        {/* Visualization */}
+        <Card className="shadow-lg border-2">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center gap-2">
+                  {algorithmName ?? "Search Visualization"}
+                  {requiresSorted && (
+                    <Badge variant="default">Sorted Array</Badge>
+                  )}
+                </CardTitle>
+                <CardDescription className="mt-1">
+                  {getStatus()}
+                </CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            {/* Array Visualization */}
+            <div className="relative w-full h-[400px] flex items-end justify-center overflow-x-auto rounded-lg">
+              <div
+                className="relative flex items-end"
+                style={{
+                  width: `${sticks.length * (stickWidth + gap)}px`,
+                  height: "90%",
+                }}
+              >
+                {sticks.map((stick, index) => {
+                  const heightPercentage = (stick.value / CONFIG.maxValue) * 90;
+                  return (
+                    <div
+                      key={stick.id}
+                      className={`${getStickColor(index)} origin-bottom rounded-t-lg transition-all duration-300 ease-in-out absolute bottom-0 shadow-lg`}
+                      style={{
+                        height: `${heightPercentage}%`,
+                        width: `${stickWidth}px`,
+                        left: `${stick.position * (stickWidth + gap)}px`,
+                      }}
+                    >
+                      <p
+                        className={`absolute -top-7 left-1/2 -translate-x-1/2 font-bold text-foreground ${
+                          stickWidth < 20 ? "text-[10px]" : "text-sm"
+                        }`}
+                      >
+                        {stick.value}
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
         {/* Statistics */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Card>
@@ -279,62 +334,6 @@ export default function SearchVisualizer({
             </CardContent>
           </Card>
         </div>
-
-        {/* Visualization */}
-        <Card className="shadow-lg border-2">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle className="flex items-center gap-2">
-                  {algorithmName ?? "Search Visualization"}
-                  {requiresSorted && (
-                    <Badge variant="default">Sorted Array</Badge>
-                  )}
-                </CardTitle>
-                <CardDescription className="mt-1">
-                  {getStatus()}
-                </CardDescription>
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            {/* Array Visualization */}
-            <div className="relative w-full h-[400px] flex items-end justify-center overflow-x-auto rounded-lg p-8">
-              <div
-                className="relative flex items-end"
-                style={{
-                  width: `${sticks.length * (stickWidth + gap)}px`,
-                  height: "90%",
-                }}
-              >
-                {sticks.map((stick, index) => {
-                  const heightPercentage =
-                    (stick.value / maxValueRef.current) * 90;
-                  return (
-                    <div
-                      key={stick.id}
-                      className={`${getStickColor(index)} origin-bottom rounded-t-lg transition-all duration-300 ease-in-out absolute bottom-0 shadow-lg`}
-                      style={{
-                        height: `${heightPercentage}%`,
-                        width: `${stickWidth}px`,
-                        left: `${stick.position * (stickWidth + gap)}px`,
-                      }}
-                    >
-                      <p
-                        className={`absolute -top-7 left-1/2 -translate-x-1/2 font-bold text-foreground ${
-                          stickWidth < 20 ? "text-[10px]" : "text-sm"
-                        }`}
-                      >
-                        {stick.value}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Legend */}
         <Card className="shadow-lg border-2">
           <CardContent className="pt-6">
