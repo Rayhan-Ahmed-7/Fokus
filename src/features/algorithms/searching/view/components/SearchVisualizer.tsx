@@ -145,8 +145,12 @@ export default function SearchVisualizer({
               <div className="flex gap-3">
                 <Input
                   type="number"
-                  value={targetValue}
-                  onChange={(e) => setTargetValue(Number(e.target.value))}
+                  // value={targetValue}
+                  onChange={(e) => {
+                    setTargetValue(
+                      Number(e.target.value !== "" ? e.target.value : 1)
+                    );
+                  }}
                   disabled={searchState === SearchState.Searching}
                   className="flex-1"
                   min={CONFIG.minValue}
