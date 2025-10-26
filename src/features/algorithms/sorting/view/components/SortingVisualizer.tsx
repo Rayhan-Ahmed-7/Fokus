@@ -210,11 +210,11 @@ export default function SortingVisualizer({
                 {sticks.map((stick, index) => (
                   <div
                     key={stick.id}
-                    className={`${getStickColor(index)} rounded-t-lg transition-all duration-300 ease-in-out absolute bottom-0 shadow-lg`}
+                    className={`${getStickColor(index)} origin-bottom animate-wiggle-bounce-y rounded-t-lg transition-all duration-300 ease-in-out absolute bottom-0 shadow-lg`}
                     style={{
                       height: `${(stick.value / CONFIG.maxValue) * 80}%`,
                       width: `${stickWidth}px`,
-                      transform: `translateX(${index * (stickWidth + gap)}px)`,
+                      left: `${index * (stickWidth + gap)}px`,
                     }}
                   >
                     <p

@@ -37,7 +37,6 @@ const LinearSearchPage = () => {
       }
 
       setCheckedIndices((prev) => [...prev, i]);
-      setActiveIndex(-1);
       yield;
     }
 

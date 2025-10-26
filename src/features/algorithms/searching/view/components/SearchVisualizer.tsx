@@ -99,10 +99,10 @@ export default function SearchVisualizer({
 
   const getStickColor = (index: number) => {
     if (index === foundIndex) {
-      return "bg-green-500 dark:bg-green-400 shadow-2xl ring-4 ring-green-300 z-10";
+      return "bg-green-500 dark:bg-green-400 shadow-2xl ring-4 ring-green-300 z-10 scale-y-110";
     }
     if (index === activeIndex) {
-      return "bg-blue-500 dark:bg-blue-400 scale-105 shadow-xl z-1";
+      return "bg-blue-500 dark:bg-blue-400 shadow-xl z-20 animate-wiggle-bounce-y";
     }
     if (eliminatedIndices.includes(index)) {
       return "bg-gray-300 dark:bg-gray-700 opacity-30";
@@ -110,9 +110,9 @@ export default function SearchVisualizer({
     if (checkedIndices.includes(index)) {
       return "bg-gray-400 dark:bg-gray-600 opacity-50";
     }
-    return "bg-yellow-500 dark:bg-yellow-400";
+    return "bg-yellow-500 dark:bg-yellow-400 animate-gentle-pulse";
   };
-
+  console.log(activeIndex, "active index");
   return (
     <div className="min-h-screen bg-linear-to-br p-4 md:p-8">
       <div className="max-w-7xl mx-auto space-y-6">
@@ -313,11 +313,11 @@ export default function SearchVisualizer({
                   return (
                     <div
                       key={stick.id}
-                      className={`${getStickColor(index)} rounded-t-lg transition-all duration-300 ease-in-out absolute bottom-0 shadow-lg`}
+                      className={`${getStickColor(index)} origin-bottom rounded-t-lg transition-all duration-300 ease-in-out absolute bottom-0 shadow-lg`}
                       style={{
                         height: `${heightPercentage}%`,
                         width: `${stickWidth}px`,
-                        transform: `translateX(${stick.position * (stickWidth + gap)}px)`,
+                        left: `${stick.position * (stickWidth + gap)}px`,
                       }}
                     >
                       <p

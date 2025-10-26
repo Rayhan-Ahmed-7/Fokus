@@ -52,7 +52,6 @@ const BinarySearchPage = () => {
         right = mid - 1;
       }
 
-      setActiveIndex(-1);
       yield;
     }
 
