@@ -39,6 +39,8 @@ import {
   ispRoute,
 } from "./solid.route";
 import { pillSplitterRoute } from "./pillSplitter.route";
+import { createRoute } from "@tanstack/react-router";
+import ResumeUploadView from "@/features/resume/presentation/view/ResumeUploadView";
 
 export const routeTree = rootRoute.addChildren([
   homeRoute,
@@ -62,4 +64,12 @@ export const routeTree = rootRoute.addChildren([
     behavioralRoute.addChildren([observerRoute, strategyRoute]),
   ]),
   gamesRoute.addChildren([ticTacToeRoute]),
+  createRoute({
+    getParentRoute: () => rootRoute,
+    path: "/resume",
+    component: ResumeUploadView,
+    staticData: {
+      breadcrumb: "Resume",
+    },
+  }),
 ]);
